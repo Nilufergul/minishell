@@ -56,11 +56,10 @@ int env_size(char **environ)
 	}
 }
 
-void get_env(t_mini *built)
+void get_env(t_mini *built ,char** environ)
 {
-	extern char **environ;
 	int i;
-
+	
 	built->env = malloc(sizeof(char **) * (env_size(environ) + 1));
 	if (!built->env)
 		return;
@@ -73,10 +72,11 @@ void get_env(t_mini *built)
 	}
 }
 
-int main(int argc, char** argv)
+int main(int argc, char** argv, char** environ)
 {
 	t_mini	*built;
 	built = (t_mini *)malloc(sizeof(t_mini));
-	get_env(built);
+	get_env(built, environ);
 	ft_env(built);
+	
 }

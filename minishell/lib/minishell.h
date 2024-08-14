@@ -19,21 +19,36 @@
 # include <curses.h>
 # include "libft/libft.h"
 
+# define EXEC 0
+# define HEREDOC 1
+# define PIPE 2
+# define GREAT 3
+# define GREATER 4
+# define LESS 5
+# define STDINN 0
+# define STDOUT 1
+# define STDERR 2
+
 typedef struct	s_mini
 {
 	char **env;
-	char **arg;
+	char **line;
 }				t_mini;
-
-typedef struct  s_cm
+/*
+typedef struct  s_line
 {
-	char *cmd;
-	char *arg;
-	char *file;
-	
-}				t_cm;
-
-void	get_env(t_mini *built);
+	char	*cmd;
+	char	**arg;
+	int		fd;
+	char	*flag;
+	int		std_in;
+	struct t_mini;	
+	struct t_cm *next;
+}				t_;
+*/
+void    get_env(t_mini *built ,char** environ);
 int		env_size(char **environ);
 void    ft_env(t_mini *built);
+int quote_checker_1(t_mini *mini);
+
 #endif
