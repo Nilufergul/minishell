@@ -34,18 +34,30 @@ typedef struct	s_mini
 	char **env;
 	char **line;
 }				t_mini;
-/*
+
+typedef struct s_fd
+{
+	int *fd;
+	struct t_fd *next;
+}			t_fd;
+
+typedef struct s_ty
+{
+	int *fd;
+	struct t_fd *next;
+}				t_ty;
+
 typedef struct  s_line
 {
 	char	*cmd;
 	char	**arg;
-	int		fd;
+	struct t_ty;
+	struct t_fd;
 	char	*flag;
-	int		std_in;
 	struct t_mini;	
 	struct t_cm *next;
 }				t_;
-*/
+
 void    get_env(t_mini *built ,char** environ);
 int		env_size(char **environ);
 void    ft_env(t_mini *built);
