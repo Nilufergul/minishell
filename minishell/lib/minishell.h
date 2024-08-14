@@ -49,7 +49,7 @@ typedef struct s_ty
 
 typedef struct s_arg
 {
-	int *arg;
+	char *arg;
 	struct t_arg *next;
 }				t_arg;
 
