@@ -17,7 +17,7 @@
 # include <sys/ioctl.h>
 # include <term.h>
 # include <curses.h>
-//# include "libft/libft.h"
+# include "libft/libft.h"
 
 # define EXEC 0
 # define HEREDOC 1
@@ -34,7 +34,7 @@ typedef struct	s_mini
 	char **env;
 	char **line;
 }				t_mini;
-
+/*
 typedef struct s_fd
 {
 	int *fd;
@@ -43,30 +43,26 @@ typedef struct s_fd
 
 typedef struct s_ty
 {
-	int *type;
-	struct t_ty *next;
+	int *fd;
+	struct t_fd *next;
 }				t_ty;
-
-typedef struct s_arg
-{
-	char *arg;
-	struct t_arg *next;
-}				t_arg;
 
 typedef struct  s_line
 {
 	char	*cmd;
-	struct	**arg;
-	struct  t_ty    *type;
-	struct  t_fd    *fd;
+	char	**arg;
+	struct t_ty;
+	struct t_fd;
 	char	*flag;
-    struct  t_mini  *minis;	
-	struct  t_line  *next;
-}				t_line;
-
+	struct t_mini;	
+	struct t_cm *next;
+}				t_;
+*/
 void    get_env(t_mini *built ,char** environ);
 int		env_size(char **environ);
 void    ft_env(t_mini *built);
 int quote_checker_1(t_mini *mini);
+void space_delete(char *line, int i);
+void space(t_mini *mini);
 
 #endif
