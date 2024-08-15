@@ -1,82 +1,50 @@
+#include "minishell.h"
 
-#include "lib/minishell.h"
-
-size_t	ft_strlen(const char *str)
+int main()
 {
-	size_t	n;
+    t_line *komut1;
+    t_line *komut2;
+    t_fd    *fd1;
+    t_fd    *fd2;
+    t_ty    *ty1;
+    t_ty    *ty2;
 
-	n = 0;
-	while (str[n] != '\0')
-	{
-		n++;
-	}
-	return (n);
+
+    komut1 = malloc(sizeof(t_line));
+    komut2 = malloc(sizeof(t_line));
+    fd1 =    malloc(sizeof(t_fd));
+    fd2 =    malloc(sizeof(t_fd));
+    ty1 =    malloc(sizeof(t_ty));
+    ty2 =    malloc(sizeof(t_ty));
+
+
+
+    komut1->cmd = "ls";
+    komut2->cmd = "grep";
+
+    char *s = "selman";
+    char **ss;
+    ss = malloc(sizeof(char *));
+    ss[0] = s;
+    komut2->arg = ss;
+
+    fd1->name = "dosya1";
+    fd2->name = "dosya2";
+
+    fd1->next = fd2;
+    ty1->type = GREATER;
+    ty2->type = GREATER;
+
+
+    //////////////////////////////////////////////////////////////////////////
+
+    printf("%d\n", ty1->type);
+
+
+
+
+    printf("Calisiyor..\n");
+    return 0;
 }
 
-char	*ft_strdup(const char *s)
-{
-	int		i;
-	int		j;
-	char	*str;
 
-	i = 0;
-	j = ft_strlen(s);
-	str = (char *)malloc(sizeof(*str) * (j + 1));
-	if (!str)
-		return (NULL);
-	while (i < j)
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-int env_size(char **environ)
-{
-    int i;
-
-    i = 0;
-    if(!environ)
-        return (0);
-	
-    while(environ[i])
-        i++;
-    return (i);
-}
- void ft_env(t_mini *built)
-{
-	int i;
-	i = 0;
-	while(built->env[i])
-	{
-		printf("%s\n", built->env[i]);
-		i++;
-	}
-}
-
-void get_env(t_mini *built ,char** environ)
-{
-	int i;
-	
-	built->env = malloc(sizeof(char **) * (env_size(environ) + 1));
-	if (!built->env)
-		return;
-	i = 0;
-
-	while(environ[i])
-	{
-		built->env[i] = ft_strdup(environ[i]);
-		i++;
-	}
-}
-
-int main(int argc, char** argv, char** environ)
-{
-	t_mini	*built;
-	built = (t_mini *)malloc(sizeof(t_mini));
-	get_env(built, environ);
-	ft_env(built);
-	
-}
