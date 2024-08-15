@@ -19,15 +19,21 @@
 # include <curses.h>
 # include "libft/libft.h"
 
-# define EXEC 0
-# define HEREDOC 1
-# define PIPE 2
-# define GREAT 3
-# define GREATER 4
-# define LESS 5
-# define STDINN 0
-# define STDOUT 1
-# define STDERR 2
+enum type {
+	EXEC = 0,
+	HEREDOC = 1,
+	PIPE = 2,
+	GREAT = 3,
+	GREATER = 4,
+	LESS = 5,
+};
+
+enum file_des {
+	STDINN = 0,
+	STDOUT = 1,
+	STDERR = 2
+};
+
 
 typedef struct	s_mini
 {
@@ -64,7 +70,7 @@ typedef struct  s_line
 	struct  t_fd    *fd;
 	struct  t_mini  *minis;	
 	struct  t_line  *next;
-}
+}				t_line;
 
 void    get_env(t_mini *built ,char** environ);
 int		env_size(char **environ);
