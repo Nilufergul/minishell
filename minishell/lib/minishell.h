@@ -39,7 +39,7 @@ typedef struct	s_mini
 {
 	char **env;
 	char **arg;
-	char **line;
+	char *line;
 }				t_mini;
 
 typedef struct s_ty
