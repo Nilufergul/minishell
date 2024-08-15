@@ -18,17 +18,17 @@ int quote_checker_1(t_mini *mini)
 	char quote;
 	
 	i = 0;
-	while(mini->line[0][i])
+	while(mini->line[i])
 	{
-		if(mini->line[0][i] == '\"' || mini->line[0][i] == '\'')
+		if(mini->line[i] == '\"' || mini->line[i] == '\'')
 		{
-			quote = mini->line[0][i];
+			quote = mini->line[i];
 			i++;
-			while(mini->line[0][i] && mini->line[0][i] != quote)
+			while(mini->line[i] && mini->line[i] != quote)
 			{
 				i++;
 			}
-			if(mini->line[0][i] == '\0')
+			if(mini->line[i] == '\0')
 				return(0);
 		}
 		i++;
@@ -70,7 +70,7 @@ void pipex_check(t_mini *mini)
 	int i;
 
 	i = 0;
-	str = mini->line[0];
+	str = mini->line;
 	while(str[i])
 	{
 		if(str[i] == '|')
@@ -91,24 +91,24 @@ void space(t_mini *mini)
 	int quote_on;
 	int i;
 
-	str = mini->line[0];
+	str = mini->line;
 	quote_on = 0;
 	i = 0;
 	while(str[i])
 	{
-		if(mini->line[0][i] == '\"' || mini->line[0][i] == '\'')
+		if(mini->line[i] == '\"' || mini->line[i] == '\'')
 		{
-			quote = mini->line[0][i];
+			quote = mini->line[i];
 			i++;
-			while(mini->line[0][i] && mini->line[0][i] != quote)
+			while(mini->line[i] && mini->line[i] != quote)
 			{
 				i++;
 			}
 		}
-		else if(mini->line[0][i] == ' ')
+		else if(mini->line[i] == ' ')
 		{
-			printf("%c\n",mini->line[0][i]);
-			space_delete(mini->line[0],i);		
+			printf("%c\n",mini->line[i]);
+			space_delete(mini->line,i);		
 		}
 		i++;
 	}
