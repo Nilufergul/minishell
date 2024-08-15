@@ -45,20 +45,20 @@ typedef struct	s_mini
 typedef struct s_ty
 {
 	int *type;
-	struct t_ty *next;
+	struct s_ty *next;
 }				t_ty;
 
 typedef struct s_arg
 {
 	int *arg;
-	struct t_arg *next;
+	struct s_arg *next;
 }				t_arg;
 
 typedef struct s_split
 {
 	int meta;
 	char *node;
-	struct t_split *next;
+	struct s_split *next;
 }				t_split;
 
 typedef struct  s_line
@@ -69,7 +69,7 @@ typedef struct  s_line
 	struct  t_ty    *type;
 	struct  t_fd    *fd;
 	struct  t_mini  *minis;	
-	struct  t_line  *next;
+	struct  s_line  *next;
 }				t_line;
 
 void    get_env(t_mini *built ,char** environ);
