@@ -48,6 +48,13 @@ typedef struct s_arg
 	struct t_arg *next;
 }				t_arg;
 
+typedef struct s_split
+{
+	int meta;
+	char *node;
+	struct t_split *next;
+}				t_split;
+
 typedef struct  s_line
 {
 	char	*cmd;
