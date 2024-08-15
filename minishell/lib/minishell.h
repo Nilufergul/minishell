@@ -26,13 +26,13 @@ typedef enum type {
 	GREAT = 3,
 	GREATER = 4,
 	LESS = 5,
-};
+} type;
 
 typedef enum file_des {
 	STDINN = 0,
 	STDOUT = 1,
 	STDERR = 2
-};
+} file_des;
 
 
 typedef struct	s_mini
@@ -60,6 +60,13 @@ typedef struct s_split
 	char *node;
 	struct s_split *next;
 }				t_split;
+
+typedef struct s_fd
+{
+	int fd;
+	char *name;
+	struct s_fd *next;
+}				t_fd;
 
 typedef struct  s_line
 {
