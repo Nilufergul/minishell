@@ -19,7 +19,7 @@
 # include <curses.h>
 # include "libft/libft.h"
 
-enum type {
+typedef enum type {
 	EXEC = 0,
 	HEREDOC = 1,
 	PIPE = 2,
@@ -28,7 +28,7 @@ enum type {
 	LESS = 5,
 };
 
-enum file_des {
+typedef enum file_des {
 	STDINN = 0,
 	STDOUT = 1,
 	STDERR = 2
