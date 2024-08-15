@@ -64,8 +64,8 @@ typedef struct s_split
 typedef struct  s_line
 {
 	char	*cmd;
-	char	*arg;
-	struct	t_arg **arg;
+	char	**arg;
+	struct	t_arg 	**args;
 	struct  t_ty    *type;
 	struct  t_fd    *fd;
 	struct  t_mini  *minis;	
