@@ -91,5 +91,5 @@ void	echo_incn(char c, int *n);
 void	echo_case1(char c, int *expect, int *ret);
 int	echo_case2(char c, int *expect, int *ret);
 int	echo_case3(char c, int *expect, int *ret, int *n_count);
-
+void	pwd(void);
 #endif
