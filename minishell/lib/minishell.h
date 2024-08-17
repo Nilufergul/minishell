@@ -85,5 +85,11 @@ void    ft_env(t_mini *built);
 int quote_checker_1(t_mini *mini);
 void space_delete(char *line, int i);
 void space(t_mini *mini);
+int	echo_main(char *s);
+int	echo_index(char *s);
+void	echo_incn(char c, int *n);
+void	echo_case1(char c, int *expect, int *ret);
+int	echo_case2(char c, int *expect, int *ret);
+int	echo_case3(char c, int *expect, int *ret, int *n_count);
 
 #endif
