@@ -12,12 +12,6 @@
 
 #include "../lib/minishell.h"
 
-void	echo_case1(char c, int *expect, int *ret);
-int	echo_case2(char c, int *expect, int *ret);
-int	echo_case3(char c, int *expect, int *ret, int *n_count);
-void	echo_incn(char c, int *n);
-int	echo_index(char *s);
-
 int	echo_main(char *s)
 {
 	int	ind;
