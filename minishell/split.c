@@ -1,13 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 17:57:39 by darikan           #+#    #+#             */
+/*   Updated: 2024/08/19 17:58:09 by darikan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib/minishell.h"
 
-enum type meta_type(char *str)//"" icindekileri de atayacak
+enum type meta_type(char *str)
 {
     int i;
-
-    i = 0;
-    while(str[i])
-    {
-        if(str[i] == '|')
+	char quote;
+    
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == '\"' || str[i] == '\'')
+		{
+			quote = str[i];
+			i++;
+			while(str[i] && str[i] != quote)
+				i++;
+		}
+		if(str[i] == '|')
             return (PIPE);
         if(str[i] == '<')
         {
@@ -21,10 +41,36 @@ enum type meta_type(char *str)//"" icindekileri de atayacak
                 return (GREATER);
             return (GREAT);
         }
-        i++;
-    }
-    return (EXEC);
+		i++;
+	}
+    return (EXEC);// bura hatalı
 }
+
+int quote_checker_1(t_mini *mini)
+{
+	int i;
+	char quote;
+	
+	i = 0;
+	while(mini->line[i])
+	{
+		if(mini->line[i] == '\"' || mini->line[i] == '\'')
+		{
+			quote = mini->line[i];
+			i++;
+			while(mini->line[i] && mini->line[i] != quote)
+			{
+				i++;
+			}
+			if(mini->line[i] == '\0')
+				return(0);
+		}
+		i++;
+	}
+	return(1);
+}
+
+
 
 t_split *sub_node(const char *str, unsigned int start, size_t len)
 {
