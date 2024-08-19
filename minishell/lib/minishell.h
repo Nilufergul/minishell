@@ -20,7 +20,7 @@
 # include "libft/libft.h"
 
 typedef enum type {
-	EXEC = 0,
+	EXCEPT = 0,
 	HEREDOC = 1,
 	PIPE = 2,
 	GREAT = 3,
