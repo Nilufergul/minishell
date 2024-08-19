@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/minishell.h"
+#include "minishell/lib/minishell.h"
 /*
 int quote_checker_1(t_mini *mini)
 {
@@ -114,7 +114,52 @@ void space(t_mini *mini)
 		i++;
 	}
 }*/
-void adding_space(t_mini *mini)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (size == 0)
+	{
+		while (src[i])
+			i++;
+		return (i);
+	}
+	while (i < size - 1 && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (i < size)
+		dest[i] = '\0';
+	while (src[i] != '\0')
+		i++;
+	return (i);
+}
+size_t	ft_strlen(const char *str)
+{
+	size_t	n;
+
+	n = 0;
+	while (str[n] != '\0')
+	{
+		n++;
+	}
+	return (n);
+}
+void shift_and_insert(char *str, int *len, int pos)
+{
+	int j = *len;
+	while (j > pos)
+	{
+		str[j + 1] = str[j];
+		j--;
+	}
+	str[pos+1] = ' ';
+	(*len)++;
+	str[*len] = '\0';
+}
+void adding_space(t_mini *mini, char s) //kısaltılması lazım
 {
 	int i;
 	int j;
@@ -128,33 +173,28 @@ void adding_space(t_mini *mini)
 
 	while(mini->line[i] != '\0')
 	{
-		if((mini->line[i] == '|' && mini->line[i+1] != ' ') ||  (mini->line[i] == '|' && mini->line[i-1] != ' '))
+		if((mini->line[i] == s && mini->line[i+1] != ' ') ||  (mini->line[i] == s && mini->line[i-1] != ' '))
 			count++;
 		i++;
 	}
 	i = 0;
 	
-	char *new_line = malloc(sizeof(char)*(len+count)); // new_line a göre aşağıdaki while ı düzenle
-	if (new_line == NULL) {
-        return;
-    }
-	
-	while(mini->line[i] != '\0')
+	char *new_line = malloc(sizeof(char)*(len+count+1)); // new_line a göre aşağıdaki while ı düzenle
+	if (!new_line)
+		return;
+
+	ft_strlcpy(new_line, mini->line, (len+count+1));
+
+	while(new_line[i] != '\0')
 	{
-		if((mini->line[i] == '|' && mini->line[i+1] != ' ') || (mini->line[i] == '|' && mini->line[i-1] != ' '))
-		{
-			j = len + 1;
-			while(j > i + 1)
-			{
-				mini->line[j] = mini->line[j-1];
-				j--;
-			}
-			mini->line[i + 1] = ' ';
-			len++;
-			mini->line[len] = '\0';
-		}
+		if((new_line[i] == s && new_line[i-1] != ' '))
+			shift_and_insert(new_line, &len, (i-1));
+
+		if((new_line[i] == s && new_line[i+1] != ' '))
+			shift_and_insert(new_line, &len, i);
 		i++;
 	}
+	mini->line = new_line;
 }
 /*void space_delete(char *line, int i)
 {
@@ -187,7 +227,7 @@ void adding_space(t_mini *mini)
 #include <stdio.h>
 int main()
 {
-	char a[] = "abc|nil";
+	char a[] = "abc<d<nil";
 	t_mini *minik;
 
 	minik = (t_mini *)malloc(sizeof(t_mini));
@@ -195,6 +235,7 @@ int main()
 	if(minik == NULL)
 		return 0;
 	minik->line = a;
-	adding_space(minik);
+	//adding_space(minik, '|');
+	adding_space(minik, '<');
 	printf("%s", minik->line);
 }
