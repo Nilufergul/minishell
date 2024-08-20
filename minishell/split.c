@@ -43,7 +43,7 @@ enum type meta_type(char *str)
         }
 		i++;
 	}
-    return (EXEC);// bura hatalı
+    return (EXCEPT);// bura hatalı
 }
 
 int quote_checker_1(t_mini *mini)
