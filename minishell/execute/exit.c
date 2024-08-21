@@ -12,6 +12,8 @@
 
 // exit [n] seklinde calısacakmıs
 
+//shell ismi sonradan degisirse bu fonksiyon güncellenecek
+
 #include <unistd.h>
 #include <stdlib.h>
 
