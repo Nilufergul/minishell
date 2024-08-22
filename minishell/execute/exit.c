@@ -1,19 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iozmen <iozmen@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 14:46:53 by iozmen            #+#    #+#             */
-/*   Updated: 2024/08/21 16:47:39 by iozmen           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 // exit [n] seklinde calısacakmıs
 
 //shell ismi sonradan degisirse bu fonksiyon güncellenecek
 
+#include "../minishell.h"
 #include <unistd.h>
 #include <stdlib.h>
 

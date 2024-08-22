@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo_helper.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: selmandemir <selmandemir@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 00:05:36 by selmandemir       #+#    #+#             */
-/*   Updated: 2024/08/18 01:55:19 by selmandemir      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../lib/minishell.h"
+#include "../minishell.h"
 
 void	echo_case1(char c, int *expect, int *ret)
 {
