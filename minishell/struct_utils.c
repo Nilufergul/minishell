@@ -152,38 +152,55 @@ int struct_len(t_line *head)
     return len;
 }
 
-char *join_args_with_spaces(char **arg)
+
+char *go_exe(char *str, char **arr)
 {
-    int total_length = 0;
-    int num_args = 0;
+    size_t total_length = 0;
+    size_t str_len = 0;
+    int num_strings = 0;
+    char *result = NULL;
+    char *current_pos = NULL;
+    size_t i = 0;
 
-    if (arg == NULL || *arg == NULL)
-        return NULL; 
-
-    while (arg[num_args])
+    if (str != NULL)
     {
-        total_length += strlen(arg[num_args]);
-        num_args++;
+        str_len = strlen(str);
+        total_length += str_len;
+        num_strings++;
     }
-
-    total_length += num_args - 1;
-
-    char *result = (char *)malloc(total_length + 2);
-    if (result == NULL)
-        return NULL; 
-    char *current_pos = result;
-    *current_pos = ' ';
-    current_pos++;
-    for (int i = 0; i < num_args; i++)
+    while (arr != NULL && arr[num_strings - 1] != NULL)
     {
-        size_t len = ft_strlen(arg[i]);
-        ft_memcpy(current_pos, arg[i], len);
-        current_pos += len;
-        if (i < num_args - 1)
+        total_length += strlen(arr[num_strings - 1]);
+        num_strings++;
+    }
+    if (num_strings > 1)
+        total_length += num_strings - 1;
+    result = (char *)malloc(total_length + 1);
+    if (result == NULL)
+        return NULL;
+
+    current_pos = result;
+    if (str != NULL)
+    {
+        strcpy(current_pos, str);
+        current_pos += str_len;
+        if (arr != NULL && arr[0] != NULL)
         {
             *current_pos = ' ';
             current_pos++;
         }
+    }
+    i = 0;
+    while (arr != NULL && arr[i] != NULL)
+    {
+        strcpy(current_pos, arr[i]);
+        current_pos += strlen(arr[i]);
+        if (arr[i + 1] != NULL)
+        {
+            *current_pos = ' ';
+            current_pos++;
+        }
+        i++;
     }
     *current_pos = '\0';
     return result;
