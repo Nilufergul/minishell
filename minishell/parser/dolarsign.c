@@ -1,21 +1,41 @@
 
 #include "../minishell.h"
 
-char	*dolar_checker(t_mini *mini)
+//dolar is working kontrolü eklencek. libft functionlarına dönüştürülcek
+
+char *dolar_exp(t_mini *mini) // dolar varsa ve expansiona uygunsa, variablein değerini string olarak döndürüyor
 {
-	int i;
-
+	/*int i;
+	char *var;
+	char *ret;
+	
 	i = 0;
-	//gelen girdiyi dolar checke gönder
-	if(dolar_exp(mini))
+	while(mini->line[i] != '\0')
 	{
-		if(vary_check(mini, (dolar_exp(mini))))
+		if (mini->line[i] == '$' && (mini->line[i + 1] != ' ') || (mini->line[i + 1] <= 9 && mini->line[i + 1] >= 13))
 		{
-			return(value_ret(mini ,(vary_check(mini, (dolar_exp(mini)))))); //değeri
-
+			i++;
+			while (mini->line[i] != '=');
 		}
 	}
-	return NULL;
+		// dolar dolar olarak mı callsııryor? dolar olark calısıyora ve değeğeri yoksa hiçbir şey basmıyır
+		// dolar olaarak calısması için yanında bir variabşe olması lazım.
+		//dolaar tek tırnak içinde olmicak
+		//
+		
+		// string olarak alıyorsa string olarak baasıyor
+
+	i = 0;
+	if (vary_check(mini, var) != 0)
+	{
+		while (mini->env[vary_check(mini, var)][ft_strlen(var + 1 + i)])
+		{
+			ret = ft_strdup(&mini->env[vary_check(mini, var)][ft_strlen(var + 2 + i)]);
+			i++; 
+		}
+	}*/
+	char *i= "a";
+	return NULL; //variable yok
 }
 
 size_t	ft_strlen(const char *str)
@@ -31,107 +51,47 @@ size_t	ft_strlen(const char *str)
 }
 
 
-
-int		vary_check(t_mini *mini, char *var) // env içinde variable ismi arıyor varsa yerini veriyor
+int	vary_check(t_mini *mini, char *var)
 {
-	int i;
-	int j;
+	size_t i;
+	size_t j;
 	
 	i = 0;
 	j = 0;
 
-	while (mini->env[j][0] != '\0')
+	while (mini->env[j] != NULL)
 	{
-		if(mini->env[j][0] == var[0])
-		{
-			while(mini->env[j][i])
-			{
-				if(mini->env[j][i] == var[i])
-				i++;  
-			}
-			if (ft_strlen(var) == i)
-			{
-				return(j); //variableın yeri
-			}
-			else
-				i = 0;
-		}
+		if (strncmp(mini->env[j], var, ft_strlen(var)) == 0 && mini->env[j][ft_strlen(var)] == '=')
+			return (j);
 		j++;
 	}
-	return (0); // aranan variable env'da mevcut değil
+	return (-1);
 }
 
-/*char *dolar_exp(t_mini *mini) // dolar varsa ve expansiona uygunsa, variablein değerini string olarak döndürüyor
+char *value_ret(t_mini *mini, int p)
 {
-	int i;
-	char *var;
-	char *ret;
-	
-	i = 0;
-	while(mini->line[i] != '\0')
-	{
-		if (mini->line[i] == '$' && (mini->line[i + 1] != ' ') || (mini->line[i + 1] <= 9 && mini->line[i + 1] >= 13))
-		{
-			i++;
-			while (mini->line[i] != '=');
-
-
+	if (p == -1)
+		return NULL;
 		
-
-		}
-	}
-		// dolar dolar olarak mı callsııryor? dolar olark calısıyora ve değeğeri yoksa hiçbir şey basmıyır
-		// dolar olaarak calısması için yanında bir variabşe olması lazım.
-		//dolaar tek tırnak içinde olmicak
-		//
-		
-		// string olarak alıyorsa string olarak baasıyor
-
-	i = 0;
-	if (vary_check(mini, var) != 0)
-	{
-		while (mini->env[vary_check(mini, var)][ft_len(var + 1 + i)])
-		{
-			ret = ft_strdup(mini->env[vary_check(mini, var)][ft_len(var + 2 + i)]);
-			i++; 
-		}
-	}
-	return NULL; //variable yok
-}*/
-
-char *value_ret(t_mini *mini , int p) //double pointerda değişkenin satırının şndeksini veriyoruz, ve değeri string olarak döndürüyor.
-{
-	int i;
-
-	i = 0;
-	while (mini->env[p][i])
-	{
-		if (mini->env[p][i] == '=')
-		{
-			i++;
-			return(mini->env[p]); //??
-		}
-		mini->env[p]++;
-	}
+	char *value = strchr(mini->env[p], '=');
+	if (value)
+		return value + 1; // '=' işaretinin sonrasını döndür
 	return NULL;
 }
 
-
-
-
-int main()
+char	*dolar_checker(t_mini *mini)
 {
-	char a[] = "|ab|c   ashjk    ";
-	t_mini *mini;
+	int i;
 
-	mini = (t_mini *)malloc(sizeof(t_mini));
-	mini->line = malloc(sizeof(char)*20); 
+	i = 0;
 	
-	/*get_env(mini, environ);
-	ft_env(mini);*/
+	if((void*)dolar_exp(mini))
+	{
+		if(vary_check(mini, (dolar_exp(mini))))
+		{
+			return(value_ret(mini,(vary_check(mini, (dolar_exp(mini)))))); //değeri
 
-	if(mini == NULL)
-		return 0;
-	mini->line = a;
-	pipex_check(mini);
+		}
+	}
+	return NULL;
 }
