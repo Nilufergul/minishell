@@ -1,6 +1,6 @@
 
 #include "minishell.h"
-
+/*
 int main()
 {
     t_line *komut1;
@@ -46,6 +46,6 @@ int main()
 
     printf("Calisiyor..\n");
     return 0;
-}
+}*/
 
 

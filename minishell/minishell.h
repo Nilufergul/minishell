@@ -34,14 +34,6 @@ typedef enum file_des {
 	STDERR = 2
 } file_des;
 
-
-typedef struct	s_mini
-{
-	char **env;
-	char **arg;
-	char *line;
-}				t_mini;
-
 typedef struct s_ty
 {
 	int *type;
@@ -68,6 +60,13 @@ typedef struct s_fd
 	struct s_fd *next;
 }				t_fd;
 
+typedef struct	s_mini
+{
+	char **env;
+	char *line;
+}				t_mini;
+
+
 typedef struct  s_line
 {
 	char	*cmd;
@@ -81,7 +80,7 @@ typedef struct  s_line
 
 void    get_env(t_mini *built ,char** environ);
 int		env_size(char **environ);
-void    ft_env(t_mini *built);
+void ft_env(t_mini *mini ,char** environ);
 int quote_checker_1(t_mini *mini);
 void space_delete(char *line, int i);
 void space(t_mini *mini);
@@ -92,4 +91,5 @@ void	echo_case1(char c, int *expect, int *ret);
 int	echo_case2(char c, int *expect, int *ret);
 int	echo_case3(char c, int *expect, int *ret, int *n_count);
 void	pwd(void);
+void routine(t_mini *mini);
 #endif

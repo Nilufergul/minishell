@@ -112,7 +112,7 @@ void space_delete(char *line, int i)
 	}
 }
 
-int main()
+/*int main()
 {
 	char a[] = "a	bcashjk";
 	t_mini *minik;
@@ -125,3 +125,4 @@ int main()
 	space(minik);
 	printf("%s\n",minik->line);
 }
+*/

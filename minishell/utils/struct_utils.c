@@ -47,7 +47,7 @@ t_ty *create_new_ty(int type)
     new_ty = (t_ty *)malloc(sizeof(t_ty));
     if (new_ty == NULL)
         return NULL; 
-    new_ty->type = type;
+    new_ty->type = &type;
     new_ty->next = NULL;
     return new_ty;
 }

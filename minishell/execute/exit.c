@@ -48,6 +48,7 @@ void ft_exit(char **args)
 	}
 }
 
+/*
 int main(int argc, char **argv)
 {
 	if (argc)
@@ -57,7 +58,7 @@ int main(int argc, char **argv)
 	}
 	return 0;
 }
-/*
+
 	test icin ./a.out'tan sonra asağıdakileri elle dene yada yapıstır
 	"-10"
 	"randomword"

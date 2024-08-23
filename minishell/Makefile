@@ -1,53 +1,49 @@
 NAME = minishell
-SRC = minishell.c \
-      parser/dolarsign.c parser/parser.c parser/parser2.c parser/split.c parser/syntax.c \
-      execute/echo_helper.c execute/echo_main.c execute/exit.c execute/pwd.c \
-      utils/struct_utils.c
-OBJ = $(SRC:.c=.o)
-CFLAGS = -Wall -Wextra -Werror
 CC = gcc
-RM = rm -rf
-LIBFT = libft/libft.a
-READLINE = readline
+CFLAGS = -Wall -Wextra -Werror
+M_SRC = minishell.c \
+		parser/dolarsign.c parser/parser.c parser/parser2.c parser/split.c parser/syntax.c \
+		execute/echo_helper.c execute/echo_main.c execute/exit.c execute/pwd.c \
+		utils/struct_utils.c
+LIB_SRC = 
+SRC = $(M_SRC) $(LIB_SRC)
 OBJ = $(SRC:.c=.o)
+READLINE = -L./lib/readline/lib -I./lib/readline/include/readline -lreadline 
+DIR     = $(shell echo $(PWD))
+RM = rm -rf
+RL = ./lib/readline/lib/libreadline.a
+LIBFT = libft/libft.a
 
-all: $(READLINE) $(LIBFT) $(NAME)
+all: $(NAME)
 
-$(READLINE):
-	@clear
-	@curl -s -O https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz 2>&1
-	@tar -xvf readline-8.2.tar.gz 2>&1 | awk '{printf "♣"; fflush()}' 2>&1
-	@cd readline-8.2 && ./configure --prefix=${PWD}/readline 2>&1 | awk '{printf "♣"; fflush()}' 2>&1
-	@cd readline-8.2 && make install 2>&1 | awk '{printf "♣"; fflush()}' 2>&1
-	@rm -rf readline
-	@echo "$(RESET)"
-	
+$(NAME): $(RL) $(LIBFT) $(OBJ)
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(READLINE) 
 
 $(LIBFT):
-	@make -C libft | awk '{printf "♣"; fflush()}'
 	@${MAKE} -C libft
-	
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I${PWD}/readline/include/
 
-$(NAME): $(SRC) $(OBJ)
-	@$(CC) $(CFLAGS) $(LIBFT) $(SRC) -L${PWD}/readline/lib -I${PWD}/readline/include/ -lreadline -o $(NAME) 2>&1
-	@clear
-	@echo "Minishell Compiled"
-	@echo "$(RESET)"
+$(RL):
+		@echo "Downloading readline"
+		@curl -O https://ftp.gnu.org/gnu/readline/readline-8.2-rc1.tar.gz
+		@tar -xvf readline-8.2-rc1.tar.gz
+		@$(RM) readline-8.2-rc1.tar.gz
+		@cd readline-8.2-rc1 && ./configure --prefix=$(DIR)/lib/readline && make && make install
+		@$(RM) readline-8.2-rc1
+		@ echo "Readline installed"
+
+RLclean:
+		@$(RM) lib/readline
+		@echo "Readline removed"
+
 
 clean:
-	@clear
-	@$(RM) $(OBJ)
-	@make -C libft clean
+		$(RM) $(OBJ)
+		@make -C libft clean
 
 fclean: clean
-	@$(RM) $(NAME)
-	@make -C libft fclean
-	@rm -rf readline
-	@rm -rf readline-8.2 readline-8.2.tar.gz
-	@clear
+		$(RM) $(NAME)
+		@make -C libft fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re push

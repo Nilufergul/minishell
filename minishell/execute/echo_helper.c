@@ -50,7 +50,7 @@ int	echo_index(char *s)
 	int	ans;
 	int	expect;
 	int	n_count;
-	int	i;
+	size_t	i;
 	int	ret;
 
 	i = 0;

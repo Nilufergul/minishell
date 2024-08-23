@@ -1,6 +1,6 @@
 
 #include "../minishell.h"
-
+/*
 int	echo_main(char *s)
 {
 	int	ind;
@@ -19,3 +19,4 @@ int main()
 	echo_main("--nnnnnn selman selman");
 	echo_main("-nnnnnn selman selman");
 }
+*/

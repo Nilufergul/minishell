@@ -1,20 +1,31 @@
 
 #include "minishell.h"
 
-t_mini *init_mini(t_mini *mini, char** environ, char** argv)
+t_mini *init_mini(t_mini *mini, char** environ)
 {
 	mini = malloc(sizeof(t_mini));
 	if(!mini)
 		return (NULL);
-	get_env(mini, environ);
+	ft_env(mini, environ);
 	if(!mini->env)
 		return(NULL);
-	mini->arg = argv;
 	mini->line = NULL;
 	return (mini);
 }
 
-void get_env(t_mini *mini ,char** environ)
+int env_size(char **environ)
+{
+    int i;
+
+    i = 0;
+    if (!environ)
+        return (0);
+    while (environ[i])
+        i++;
+    return (i);
+}
+
+void ft_env(t_mini *mini ,char** environ)
 {
 	int i;
 	
@@ -39,20 +50,53 @@ void running_shell(t_mini *mini)
 		{
 			break ;
 		}
-		//add_history(mini->line);
-
+		add_history(mini->line);
+		routine(mini);
 	}
 }
 
+void lexer(t_mini *mini)
+{
+	mini->line = ft_strtrim(mini->line, " "); // başta sonda bosluk silindi ;)
+	printf("%s", mini->line);
+}
+
+void routine(t_mini *mini)
+{
+	lexer(mini);
+}
+
+/*void routine(t_mini *mini)
+{
+	//lexer  
+	 pipe
+	redirect mixed
+	open quote
+	
+	
+	//parser
+	gereksiz boslukları silme(başta ve sonda)
+	$(real) aç (metalara  tırnak at)" "
+	meta char ayır(bosluk at)
+	gerçek bosluğa ayır (nodea falan)(split)
+	meta char leri ayır
+	gereksiz tırnak sil (backslash ??)
+
+
+	//exe
+*/
+
+
 int main(int argc, char** argv,char** environ)
 {
-	// signal handlelancak
+	//signal handlelancak
 	t_mini *mini;
-
+	(void)argc;
+	(void)argv;
 
 	mini = NULL;
-	mini = init_mini(mini, environ, argv);
+	mini = init_mini(mini, environ);
 	if(!mini)
-		return (argc);//????
+		return 0;
 	running_shell(mini);
 }

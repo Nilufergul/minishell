@@ -35,31 +35,6 @@ enum type meta_type(char *str)
     return (EXCEPT);
 }
 
-int quote_checker_1(t_mini *mini)
-{
-	int i;
-	char quote;
-	
-	i = 0;
-	while(mini->line[i])
-	{
-		if(mini->line[i] == '\"' || mini->line[i] == '\'')
-		{
-			quote = mini->line[i];
-			i++;
-			while(mini->line[i] && mini->line[i] != quote)
-			{
-				i++;
-			}
-			if(mini->line[i] == '\0')
-				return(0);
-		}
-		i++;
-	}
-	return(1);
-}
-
-
 
 t_split *sub_node(const char *str, unsigned int start, size_t len)
 {
