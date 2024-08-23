@@ -3,21 +3,41 @@
 
 //dolar is working kontrolü eklencek. libft functionlarına dönüştürülcek
 
-char *dolar_exp(t_mini *mini) // dolar varsa ve expansiona uygunsa, variablein değerini string olarak döndürüyor
+char *dolar_exp(t_mini *mini) // çalışmıyo,dolar varsa ve expansiona uygunsa, variablein değerini string olarak döndürüyor, dolar kadar girsin ve dolarları silerim
 {
-	/*int i;
+	int i; // sonra bakıcaz
+	int j;
 	char *var;
 	char *ret;
 	
 	i = 0;
+	j = 0;
 	while(mini->line[i] != '\0')
 	{
-		if (mini->line[i] == '$' && (mini->line[i + 1] != ' ') || (mini->line[i + 1] <= 9 && mini->line[i + 1] >= 13))
+		if ((mini->line[i] == '$') && ((mini->line[i + 1] != ' ') || (mini->line[i + 1] != '?') || (ft_isalnum(mini->line[i + 1]))))
 		{
+			mini->line[i] = ' ';
 			i++;
-			while (mini->line[i] != '=');
+			while((mini->line[i] != ' ') && (mini->line[i] != '\"') && (mini->line[i] != '\''))
+			{
+				j++;
+			}
+			
 		}
+		break;
+		i++;
 	}
+	ret =(char*)malloc(sizeof(char)*j);
+	j = 0;
+	while(i < j)
+	{
+		ret[j] = mini->line[i];
+		i++;
+		j++;
+	}
+	ret[j] = '\0';
+
+
 		// dolar dolar olarak mı callsııryor? dolar olark calısıyora ve değeğeri yoksa hiçbir şey basmıyır
 		// dolar olaarak calısması için yanında bir variabşe olması lazım.
 		//dolaar tek tırnak içinde olmicak
@@ -25,31 +45,8 @@ char *dolar_exp(t_mini *mini) // dolar varsa ve expansiona uygunsa, variablein d
 		
 		// string olarak alıyorsa string olarak baasıyor
 
-	i = 0;
-	if (vary_check(mini, var) != 0)
-	{
-		while (mini->env[vary_check(mini, var)][ft_strlen(var + 1 + i)])
-		{
-			ret = ft_strdup(&mini->env[vary_check(mini, var)][ft_strlen(var + 2 + i)]);
-			i++; 
-		}
-	}*/
-	char *i= "a";
 	return NULL; //variable yok
 }
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	n;
-
-	n = 0;
-	while (str[n] != '\0')
-	{
-		n++;
-	}
-	return (n);
-}
-
 
 int	vary_check(t_mini *mini, char *var)
 {
@@ -79,7 +76,7 @@ char *value_ret(t_mini *mini, int p)
 	return NULL;
 }
 
-char	*dolar_checker(t_mini *mini)
+/*char	*dolar_checker(t_mini *mini)
 {
 	int i;
 
@@ -94,4 +91,4 @@ char	*dolar_checker(t_mini *mini)
 		}
 	}
 	return NULL;
-}
+}*/
