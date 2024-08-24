@@ -57,8 +57,18 @@ void running_shell(t_mini *mini)
 
 void lexer(t_mini *mini)
 {
+	int i;
+	i = 0;
+
 	mini->line = ft_strtrim(mini->line, " "); // başta sonda bosluk silindi ;)
-	printf("%s", mini->line);
+	if(ft_strnstr(mini->line,"env", 3))
+	{
+		while(i < (env_size(mini->env)))
+		{
+			printf("%s\n", mini->env[i]);
+			i++;
+		}
+	}
 }
 
 void routine(t_mini *mini)

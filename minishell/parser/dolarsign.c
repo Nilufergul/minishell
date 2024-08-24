@@ -3,7 +3,7 @@
 
 //dolar is working kontrolü eklencek. libft functionlarına dönüştürülcek
 
-char *dolar_exp(t_mini *mini) // çalışmıyo,dolar varsa ve expansiona uygunsa, variablein değerini string olarak döndürüyor, dolar kadar girsin ve dolarları silerim
+/*char *dolar_exp(t_mini *mini) // çalışmıyo,dolar varsa ve expansiona uygunsa, variablein değerini string olarak döndürüyor, dolar kadar girsin ve dolarları silerim
 {
 	int i; // sonra bakıcaz
 	int j;
@@ -46,7 +46,7 @@ char *dolar_exp(t_mini *mini) // çalışmıyo,dolar varsa ve expansiona uygunsa
 		// string olarak alıyorsa string olarak baasıyor
 
 	return NULL; //variable yok
-}
+}*/
 
 int	vary_check(t_mini *mini, char *var)
 {
