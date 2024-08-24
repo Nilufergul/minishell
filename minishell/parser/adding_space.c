@@ -59,16 +59,6 @@ void adding_space(t_mini *mini, char s)
 	mini->line = new_line;
 }
 
-#include <stdio.h>
-int main()
-{
-	char a[] = "abc<d<<nil";
-	t_mini *minik;
-
-	minik = (t_mini *)malloc(sizeof(t_mini));
-	minik->line = malloc(sizeof(char*)* 20);
-	if(minik == NULL)
-		return 0;
 	minik->line = a;
 	//adding_space(minik, '|');
 	adding_space(minik, '<');
