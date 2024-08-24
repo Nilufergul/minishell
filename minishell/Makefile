@@ -2,7 +2,7 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 M_SRC = minishell.c \
-		parser/dolarsign.c parser/parser.c parser/parser2.c parser/split.c parser/syntax.c \
+		parser/dolarsign.c parser/parser.c parser/adding_space.c parser/split.c parser/syntax.c \
 		execute/echo_helper.c execute/echo_main.c execute/exit.c execute/pwd.c \
 		utils/struct_utils.c
 LIB_SRC = 
