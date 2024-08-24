@@ -58,9 +58,3 @@ void adding_space(t_mini *mini, char s)
 	}
 	mini->line = new_line;
 }
-
-	minik->line = a;
-	//adding_space(minik, '|');
-	adding_space(minik, '<');
-	printf("%s", minik->line);
-}
