@@ -92,4 +92,27 @@ int	echo_case2(char c, int *expect, int *ret);
 int	echo_case3(char c, int *expect, int *ret, int *n_count);
 void	pwd(void);
 void routine(t_mini *mini);
+
+
+
+// syntax files
+
+int	pass_the_spaces(char *input, int i);
+int	pass_the_quotes(char c, int quote);
+int	ft_strlen(char *str);
+int	print_syntax_error_redir();
+int	print_unexpected_char_error();
+int	print_syntax_error_pipe();
+int	print_syntax_error_quote();
+int	last_arg_is_redir(char *input);
+int	mixed_redir_two(char *input);
+int	mixed_redir_four(char *input);
+int	mixed_redir_three(char *input);
+int	mixed_redir(char *input);
+int	redir_plus_pipe(char *input);
+int	redir_plus_pipe_two(char *input);
+int	double_pipe(char *input);
+int	is_pipe_last(char *input);
+int	is_pipe_first(char *input);
+
 #endif

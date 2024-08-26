@@ -73,6 +73,7 @@ void lexer(t_mini *mini)
 
 void routine(t_mini *mini)
 {
+	check_the_syntax(mini);
 	lexer(mini);
 }
 
@@ -110,3 +111,7 @@ int main(int argc, char** argv,char** environ)
 		return 0;
 	running_shell(mini);
 }
+
+
+
+
