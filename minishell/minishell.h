@@ -27,7 +27,7 @@ typedef enum type
 	GREAT = 3,
 	GREATER = 4,
 	LESS = 5,
-	DOLAR = 6
+	DOLLAR = 6
 } type;
 
 typedef enum file_des {
