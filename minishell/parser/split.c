@@ -75,58 +75,47 @@ t_split	*sub_node(const char *str, unsigned int start, size_t len)
 	return (node);
 }
 
+void	add_to_list(t_split **head, const char *line, int start, int end)
+{
+	t_split	*new_node;
+	t_split	*current;
+
+	new_node = sub_node(line, start, end - start);
+	if (!*head)
+	{
+		*head = new_node;
+		return ;
+	}
+	current = *head;
+	while (current->next)
+		current = current->next;
+	current->next = new_node;
+}
+
 t_split	*splitter(t_mini *mini)
 {
 	int		i;
 	int		start;
-	int		head;
-	char	quote;
-	t_split	*splitted;
-	t_split	*splitted_head;
+	t_split	*head;
 
 	i = 0;
-	start = 0;
-	head = 1;
-	splitted = NULL;
-	splitted_head = NULL;
+	head = NULL;
 	while (mini->line[i])
 	{
-		if (mini->line[i] == '\'' || mini->line[i] == '\"')
-		{
-			quote = mini->line[i];
-			i++;
-			while (mini->line[i] != '\0' && mini->line[i] != quote)
-				i++;
-			if (mini->line[i] == '\0')
-				return (splitted_head);
-			i++;
-		}
-		while (mini->line[i] == ' ')
-			i++;
-		if (mini->line[i] == '\0')
-			break;
+		skip_spaces(mini->line, &i);
+		if (!mini->line[i])
+			break ;
 		start = i;
-		while (mini->line[i] != '\0' && mini->line[i] != ' ' &&
-			mini->line[i] != '\'' && mini->line[i] != '\"')
-			i++;
-		splitted = sub_node(mini->line, start, i - start);
-		if (head == 1)
-		{
-			splitted_head = splitted;
-			head = 0;
-		}
+		if (mini->line[i] == '\'' || mini->line[i] == '\"')
+			skip_quotes(mini->line, &i);
 		else
-		{
-			t_split *current = splitted_head;
-			while (current->next != NULL)
-				current = current->next;
-			current->next = splitted;
-		}
-		while (mini->line[i] == ' ')
-			i++;
+			handle_token(mini->line, &i);
+		if (i > start)
+			add_to_list(&head, mini->line, start, i);
 	}
-	return (splitted_head);
+	return (head);
 }
+
 
 
 int	main()
@@ -141,7 +130,7 @@ int	main()
 	head = splitter(mini);
 	while (head != NULL)
 	{
-		printf("%d-", head->meta);
+		printf("%s-", head->node);
 		head = head->next;
 	}
 }
