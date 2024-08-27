@@ -1,14 +1,5 @@
-#include "minishell.h"
 
-int	ft_strlen(char *str)
-{
-	int	i;
-	
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+#include "../minishell.h"
 
 int	pass_the_quotes(char c, int quote)
 {

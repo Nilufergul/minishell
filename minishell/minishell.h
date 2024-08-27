@@ -19,13 +19,15 @@
 # include <curses.h>
 # include "libft/libft.h"
 
-typedef enum type {
+typedef enum type
+{
 	EXCEPT = 0,
 	HEREDOC = 1,
 	PIPE = 2,
 	GREAT = 3,
 	GREATER = 4,
 	LESS = 5,
+	DOLAR = 6
 } type;
 
 typedef enum file_des {
@@ -71,6 +73,7 @@ typedef struct  s_line
 {
 	char	*cmd;
 	char	**arg;
+	char	*raw;
 	struct	t_arg 	**args;
 	struct  t_ty    *type;
 	struct  t_fd    *fd;
@@ -99,7 +102,6 @@ void routine(t_mini *mini);
 
 int	pass_the_spaces(char *input, int i);
 int	pass_the_quotes(char c, int quote);
-int	ft_strlen(char *str);
 int	print_syntax_error_redir();
 int	print_unexpected_char_error();
 int	print_syntax_error_pipe();

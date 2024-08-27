@@ -1,10 +1,11 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
 M_SRC = minishell.c \
 		parser/dolarsign.c parser/parser.c parser/adding_space.c parser/split.c parser/syntax.c \
 		execute/echo_helper.c execute/echo_main.c execute/exit.c execute/pwd.c \
-		utils/struct_utils.c
+		utils/struct_utils.c utils/syntax_utils.c \
+		syntax/check_the_syntax.c syntax/pipe_check.c syntax/print_utils.c syntax/redir_check.c 
 LIB_SRC = 
 SRC = $(M_SRC) $(LIB_SRC)
 OBJ = $(SRC:.c=.o)
@@ -33,6 +34,7 @@ $(RL):
 
 RLclean:
 		@$(RM) lib/readline
+		@$(RM) lib
 		@echo "Readline removed"
 
 

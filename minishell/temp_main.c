@@ -47,5 +47,5 @@ int main()
     printf("Calisiyor..\n");
     return 0;
 }*/
-
+echo a << < $ b.txt | sdfhasdjklflaf
 

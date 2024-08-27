@@ -3,13 +3,12 @@
 
 //dolar is working kontrolü eklencek. libft functionlarına dönüştürülcek
 
-char *dolar_exp(t_mini *mini) // çalışmıyo,dolar varsa ve expansiona uygunsa, variablein değerini string olarak döndürüyor, dolar kadar girsin ve dolarları silerim
+char *dolar_exp(t_mini *mini)
 {
-	int i; // sonra bakıcaz
+	int i;
 	int j;
-	int a;
 	char *ret; 
-	
+
 	i = 0;
 	j = 0;
 	while(mini->line[i] != '\0')
@@ -64,7 +63,7 @@ char	*dolar_checker(t_mini *mini)
 	i = 0;
 	if ((mini->line[i] == '$') && ((mini->line[i + 1] == ' ') ))
 	{
-			return 'a'; 
+			return (void*)'a'; 
 	}
 	if((void*)dolar_exp(mini))
 	{
@@ -81,7 +80,7 @@ char	*dolar_checker(t_mini *mini)
 char *handle_dolar(t_mini *mini) // line üzerinbde bu değişiklikleri yapan fonksiyonlara gönderilicek
 {
 	
-	if(dolar_checker(mini) == 'a')
+	if(dolar_checker(mini) == (void*)'a')
 	{
 		//dolar dolar görevi yapmıyor ve doları string olarak basıyor
 	}

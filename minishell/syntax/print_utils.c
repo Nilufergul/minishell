@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 // error mesajları düzenlenmeli.
 int	print_syntax_error_quote()

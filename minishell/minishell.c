@@ -73,7 +73,7 @@ void lexer(t_mini *mini)
 
 void routine(t_mini *mini)
 {
-	check_the_syntax(mini);
+	//check_the_syntax(mini);
 	lexer(mini);
 }
 
