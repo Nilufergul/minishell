@@ -81,7 +81,7 @@ typedef struct  s_line
 	struct  s_line  *next;
 }				t_line;
 
-typedef struct s_gc_col // sor
+typedef struct s_gc_col // GARBAGE COLLECTOR
 {
 	void *ptr;
 	struct s_gc_col *next;
