@@ -1,65 +1,102 @@
 
 // exit [n] seklinde calısacakmıs
 
-//shell ismi sonradan degisirse bu fonksiyon güncellenecek
+//shell ismi sonradan degisirse bu fonksiyon güncellenecek. exitin önüne shell ismi gelecek
 
 #include "../minishell.h"
 #include <unistd.h>
 #include <stdlib.h>
 
-void ft_exit(char **args)
+static int	check_argument(char *arg)
 {
-	int exitCode = 0;
-	int i = 0;
+	int	j;
 
-	while (args[i] != NULL)
+	j = 0;
+	while (arg[j])
 	{
-		i++;
+		if (arg[j] != '-' && (arg[j] < '0' || arg[j] > '9'))
+			return (0);
+		j++;
 	}
+	return (1);
+}
+
+static void	exit_handling(char **args, int i)
+{
+	int	exit_code;
 
 	if (i == 1)
-	{
-		write(2, "exit\n", 5);
 		exit(0);
-	}
-
-	for (int j = 0; args[1][j]; j++)
+	if (!check_argument(args[1]))
 	{
-		if (args[1][j] != '-' && (args[1][j] < '0' || args[1][j] > '9'))
-		{
-			write(1, "exit\n", 5);
-			write(2, "exit: numeric argument required\n", 33);
-			exit(255);
-		}
+		write(2, "exit: numeric argument required\n", 33);
+		exit(255);
 	}
-
-	exitCode = atoi(args[1]);
-
+	exit_code = atoi(args[1]);
 	if (i == 2)
-	{
-		write(1, "exit\n", 5);
-		exit(exitCode);
-	}
-	else
-	{
-
-		write(1, "exit\n", 5);
-		write(2, "exit: too many arguments\n", 25);
-	}
+		exit(exit_code);
+	write(2, "exit: too many arguments\n", 25);
 }
+
+void	ft_exit(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i] != NULL)
+		i++;
+	write(1, "exit\n", 5);
+	exit_handling(args, i);
+}
+
 
 /*
-int main(int argc, char **argv)
+#include "../minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void	ft_exit(char **args);
+
+int	main(void)
 {
-	if (argc)
+	char	*line;
+	char	**args;
+	int		arg_count;
+	int		i;
+
+	while (1)
 	{
+		printf("minishell> ");
+		line = NULL;
+		size_t len = 0;
+		getline(&line, &len, stdin);
 
-		ft_exit(argv);
+		line[strcspn(line, "\n")] = '\0';
+
+		arg_count = 0;
+		args = malloc(sizeof(char *) * 10);
+		char *token = strtok(line, " ");
+		while (token != NULL)
+		{
+			args[arg_count++] = strdup(token);
+			token = strtok(NULL, " ");
+		}
+		args[arg_count] = NULL;
+
+		if (arg_count > 0 && strcmp(args[0], "exit") == 0)
+			ft_exit(args);
+
+		for (i = 0; i < arg_count; i++)
+			free(args[i]);
+		free(args);
+		free(line);
 	}
-	return 0;
+	return (0);
 }
-
-	test icin ./a.out'tan sonra asağıdakileri elle dene yada yapıstır
+*/
+/*
+	test için
 	"-10"
 	"randomword"
 	"random" "word"
