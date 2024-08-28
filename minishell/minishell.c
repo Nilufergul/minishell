@@ -61,20 +61,22 @@ void lexer(t_mini *mini)
 	i = 0;
 
 	mini->line = ft_strtrim(mini->line, " "); // başta sonda bosluk silindi ;)
-	if(ft_strnstr(mini->line,"env", 3))
-	{
-		while(i < (env_size(mini->env)))
-		{
-			printf("%s\n", mini->env[i]);
-			i++;
-		}
-	}
+	adding_space(mini, '>');
+	adding_space(mini, '<');
+	adding_space(mini, '|'); // metaların soluna sağına boşluk atıldı.
 }
 
 void routine(t_mini *mini)
 {
-	//check_the_syntax(mini);
+	t_split *split;
+	//check_the_syntax(mini); boş inputu handle la
 	lexer(mini);
+	split = splitter(mini);
+	while(split)
+	{
+		printf("%s\n", split->node);
+		split = split->next;
+	}
 }
 
 /*void routine(t_mini *mini)

@@ -101,8 +101,14 @@ int	echo_case2(char c, int *expect, int *ret);
 int	echo_case3(char c, int *expect, int *ret, int *n_count);
 void	pwd(void);
 void routine(t_mini *mini);
+void adding_space(t_mini *mini, char s);
 
+// split func
 
+void	skip_spaces(const char *line, int *i);
+void	handle_token(const char *line, int *i);
+void	skip_quotes(const char *line, int *i);
+t_split	*splitter(t_mini *mini);
 
 // syntax files
 
