@@ -81,6 +81,12 @@ typedef struct  s_line
 	struct  s_line  *next;
 }				t_line;
 
+typedef struct s_gc_col // sor
+{
+	void *ptr;
+	struct s_gc_col *next;
+}				t_gc_col;
+
 void    get_env(t_mini *built ,char** environ);
 int		env_size(char **environ);
 void ft_env(t_mini *mini ,char** environ);
