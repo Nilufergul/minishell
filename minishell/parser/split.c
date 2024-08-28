@@ -115,22 +115,3 @@ t_split	*splitter(t_mini *mini)
 	}
 	return (head);
 }
-
-
-
-int	main()
-{
-	t_mini *mini;
-
-	mini = malloc(sizeof(t_mini *));
-	mini->line = malloc(sizeof(char)*1200);
-	strcpy(mini->line,"< > \'$\' >> $ |"); //birden fazla bosluk
-	t_split *head;
-
-	head = splitter(mini);
-	while (head != NULL)
-	{
-		printf("%s-", head->node);
-		head = head->next;
-	}
-}
