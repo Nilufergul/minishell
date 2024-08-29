@@ -1,5 +1,19 @@
 
 #include "../minishell.h"
+void quote_check_meta(char *str, int *i)
+{
+	char quote;
+
+	if(str[*i] == '\"' || str[*i] == '\'')
+	{
+		quote = str[*i];
+		(*i)++;
+		while(str[*i] && str[*i] != quote)
+		{
+			(*i)++;
+		}
+	}
+}
 
 void shift_and_insert(char *str, int *len, int pos)
 {
@@ -49,6 +63,7 @@ void adding_space(t_mini *mini, char s)
 	ft_strlcpy(new_line, mini->line, (len+count+1));
 	while(new_line[i] != '\0')
 	{
+		quote_check_meta(new_line, &i);
 		if((new_line[i] == s && (new_line[i-1] != ' ' && new_line[i-1] != s)))
 			shift_and_insert(new_line, &len, (i-1));
 
