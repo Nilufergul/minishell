@@ -17,6 +17,7 @@
 # include <sys/ioctl.h>
 # include <term.h>
 # include <curses.h>
+# include <fcntl.h>
 # include "libft/libft.h"
 
 typedef enum type
@@ -38,7 +39,7 @@ typedef enum file_des {
 
 typedef struct s_ty
 {
-	int *type;
+	int type;
 	struct s_ty *next;
 }				t_ty;
 
@@ -53,14 +54,27 @@ typedef struct s_split
 	int meta;
 	char *node;
 	struct s_split *next;
+	struct s_split *prev;
 }				t_split;
 
 typedef struct s_fd
 {
-	int fd;
+	int file;
+	int	type;
 	char *name;
 	struct s_fd *next;
 }				t_fd;
+
+typedef struct  s_line
+{
+	char	*cmd;
+	char	**arg;
+	//struct	s_ty    *type;
+	struct  s_fd    *fd;
+	//struct  t_mini  *minis;
+	struct  s_line  *next;
+}				t_line;
+
 
 typedef struct	s_mini
 {
@@ -68,18 +82,6 @@ typedef struct	s_mini
 	char *line;
 }				t_mini;
 
-
-typedef struct  s_line
-{
-	char	*cmd;
-	char	**arg;
-	char	*raw;
-	struct	t_arg 	**args;
-	struct  t_ty    *type;
-	struct  t_fd    *fd;
-	struct  t_mini  *minis;	
-	struct  s_line  *next;
-}				t_line;
 
 typedef struct s_gc_col // GARBAGE COLLECTOR
 {
