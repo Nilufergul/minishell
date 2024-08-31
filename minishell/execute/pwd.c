@@ -1,10 +1,17 @@
+#include "builtins.h"
 
-#include "../minishell.h"
-
-void	pwd(void)
+void	ft_pwd(void)
 {
 	char	*s;
 
 	s = getcwd(NULL, 0);
-	printf("%s\n", s);
+	if (s != NULL)
+	{
+		printf("%s\n", s);
+		free(s); 
+	}
+	else
+	{
+		perror("pwd"); 
+	}
 }

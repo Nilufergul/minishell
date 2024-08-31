@@ -1,5 +1,5 @@
 
-#include "../minishell.h"
+#include "builtins.h"
 
 void	echo_case1(char c, int *expect, int *ret)
 {
