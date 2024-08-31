@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h> // libft fonksiyonları kullanılacak
-#include <stdlib.h>
+#include "builtins.h"
 
 int ft_cd(char *path)
 {
@@ -14,7 +11,7 @@ int ft_cd(char *path)
         return 1;
     }
 
-    if (path == NULL || strcmp(path, "~") == 0)
+    if (path == NULL || ft_strncmp(path, "~", ft_strlen(path)) == 0)
     {
         char *home_dir = getenv("HOME");
         if (home_dir == NULL)
@@ -24,7 +21,7 @@ int ft_cd(char *path)
         }
         path = home_dir;
     }
-    else if (strcmp(path, "-") == 0)
+    else if (ft_strncmp(path, "-", ft_strlen(path)) == 0)
     {
         if (prev_dir[0] == '\0')
         {
@@ -41,73 +38,7 @@ int ft_cd(char *path)
         return 1;
     }
 
-    strcpy(prev_dir, current_dir);
+    ft_strlcpy(prev_dir, current_dir, sizeof(prev_dir));
 
     return 0;
 }
-
-//TEST İÇİN MAİN
-
-/*
-int main()
-{
-    char command[256];
-    char *args[10];
-    int running = 1;
-
-    while (running)
-    {
-        char cwd[1024];
-        if (getcwd(cwd, sizeof(cwd)) != NULL)
-        {
-            printf("%s$ ", cwd);
-        }
-        else
-        {
-            perror("getcwd");
-            exit(1);
-        }
-
-        if (fgets(command, sizeof(command), stdin) == NULL)
-        {
-            printf("\n");
-            continue;
-        }
-
-        command[strcspn(command, "\n")] = '\0';
-
-        int i = 0;
-        char *token = strtok(command, " ");
-        while (token != NULL && i < 10)
-        {
-            args[i++] = token;
-            token = strtok(NULL, " ");
-        }
-        args[i] = NULL;
-
-        if (args[0] != NULL && strcmp(args[0], "cd") == 0)
-        {
-            if (args[1] == NULL)
-            {
-                ft_cd(NULL);
-            }
-            else
-            {
-                ft_cd(args[1]);
-            }
-        }
-        // Eğer komut "exit" ise programdan çık
-        else if (args[0] != NULL && strcmp(args[0], "exit") == 0)
-        {
-            running = 0;
-        }
-        // Diğer komutlar için mesaj yazdır
-        else
-        {
-            printf("Komut: %s\n", command);
-        }
-    }
-
-    return 0;
-}
-*/
