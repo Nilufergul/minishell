@@ -104,6 +104,7 @@ int	echo_case3(char c, int *expect, int *ret, int *n_count);
 void	pwd(void);
 void routine(t_mini *mini);
 void adding_space(t_mini *mini, char s);
+void remove_quotes(t_split *split);
 
 // split func
 
@@ -130,5 +131,12 @@ int	redir_plus_pipe_two(char *input);
 int	double_pipe(char *input);
 int	is_pipe_last(char *input);
 int	is_pipe_first(char *input);
+
+void ft_env(t_mini *mini ,char** environ);
+int env_size(char **environ);
+void running_shell(t_mini *mini);
+void lexer(t_mini *mini);
+void routine(t_mini *mini);
+
 
 #endif
