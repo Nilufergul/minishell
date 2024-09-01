@@ -8,7 +8,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
-# include <stdlib.h>
 # include <sys/stat.h>
 # include <dirent.h>
 # include <string.h>
@@ -89,54 +88,141 @@ typedef struct s_gc_col // GARBAGE COLLECTOR
 	struct s_gc_col *next;
 }				t_gc_col;
 
-void    get_env(t_mini *built ,char** environ);
-int		env_size(char **environ);
-void ft_env(t_mini *mini ,char** environ);
-int quote_checker_1(t_mini *mini);
-void space_delete(char *line, int i);
-void space(t_mini *mini);
-int	echo_main(char *s);
-int	echo_index(char *s);
-void	echo_incn(char c, int *n);
+
+//execute...
+//cd
+int ft_cd(char *path);
+//echo_helper
 void	echo_case1(char c, int *expect, int *ret);
-int	echo_case2(char c, int *expect, int *ret);
-int	echo_case3(char c, int *expect, int *ret, int *n_count);
-void	pwd(void);
-void routine(t_mini *mini);
+int     echo_case2(char c, int *expect, int *ret);
+int     echo_case3(char c, int *expect, int *ret, int *n_count);
+void	echo_incn(char c, int *n);
+int     echo_index(char *s);
+//echo_main
+int	echo_main(char *s);
+//env
+int	ft_environment(t_mini *mini);
+//exit
+static int	check_argument(char *arg);
+static void	exit_handling(char **args, int i);
+void	ft_exit(char **args);
+//export
+void *ft_realloc(void *ptr, size_t current_size, size_t new_size);
+int is_valid(const char *str);
+void print_export(t_mini *mini);
+void create_update(t_mini *mini, const char *name, const char *value);
+void ft_export(t_mini *mini, char *args[]);
+//pwd
+void	ft_pwd(void);
+//unset
+int is_valid_unset(const char *str);
+void ft_unset(t_mini *mini, char *args[]);
+
+
+//parser...
+//adding_space
+void quote_check_meta(char *str, int *i);
+void shift_and_insert(char *str, int *len, int pos);
+int count_meta_character(char *str, char s);
 void adding_space(t_mini *mini, char s);
+//dollar_sign
+char *dollar_exp(t_split *split, char *s);
+int vary_check(t_mini *mini, char *var);
+char *value_ret(t_mini *mini, int p);
+char *dollar_checker(t_split *split, char *s, t_mini *mini);
+int	handle_dollar(t_split *split, t_mini *mini);
+//dollar_utils
+int count_substr(const char *str, const char *sub);
+char *allocate_new_node(const char *node, const char *var, const char *value);
+void replace_substr_in_node(char *new_node, const char *node, const char *var, const char *value) ;
+void replace_node_substr(t_split *node_struct, const char *var, const char *value);
+int 	quoted_dollar(t_split *split);
+void expander(t_split *split, t_mini *mini);
+//parser  bu????????????????????????????????????????? bu gerekli mi syntaxta yok mu zaten
+int quote_checker_1(t_mini *mini);
+void space(t_mini *mini);
+void space_delete(char *line, int i);
+//removing_quotes
+void quotes(t_split *split);
 void remove_quotes(t_split *split);
-
-// split func
-
+//split
+enum type	meta_type_2(int i, char *str);
+enum type meta_type(char *str);
+t_split	*sub_node(const char *str, unsigned int start, size_t len);
+void	add_to_list(t_split **head, const char *line, int start, int end);
+t_split	*splitter(t_mini *mini);
+//split_for_exe
+void fd_zero(t_fd *fd);
+void cmd_to_lower(char *str);
+void line_zero(t_line *line);
+void start_new_list_fd(t_line *line);
+void start_next_list_line(t_line **line);
+void add_next_list_fd(t_fd *fd);
+void add_new_list_line(t_line *line);
+void line_list_file(t_split *tmp, t_line *line);
+void take_types(t_split *split, t_line *line);
+void line_list_arg(t_split *tmp, t_line *line);
+t_line *split_for_exe(t_split *split);
+//split_utils
+void	skip_quotes(const char *line, int *i);
 void	skip_spaces(const char *line, int *i);
 void	handle_token(const char *line, int *i);
-void	skip_quotes(const char *line, int *i);
-t_split	*splitter(t_mini *mini);
 
-// syntax files
 
+// syntax...
+//check the syntax
+int	redirect_check(char *input);
+int	all_closed_quotes(const char *input);
+int	backslash_check(char *input);
+int	semicolon_check(char *input);
+int	check_the_syntax(t_mini *mini);
+//pipe_check
+int	is_pipe_first(char *input);
+int	is_pipe_last(char *input);
+int	double_pipe(char *input);
+int	redir_plus_pipe_two(char *input);
+int	redir_plus_pipe(char *input);
+//print_utils
+int	print_syntax_error_quote();
+int	print_syntax_error_pipe();
+int	print_unexpected_char_error();
+int	print_syntax_error_redir();
+//redir_check
+int	mixed_redir(char *input);
+int	mixed_redir_three(char *input);
+int	mixed_redir_four(char *input);
+int	mixed_redir_two(char *input);
+int	last_arg_is_redir(char *input);
+
+
+//utils...
+//garbage
+t_gc_col	*garbage_collector(t_gc_col *garb, void *gp);
+void	free_garb(t_gc_col *garb);
+//struct_utils
+t_line *create_new_line(char *cmd_str);
+t_fd *create_new_fd(int fd, char *name);
+t_ty *create_new_ty(int type);
+void append_line(t_line **head, t_line *new_line);
+void append_fd(t_fd **head, t_fd *new_fd);
+//struct_utils2
+void append_ty(t_ty **head, t_ty *new_ty);
+int add_arg(char ***arg, char *new_arg);
+int struct_len(t_line *head);
+char *join_args_with_spaces(char **arg);
+//syntax_utils
 int	pass_the_spaces(char *input, int i);
 int	pass_the_quotes(char c, int quote);
-int	print_syntax_error_redir();
-int	print_unexpected_char_error();
-int	print_syntax_error_pipe();
-int	print_syntax_error_quote();
-int	last_arg_is_redir(char *input);
-int	mixed_redir_two(char *input);
-int	mixed_redir_four(char *input);
-int	mixed_redir_three(char *input);
-int	mixed_redir(char *input);
-int	redir_plus_pipe(char *input);
-int	redir_plus_pipe_two(char *input);
-int	double_pipe(char *input);
-int	is_pipe_last(char *input);
-int	is_pipe_first(char *input);
 
+
+//minishell_main // ennvler bölüncek
+t_mini *init_mini(t_mini *mini, char** environ);
+int env_size(char **environ);;
 void ft_env(t_mini *mini ,char** environ);
-int env_size(char **environ);
 void running_shell(t_mini *mini);
 void lexer(t_mini *mini);
 void routine(t_mini *mini);
+
 
 
 #endif
