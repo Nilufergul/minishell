@@ -8,7 +8,7 @@ void fd_zero(t_fd *fd)
 	fd->type = -1;
 }
 
-void cmd_to_lower(char *str)
+char *cmd_to_lower(char *str)
 {
 	int i;
 
@@ -21,6 +21,7 @@ void cmd_to_lower(char *str)
 		}
 		i++;
 	}
+	return (str);
 }
 
 void line_zero(t_line *line)
@@ -64,7 +65,7 @@ void add_next_list_fd(t_fd *fd)
 	fd_zero(tmp);
 	fd->next = tmp;
 }
-
+// liste oluşturmalar güncellenicek.
 void add_new_list_line(t_line *line)
 {
 	t_line *tmp;
@@ -79,118 +80,102 @@ void add_new_list_line(t_line *line)
 
 void line_list_file(t_split *tmp, t_line *line)
 {
-	int i;
-
-	i = 0;
-	while(tmp && tmp->meta != PIPE) //					bu func larda tmp oluşturmana muhtemelen gerek yok çünkü ana func da adresleri saklıyoruz
-	{
 		line->fd->name = tmp->node;
 		line->fd->type = tmp->meta;
-		add_next_list_fd(line->fd); // 									fd nin başlangıcını tutmamız gerekiyor mu ???????????? 
+		add_next_list_fd(line->fd); 
 		line->fd = line->fd->next;
 		tmp = tmp->next;
-	}
 }
 
-void take_types(t_split *split, t_line *line)
+int ft_args_len(t_split *split)
 {
-	t_fd *tmp;															// fd nin adresini tmp de mi nerede tutmak lazım bunu çöz
-	tmp = line->fd;
-	if(split->meta == GREAT || split->meta == GREATER)
+	t_split *tmp;
+	tmp = split;
+	int i;
+	i = 0;
+	while(tmp && tmp->meta != PIPE && is_redir(tmp))
 	{
-		line->fd->name = split->next->node;
-		tmp->type = split->meta;
-		tmp->file = -1; // check this;
-		add_next_list_fd(line->fd);  // fd nin başlangıcını tutmamız gerekiyor mu ???????????? 
-		line->fd = line->fd->next; // yeni liste oluşturma func
+		while(tmp->node[i])
+			i++;
+		if(tmp->next != NULL)
+			tmp = tmp->next;
+		else
+			break;
 	}
-	else if(split->meta == LESS)
-	{
-		line->fd->name = split->prev->node; // 																							prev node çekmicez bunu düzelt hepsini tek if de yapabilirsin artık
-		line->fd->type = split->meta;
-		line->fd->file = -1; // check this;
-		add_next_list_fd(line->fd);  // fd nin başlangıcını tutmamız gerekiyor mu ???????????? 
-		line->fd = line->fd->next; // yeni liste oluşturma func
-	}
-	else if(split->meta == HEREDOC)
-	{
-		line->fd->type = split->meta;
-		line->fd->name = NULL;
-		line->fd->file = -1;
-		add_next_list_fd(line->fd);  // fd nin başlangıcını tutmamız gerekiyor mu ???????????? galiba line structının tmp sinde kullanılan fd boş bir fd oluyo zaten ama emin değilim.
-		line->fd = line->fd->next; // yeni liste oluşturma func
-	}
+	return (i);
 }
 
-void line_list_arg(t_split *tmp, t_line *line)
+void line_list_arg(t_split *tmp, t_line *line) // ABORT
 {
 	int i;
 
 	i = 0;
-	line->arg = malloc(sizeof(char *) * 10 + 1); // burda arg sayısı kadar yer acmak gerkli burası cokomelli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?????????????????????????????????????????
-	while(tmp) // echo adsadsa >> b.txt de adsadsa diye dosya açmıyo o yüzden echo özel durum redir ya da pipe görene kadar argüman olarak alsın
+	line->arg = malloc(ft_args_len(tmp) * sizeof(char **)); // burda arg sayısı kadar yer acmak gerkli burası cokomelli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?????????????????????????????????????????
+	while(tmp && tmp->meta != PIPE && is_redir(tmp)) // echo adsadsa >> b.txt de adsadsa diye dosya açmıyo o yüzden echo özel durum redir ya da pipe görene kadar argüman olarak alsın SOLVED ACCES LE DOSYAYI DENİCEZ
 	{
-		if(tmp->meta != PIPE && tmp->meta != GREAT && tmp->meta != GREATER && tmp->meta != LESS && tmp->meta != HEREDOC)
-		{
-			line->arg[i] = malloc(sizeof(tmp->node)); // gerekli mi?
-			line->arg[i] = tmp->node; // buna yer açılmıyor o yuzden seg yiyo olabilir
-			i++;
-		}
-		// line arg icin double pointer yer acmak icin kac arguman oldugunu bilip ona yer acıp sonrasında uzunlugu kadar da acmak lazım
-		
+		line->arg[i] = malloc(ft_strlen(tmp->node) * sizeof(char));
+		line->arg[i] = tmp->node; // strcpy??*
+		i++;
 		tmp = tmp->next;
+		// line arg icin double pointer yer acmak icin kac arguman oldugunu bilip ona yer acıp sonrasında uzunlugu kadar da acmak lazım
 	}
 	line->arg[i] = NULL;
 }
 
-t_line *split_for_exe(t_split *split) // denenmedi. // HEREDOC KOŞULLARI BİLİNMEDİĞİ İÇİN EKLENMEDİ ONLARI ÖĞRENİP GÜNCELLİCEZ.
+int is_redir(t_split *split)
 {
 	t_split *tmp;
+	tmp = split;
+	if(tmp->meta == 1 || tmp->meta == 3 || tmp->meta == 4 || tmp->meta == 5)
+		return (1);
+	return 0;
+}
+
+t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOŞULLARI BİLİNMEDİĞİ İÇİN EKLENMEDİ ONLARI ÖĞRENİP GÜNCELLİCEZ.
+{
+	t_split *tmp_spl;
 	int flag_pipe;
 	t_line *line;
 	t_line *tmp2;
-	int arg_check;
 
-	tmp = split;
-	arg_check = 0;
+	tmp_spl = split;
 	flag_pipe = 1;
 	line = NULL; 
 	start_next_list_line(&line);
 	start_new_list_fd(line);
 	tmp2 = line;
-	while(tmp)
+	while(tmp_spl)
 	{
-		if(flag_pipe == 1)
+		if(flag_pipe == 1)  // açılabiliyo mu sonraki node u redir mi check i atılcak dosyalraa
 		{
-			line->cmd = tmp->node;
+			if(tmp_spl == NULL)
+				break;
+			line->cmd = cmd_to_lower(tmp_spl->node);
 			flag_pipe = 0;
-			cmd_to_lower(line->cmd);
-			tmp = tmp->next;
-			if(ft_strncmp(line->cmd,"cat",ft_strlen(line->cmd))) // ya cat olucak ya da redirect ten sonrakiler file olcak o yüzden echo ya değil cat e özel durum yazman lazım // bir de echo ya özel yazılcak onları da txt olarak değil arg olarak alıcak heredoc görene kadar. 
-			{
-				line_list_file(tmp, tmp2); // file alıcaz
-			}
+			tmp_spl = tmp_spl->next;
+			if(tmp_spl == NULL)
+				break;
 		}
-		if(tmp->meta == EXCEPT && flag_pipe == 0 && arg_check == 0)// && tmp->meta != PIPE) //-> bu kontrol gerekli mi
+		if(tmp_spl->meta == EXCEPT && flag_pipe == 0)// && tmp->meta != PIPE) //-> bu kontrol gerekli mi
 		{
-			arg_check = 1;
-			line_list_arg(tmp, tmp2);
+			line_list_arg(tmp_spl, tmp2);
 		}
-		if(tmp->meta != EXCEPT && tmp->meta != PIPE) // meta karakterden sonraki argumanu almıuyor
+		else if(tmp_spl->meta == GREAT || tmp_spl->meta == GREATER)
 		{
-			line_list_file(tmp, tmp2);
+			tmp_spl = tmp_spl->next;
+			line_list_file(tmp_spl, tmp2);
 		}
-		if(tmp->meta == PIPE)
+		if(tmp_spl->meta == PIPE)
 		{
-			arg_check = 0;
 			flag_pipe = 1;
-			tmp = tmp->next;
+			tmp_spl = tmp_spl->next;
 			add_new_list_line(tmp2); // yeni liste oluşturma func_2
+			tmp2->env_line = mini->env;
 			tmp2 = tmp2->next;
-			start_new_list_fd(tmp2); // yeni listenin fd si başlatılcak. 
+			start_new_list_fd(tmp2); // yeni listenin fd si başlatılcak.
 		}
 		else
-			tmp = tmp->next;
+			tmp_spl = tmp_spl->next;
 	} // 									 en son herşey bitince adresleri geri iade mi ediyoduk ?????????????
 	return(line);
 }
