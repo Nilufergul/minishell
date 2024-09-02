@@ -69,9 +69,15 @@ void lexer(t_mini *mini)
 void routine(t_mini *mini)
 {
 	t_split *split;
-	//check_the_syntax(mini); boş inputu handle la
+	if(!check_the_syntax(mini))
+	{
+		return ;
+	}
 	lexer(mini);
 	split = splitter(mini);
+	expander(split, mini);
+	remove_quotes(split);
+	//split for exe to  t_line
 	while(split)
 	{
 		printf("%s\n", split->node);
