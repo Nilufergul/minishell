@@ -58,7 +58,7 @@ typedef struct s_split
 
 typedef struct s_fd
 {
-	int file;
+	int fd;
 	int	type;
 	char *name;
 	struct s_fd *next;
@@ -68,6 +68,7 @@ typedef struct  s_line
 {
 	char	*cmd;
 	char	**arg;
+	char 	***env;
 	//struct	s_ty    *type;
 	struct  s_fd    *fd;
 	//struct  t_mini  *minis;
@@ -163,7 +164,7 @@ void add_new_list_line(t_line *line);
 void line_list_file(t_split *tmp, t_line *line);
 void take_types(t_split *split, t_line *line);
 void line_list_arg(t_split *tmp, t_line *line);
-t_line *split_for_exe(t_split *split);
+t_line *split_for_exe(t_split *split, t_mini *mini);
 //split_utils
 void	skip_quotes(const char *line, int *i);
 void	skip_spaces(const char *line, int *i);
@@ -201,8 +202,8 @@ int	last_arg_is_redir(char *input);
 t_gc_col	*garbage_collector(t_gc_col *garb, void *gp);
 void	free_garb(t_gc_col *garb);
 //struct_utils
-t_line *create_new_line(char *cmd_str);
-t_fd *create_new_fd(int fd, char *name);
+t_line *create_new_line(char *cmd_str, char ***env);
+t_fd *create_new_fd(char *name, int type);
 t_ty *create_new_ty(int type);
 void append_line(t_line **head, t_line *new_line);
 void append_fd(t_fd **head, t_fd *new_fd);
