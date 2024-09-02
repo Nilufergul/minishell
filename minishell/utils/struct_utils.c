@@ -2,7 +2,7 @@
 #include "../minishell.h"
 
 
-t_line *create_new_line(char *cmd_str, char **env)
+t_line *create_new_line(char *cmd_str, char ***env)
 {
     t_line *new_line;
     new_line = (t_line *)malloc(sizeof(t_line));
