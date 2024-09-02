@@ -213,21 +213,28 @@ char *go_exe(char *str, char **arr)
 }
 /*
 
-
+    3 adet komut olusturuldu
     t_line *komut1;
     t_line *komut2;
     t_line *komut3;
 
-
+    3 komutun malloc vs icerigi olusturuldu komutlarin cmd kismi verilen ilk arguman oldu
     komut1 = create_new_line("pwd", env);
     komut2 = create_new_line("cd", env);
     komut3 = create_new_line("pwd", env);
 
+    eger komutlar arasinda PIPE VARSA ilk komutun adresine ikinci komut verildi ve linked list seklinde eklendiler
+    append_line(&komut1, komut2);
+    append_line(&komut1, komut3);
+
+    komut2 nin cmd si cd idi biz cd yi "cd .." seklinde calistirmak istiyoruz mesela o yuzden komut2 nin arg'ina ".." argumanini ekliyoruz
     add_arg(&(komut2->arg), "..");
 
+    create_new_fd fonksiyonuyla isim ve type belirterek yeni bir fd olusturuyoruz ve bu fd yi istedigimiz komutun fd sine ekliyoruz
     append_fd(&(komut1->fd), create_new_fd("a", 4));
     append_fd(&(komut1->fd), create_new_fd("b", 4));
 
+    calistiriyoruz
     make_pipi means run
     make_pipe(komut1, env);
     make_pipe(komut2, env);
