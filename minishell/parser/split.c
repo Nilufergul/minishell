@@ -22,7 +22,6 @@ enum type	meta_type_2(int i, char *str)
 enum type meta_type(char *str) {
     int i;
     char quote;
-    int in_quote = 0;
 
     i = 0;
     while (str[i]) {

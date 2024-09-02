@@ -1,7 +1,8 @@
 // Selman
 #include "../minishell.h"
 
-t_line *create_new_line(char *cmd_str)
+
+t_line *create_new_line(char *cmd_str, char ***env)
 {
     t_line *new_line;
     new_line = (t_line *)malloc(sizeof(t_line));
@@ -12,8 +13,9 @@ t_line *create_new_line(char *cmd_str)
     if (new_line->cmd == NULL)
     {
         free(new_line);
-        return NULL; 
+        return NULL;
     }
+    new_line->env = env;
     new_line->arg = NULL;
     new_line->type = NULL;
     new_line->fd = NULL;
@@ -22,19 +24,20 @@ t_line *create_new_line(char *cmd_str)
     return new_line;
 }
 
-t_fd *create_new_fd(int fd, char *name)
+t_fd *create_new_fd(char *name, int type)
 {
     t_fd *new_fd;
 
     new_fd = (t_fd *)malloc(sizeof(t_fd));
     if (new_fd == NULL)
-        return NULL; 
-    new_fd->fd = fd;
+        return NULL;
+    new_fd->fd = -1;
     new_fd->name = ft_strdup(name);
+    new_fd->type = type;
     if (new_fd->name == NULL)
     {
         free(new_fd);
-        return NULL; 
+        return NULL;
     }
     new_fd->next = NULL;
     return new_fd;
@@ -46,8 +49,8 @@ t_ty *create_new_ty(int type)
 
     new_ty = (t_ty *)malloc(sizeof(t_ty));
     if (new_ty == NULL)
-        return NULL; 
-    new_ty->type = &type;
+        return NULL;
+    new_ty->type = type;
     new_ty->next = NULL;
     return new_ty;
 }
@@ -108,7 +111,7 @@ int add_arg(char ***arg, char *new_arg)
         i++;
     new_arg_list = (char **)malloc(sizeof(char *) * (i + 2));
     if (new_arg_list == NULL)
-        return -1; 
+        return -1;
     j = -1;
     while (++j < i)
     {
@@ -119,11 +122,11 @@ int add_arg(char ***arg, char *new_arg)
     if (new_arg_list[i] == NULL)
     {
         free(new_arg_list);
-        return -1; 
+        return -1;
     }
     new_arg_list[i + 1] = NULL;
     *arg = new_arg_list;
-    return 0; 
+    return 0;
 }
 
 int struct_len(t_line *head)
@@ -141,39 +144,103 @@ int struct_len(t_line *head)
     return len;
 }
 
-char *join_args_with_spaces(char **arg)
+int fd_len(t_fd **head)
 {
-    int total_length = 0;
-    int num_args = 0;
+    int res;
+    t_fd *current;
 
-    if (arg == NULL || *arg == NULL)
-        return NULL; 
-
-    while (arg[num_args])
+    res = 0;
+    current = *head;
+    if (current != NULL)
     {
-        total_length += strlen(arg[num_args]);
-        num_args++;
+        res += 1;
+        current = current->next;
     }
+    return (res);
+}
 
-    total_length += num_args - 1;
+char *go_exe(char *str, char **arr)
+{
+    size_t total_length = 0;
+    size_t str_len = 0;
+    int num_strings = 0;
+    char *result = NULL;
+    char *current_pos = NULL;
+    size_t i = 0;
 
-    char *result = (char *)malloc(total_length + 2);
-    if (result == NULL)
-        return NULL; 
-    char *current_pos = result;
-    *current_pos = ' ';
-    current_pos++;
-    for (int i = 0; i < num_args; i++)
+    if (str != NULL)
     {
-        size_t len = ft_strlen(arg[i]);
-        ft_memcpy(current_pos, arg[i], len);
-        current_pos += len;
-        if (i < num_args - 1)
+        str_len = strlen(str);
+        total_length += str_len;
+        num_strings++;
+    }
+    while (arr != NULL && arr[num_strings - 1] != NULL)
+    {
+        total_length += strlen(arr[num_strings - 1]);
+        num_strings++;
+    }
+    if (num_strings > 1)
+        total_length += num_strings - 1;
+    result = (char *)malloc(total_length + 1);
+    if (result == NULL)
+        return NULL;
+
+    current_pos = result;
+    if (str != NULL)
+    {
+        strcpy(current_pos, str);
+        current_pos += str_len;
+        if (arr != NULL && arr[0] != NULL)
         {
             *current_pos = ' ';
             current_pos++;
         }
     }
+    i = 0;
+    while (arr != NULL && arr[i] != NULL)
+    {
+        strcpy(current_pos, arr[i]);
+        current_pos += strlen(arr[i]);
+        if (arr[i + 1] != NULL)
+        {
+            *current_pos = ' ';
+            current_pos++;
+        }
+        i++;
+    }
     *current_pos = '\0';
     return result;
 }
+/*
+
+    3 adet komut olusturuldu
+    t_line *komut1;
+    t_line *komut2;
+    t_line *komut3;
+
+    3 komutun malloc vs icerigi olusturuldu komutlarin cmd kismi verilen ilk arguman oldu
+    komut1 = create_new_line("pwd", env);
+    komut2 = create_new_line("cd", env);
+    komut3 = create_new_line("pwd", env);
+
+    eger komutlar arasinda PIPE VARSA ilk komutun adresine ikinci komut verildi ve linked list seklinde eklendiler
+    append_line(&komut1, komut2);
+    append_line(&komut1, komut3);
+
+    komut2 nin cmd si cd idi biz cd yi "cd .." seklinde calistirmak istiyoruz mesela o yuzden komut2 nin arg'ina ".." argumanini ekliyoruz
+    add_arg(&(komut2->arg), "..");
+
+    create_new_fd fonksiyonuyla isim ve type belirterek yeni bir fd olusturuyoruz ve bu fd yi istedigimiz komutun fd sine ekliyoruz
+    append_fd(&(komut1->fd), create_new_fd("a", 4));
+    append_fd(&(komut1->fd), create_new_fd("b", 4));
+
+    calistiriyoruz
+    make_pipi means run
+    make_pipe(komut1, env);
+    make_pipe(komut2, env);
+
+
+
+
+
+*/
