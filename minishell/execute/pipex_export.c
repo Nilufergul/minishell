@@ -57,52 +57,52 @@ void print_export(char **env)
 	}
 }
 
-void create_update(char ***env, const char *name, const char *value)
+void create_update(char **env, const char *name, const char *value)
 {
 	int i = 0;
 	size_t name_len = ft_strlen(name);
 	size_t value_len = ft_strlen(value);
 	size_t total_len = name_len + value_len + 2;
 
-	while ((*env)[i] != NULL)
+	while (env[i] != NULL)
 	{
-		if (ft_strncmp((*env)[i], name, name_len) == 0 && (*env)[i][name_len] == '=')
+		if (ft_strncmp(env[i], name, name_len) == 0 && env[i][name_len] == '=')
 		{
-			free((*env)[i]);
+			free(env[i]);
 
-			(*env)[i] = malloc(total_len);
-			if ((*env)[i] == NULL)
+			env[i] = malloc(total_len);
+			if (env[i] == NULL)
 				return;
 
-			ft_strlcpy((*env)[i], name, total_len);
-			(*env)[i][name_len] = '=';
-			ft_strlcpy((*env)[i] + name_len + 1, value, total_len - name_len - 1);
+			ft_strlcpy(env[i], name, total_len);
+			env[i][name_len] = '=';
+			ft_strlcpy(env[i] + name_len + 1, value, total_len - name_len - 1);
 
 			return;
 		}
 		i++;
 	}
 
-	*env = ft_realloc(*env, sizeof(char *) * (i + 1), sizeof(char *) * (i + 2));
-	if (*env == NULL)
+	env = ft_realloc(env, sizeof(char *) * (i + 1), sizeof(char *) * (i + 2));
+	if (env == NULL)
 		return;
 
-	(*env)[i] = malloc(total_len);
-	if ((*env)[i] == NULL)
+	env[i] = malloc(total_len);
+	if (env[i] == NULL)
 		return;
 
-	ft_strlcpy((*env)[i], name, total_len);
-	(*env)[i][name_len] = '=';
-	ft_strlcpy((*env)[i] + name_len + 1, value, total_len - name_len - 1);
+	ft_strlcpy(env[i], name, total_len);
+	env[i][name_len] = '=';
+	ft_strlcpy(env[i] + name_len + 1, value, total_len - name_len - 1);
 
-	(*env)[i + 1] = NULL;
+	env[i + 1] = NULL;
 }
 
-void ft_export(char ***env, char *args[])
+void ft_export(char **env, char *args[])
 {
 	if (args[1] == NULL)
 	{
-		print_export(*env);
+		print_export(env);
 	}
 	else
 	{
