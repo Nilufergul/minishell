@@ -87,10 +87,9 @@ int 	quoted_dollar(t_split *split)
     int i;
     
     i = 0;
-    
     while (split->node[i] != '\0') 
 	{
-        if ((split->node[i] == '$') && (split->node[i + 1] == '\"' && split->node[i + 1] == '\''))
+        if ((split->node[i] == '$') && (split->node[i + 1] == '\"' || split->node[i + 1] == '\''))
         {
            return 1;
         }
@@ -101,16 +100,20 @@ int 	quoted_dollar(t_split *split)
 
 void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
 {
-	while(split->node)
+	while(split)
 	{
-		if(handle_dollar(split, mini))
-		{	
+		if(split->meta == DOLLAR)
+		{
 			if(quoted_dollar(split))
 			{
-				replace_node_substr(split, "$", "");
+				if(!(split->node[0] == '\"' || split->node[0] == '\''))
+				{
+					replace_node_substr(split,"$", "a");
+				}
 			}
+			else
+				handle_dollar(split, mini);
 		}
-		//split = split->next;
+		split = split->next;
 	}
-
 }
