@@ -91,14 +91,21 @@ int	mixed_redir_two(char *input)
 int	last_arg_is_redir(char *input)
 {
 	int	i;
+	char red;
+	
 
 	i = 0;
 	while (input[i])
+	{
+		if (input[i] == '<' || input[i] == '>')
+		{
+			red = input[i];
+			i += 1;
+			i = pass_the_spaces(input, i);
+			if (input[i] == red || input[i] == '\0')
+				return (1);
+		}
 		i++;
-	i--;
-	while (input[i] == ' ')
-		i--;
-	if (input[i] == '>' || input[i] == '<')
-		return (1);
+	}
 	return (0);
 }
