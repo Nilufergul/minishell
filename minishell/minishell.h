@@ -69,9 +69,8 @@ typedef struct  s_line
 	char	*cmd;
 	char	**arg;
 	char 	***env;
-	//struct	s_ty    *type;
-	struct  s_fd    *fd;
-	//struct  t_mini  *minis;
+	struct  s_fd    *right;
+	struct 	s_fd 	*left;
 	struct  s_line  *next;
 }				t_line;
 

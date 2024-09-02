@@ -20,9 +20,14 @@ int is_redir(t_split *split)
 	return 0;
 }
 
-void line_list_file(t_split *tmp, t_line *line)
+void line_list_file_right(t_split *tmp, t_line *line)
 {
-	append_fd(&(line->fd), create_new_fd(tmp->node, tmp->meta));
+	append_fd(&(line->right), create_new_fd(tmp->node, tmp->meta));
+}
+
+void line_list_file_left(t_split *tmp, t_line *line)
+{
+	append_fd(&(line->left), create_new_fd(tmp->node, tmp->meta));
 }
 
 void line_list_arg(t_split *tmp, t_line *line)
@@ -67,7 +72,12 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		else if(tmp_spl->meta == GREAT || tmp_spl->meta == GREATER)
 		{
 			tmp_spl = tmp_spl->next;
-			line_list_file(tmp_spl, tmp2);
+			line_list_file_right(tmp_spl, tmp2);
+		}
+		else if(tmp_spl->meta == LESS || tmp_spl->meta == HEREDOC)
+		{
+			tmp_spl == tmp_spl->next;
+			line_list_file_left(tmp_spl, tmp2);
 		}
 		if(tmp_spl->meta == PIPE)
 		{
