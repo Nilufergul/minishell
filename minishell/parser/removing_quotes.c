@@ -1,9 +1,32 @@
 #include "../minishell.h"
 
+int quote_checker_1(t_mini *mini)
+{
+	int i;
+	char quote;
+	
+	i = 0;
+	while(mini->line[i])
+	{
+		if(mini->line[i] == '\"' || mini->line[i] == '\'')
+		{
+			quote = mini->line[i];
+			i++;
+			while(mini->line[i] && mini->line[i] != quote)
+			{
+				i++;
+			}
+			if(mini->line[i] == '\0')
+				return(0);
+		}
+		i++;
+	}
+	return(1);
+}
+
 void quotes(t_split *split)
 {
-	int len;
-	
+	int len;	
 
 	len = ft_strlen(split->node);
 	

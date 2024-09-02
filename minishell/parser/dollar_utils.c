@@ -108,11 +108,10 @@ void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
 			{
 				if(!(split->node[0] == '\"' || split->node[0] == '\''))
 				{
-					replace_node_substr(split,"$", "a");
+					replace_node_substr(split,"$", "");
 				}
 			}
-			else
-				handle_dollar(split, mini);
+			handle_dollar(split, mini);
 		}
 		split = split->next;
 	}

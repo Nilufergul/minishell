@@ -1,15 +1,16 @@
 #include "../minishell.h"
 
-void	skip_quotes(const char *line, int *i)
+int	skip_quotes(const char *line, int i)
 {
-	char	quote;
+	char quote;
 
-	quote = line[*i];
-	(*i)++;
-	while (line[*i] && line[*i] != quote)
-		(*i)++;
-	if (line[*i])
-		(*i)++;
+	quote = line[i];
+	i++;
+	while (line[i] && line[i] != quote)
+		i++;
+	if(line[i])
+		i++;
+	return (i);
 }
 
 void	skip_spaces(const char *line, int *i)
@@ -20,6 +21,6 @@ void	skip_spaces(const char *line, int *i)
 
 void	handle_token(const char *line, int *i)
 {
-	while (line[*i] && line[*i] != ' ' && line[*i] != '\'' && line[*i] != '\"')
+	while (line[*i] && line[*i] != ' ')
 		(*i)++;
 }

@@ -105,12 +105,13 @@ t_split	*splitter(t_mini *mini)
 		if (!mini->line[i])
 			break ;
 		start = i;
-		if (mini->line[i] == '\'' || mini->line[i] == '\"')
-			skip_quotes(mini->line, &i);
-		else
-			handle_token(mini->line, &i);
+		while (mini->line[i] == '\'' || mini->line[i] == '\"')
+			i = skip_quotes(mini->line, i);
+		handle_token(mini->line, &i);
 		if (i > start)
+		{
 			add_to_list(&head, mini->line, start, i);
+		}
 	}
 	return (head);
 }
