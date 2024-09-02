@@ -211,3 +211,29 @@ char *go_exe(char *str, char **arr)
     *current_pos = '\0';
     return result;
 }
+/*
+
+
+    t_line *komut1;
+    t_line *komut2;
+    t_line *komut3;
+
+
+    komut1 = create_new_line("pwd", env);
+    komut2 = create_new_line("cd", env);
+    komut3 = create_new_line("pwd", env);
+
+    add_arg(&(komut2->arg), "..");
+
+    append_fd(&(komut1->fd), create_new_fd("a", 4));
+    append_fd(&(komut1->fd), create_new_fd("b", 4));
+
+    make_pipi means run
+    make_pipe(komut1, env);
+    make_pipe(komut2, env);
+
+
+
+
+
+*/
