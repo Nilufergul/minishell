@@ -33,7 +33,7 @@ void	free_garb(t_gc_col *garb)
 		free(tmp);
 	}
 }
-
+/*
 #include "../minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,4 +77,4 @@ int	main(void)
 		sleep(10);
 	}
 		return (0);
-}
+}*/

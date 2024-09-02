@@ -89,7 +89,7 @@ typedef struct s_gc_col // GARBAGE COLLECTOR
 }				t_gc_col;
 
 
-//execute...
+/*execute...
 //cd
 int ft_cd(char *path);
 //echo_helper
@@ -103,8 +103,8 @@ int	echo_main(char *s);
 //env
 int	ft_environment(t_mini *mini);
 //exit
-static int	check_argument(char *arg);
-static void	exit_handling(char **args, int i);
+//static int	check_argument(char *arg);
+//static void	exit_handling(char **args, int i);
 void	ft_exit(char **args);
 //export
 void *ft_realloc(void *ptr, size_t current_size, size_t new_size);
@@ -117,6 +117,7 @@ void	ft_pwd(void);
 //unset
 int is_valid_unset(const char *str);
 void ft_unset(t_mini *mini, char *args[]);
+-*/
 
 
 //parser...
@@ -126,10 +127,10 @@ void shift_and_insert(char *str, int *len, int pos);
 int count_meta_character(char *str, char s);
 void adding_space(t_mini *mini, char s);
 //dollar_sign
-char *dollar_exp(t_split *split, char *s);
+char *dollar_exp(char *s);
 int vary_check(t_mini *mini, char *var);
 char *value_ret(t_mini *mini, int p);
-char *dollar_checker(t_split *split, char *s, t_mini *mini);
+char *dollar_checker(char *s, t_mini *mini);
 int	handle_dollar(t_split *split, t_mini *mini);
 //dollar_utils
 int count_substr(const char *str, const char *sub);

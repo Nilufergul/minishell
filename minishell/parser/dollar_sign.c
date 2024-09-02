@@ -1,6 +1,6 @@
-#include "../minishell"
+#include "../minishell.h"
 
-char *dollar_exp(t_split *split, char *s)
+char *dollar_exp(char *s)
 {
     int i;
     int j;
@@ -45,12 +45,12 @@ char *value_ret(t_mini *mini, int p) {
     return NULL;
 }
 
-char *dollar_checker(t_split *split, char *s, t_mini *mini)
+char *dollar_checker(char *s, t_mini *mini)
 {
     char *exp;
     int var_index;
 
-    exp = dollar_exp(split, s);
+    exp = dollar_exp(s);
     if (!exp)
         return NULL;
     var_index = vary_check(mini, exp);
@@ -62,20 +62,19 @@ char *dollar_checker(t_split *split, char *s, t_mini *mini)
 
 int	handle_dollar(t_split *split, t_mini *mini)
 {
-    char *exp;
     char *var;
     char *value;
 
     if (!split || !mini)
         return 0;
-    if(!dollar_exp(split, split->node)) // dolardan sonra bosluk varsa
+    if(!dollar_exp(split->node)) // dolardan sonra bosluk varsa
     {
         return 0;
     }
-    var = ft_strjoin("$",(dollar_exp(split, split->node)));
+    var = ft_strjoin("$",(dollar_exp(split->node)));
     if (!var)
         return 0;
-	value = dollar_checker(split, split->node, mini);
+	value = dollar_checker(split->node, mini);
     if (value)
         replace_node_substr(split, var, value);
     else

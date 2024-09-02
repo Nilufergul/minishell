@@ -1,4 +1,4 @@
-#include "../minishell"
+#include "../minishell.h"
 
 int count_substr(const char *str, const char *sub)
 {

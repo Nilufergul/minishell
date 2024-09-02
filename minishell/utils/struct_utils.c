@@ -15,9 +15,9 @@ t_line *create_new_line(char *cmd_str)
         return NULL; 
     }
     new_line->arg = NULL;
-    new_line->type = NULL;
+    //new_line->type = NULL;
     new_line->fd = NULL;
-    new_line->minis = NULL;
+   // new_line->minis = NULL;
     new_line->next = NULL;
     return new_line;
 }
@@ -29,7 +29,7 @@ t_fd *create_new_fd(int fd, char *name)
     new_fd = (t_fd *)malloc(sizeof(t_fd));
     if (new_fd == NULL)
         return NULL; 
-    new_fd->fd = fd;
+    new_fd->file     = fd;
     new_fd->name = ft_strdup(name);
     if (new_fd->name == NULL)
     {
@@ -44,10 +44,11 @@ t_ty *create_new_ty(int type)
 {
     t_ty *new_ty;
 
+	type = 0; // bunu duzelt
     new_ty = (t_ty *)malloc(sizeof(t_ty));
     if (new_ty == NULL)
         return NULL; 
-    new_ty->type = &type;
+    //new_ty->type = &type;
     new_ty->next = NULL;
     return new_ty;
 }

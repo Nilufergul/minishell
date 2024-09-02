@@ -1,4 +1,4 @@
-#include "./minishell.h"
+#include "../minishell.h"
 
 void	skip_quotes(const char *line, int *i)
 {
