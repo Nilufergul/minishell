@@ -1,5 +1,5 @@
 #include "../minishell.h"
-/*
+
 void cmd_to_lower(char *str)
 {
 	int i;
@@ -56,7 +56,10 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		if(flag_pipe == 1)
 		{
 			if(tmp_spl == NULL)
+			{
+				tmp_spl = tmp_spl->next;
 				break;
+			}
 			cmd_to_lower(tmp_spl->node);
 			tmp2 = create_new_line(tmp_spl, &(mini->env));
 			append_line(&line, tmp2); // yeni liste oluÅŸturma func_2
@@ -68,6 +71,7 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		if(tmp_spl->meta == EXCEPT && flag_pipe == 0)
 		{
 			line_list_arg(tmp_spl, tmp2); // ok
+			tmp_spl = tmp_spl->next;
 		}
 		else if(tmp_spl->meta == GREAT || tmp_spl->meta == GREATER)
 		{
@@ -76,10 +80,10 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		}
 		else if(tmp_spl->meta == LESS || tmp_spl->meta == HEREDOC)
 		{
-			tmp_spl == tmp_spl->next;
+			tmp_spl = tmp_spl->next;
 			line_list_file_left(tmp_spl, tmp2);
 		}
-		if(tmp_spl->meta == PIPE)
+		if(tmp_spl && tmp_spl->meta == PIPE)
 		{
 			flag_pipe = 1;
 			tmp_spl = tmp_spl->next;
@@ -88,10 +92,9 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		{
 			if(tmp_spl->next == NULL)
 				break;
-			printf("Error, can't find next");
 			tmp_spl = tmp_spl->next;
 		}
 	}
 	return(line);
 }
-*/
+
