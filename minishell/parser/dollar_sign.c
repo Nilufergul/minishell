@@ -24,22 +24,32 @@ char *dollar_exp(char *s)
     return ft_substr(s, i, j);
 }
 
-int vary_check(t_mini *mini, char *var) {
+int vary_check(t_mini *mini, char *var) 
+{
+    size_t i;
     size_t j;
+
+    i = 0;
     j = 0;
-    while (mini->env[j] != NULL) {
-        if ((strncmp(mini->env[j], var, strlen(var)) == 0) && mini->env[j][strlen(var)] == '=')
+    while (mini->env[j] != NULL) 
+    {
+        while (mini->env[j][i] == var[i]) 
+        {
+            i++;
+        }
+        if (i == ft_strlen(var)) 
             return j;
         j++;
     }
     return -1;
 }
 
-char *value_ret(t_mini *mini, int p) {
+char *value_ret(t_mini *mini, int p) 
+{
     char *value;
     if (p == -1)
         return NULL;
-    value = strchr(mini->env[p], '=');
+    value = ft_strchr(mini->env[p], '=');
     if (value)
         return value + 1;
     return NULL;
