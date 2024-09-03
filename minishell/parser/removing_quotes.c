@@ -54,6 +54,24 @@ void remove_quotes(t_split *split)
 	}
 }
 
+void dollar_quest(t_split *split)
+{
+    int i;
+
+    i = 0;
+    while (split->node[i] != '\0') 
+	{
+        if ((split->node[i] == '$') && (split->node[i + 1] == '?') && !(ft_isalnum(split->node[i + 2])))
+        {
+			printf("dolar soru işareti çalışcak.exit status\n");
+			replace_node_substr(split,"$?", "mock_exitstatus");
+            //dolar soru işareti çalışcak.exit status
+        }
+        i++;
+	}
+    
+}
+
 void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
 {
 	while(split)
@@ -67,6 +85,7 @@ void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
 					replace_node_substr(split,"$", "");
 				}
 			}
+			dollar_quest(split);
 			handle_dollar(split, mini);
 		}
 		split = split->next;
