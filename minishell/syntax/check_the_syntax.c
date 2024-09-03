@@ -70,7 +70,6 @@ int	check_the_syntax(t_mini *mini)
 		return (print_unexpected_char_error());
 	if (redirect_check(mini->line) != 0)
 		return (print_syntax_error_redir());
-	printf("%s\n", mini->line); // silincek deneme printfi
 	return (1);
 }
 
