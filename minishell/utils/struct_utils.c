@@ -17,9 +17,9 @@ t_line *create_new_line(char *cmd_str, char ***env)
     }
     new_line->env = env;
     new_line->arg = NULL;
-    new_line->type = NULL;
+    //new_line->type = NULL;
     new_line->fd = NULL;
-    new_line->minis = NULL;
+    //new_line->minis = NULL;
     new_line->next = NULL;
     return new_line;
 }
