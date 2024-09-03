@@ -1,5 +1,5 @@
 #include "../minishell.h"
-
+/*
 void cmd_to_lower(char *str)
 {
 	int i;
@@ -94,3 +94,4 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 	}
 	return(line);
 }
+*/

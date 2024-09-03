@@ -55,17 +55,6 @@ void running_shell(t_mini *mini)
 	}
 }
 
-void lexer(t_mini *mini)
-{
-	int i;
-	i = 0;
-
-	mini->line = ft_strtrim(mini->line, " "); // başta sonda bosluk silindi ;)
-	adding_space(mini, '>');
-	adding_space(mini, '<');
-	adding_space(mini, '|'); // metaların soluna sağına boşluk atıldı.
-}
-
 void routine(t_mini *mini)
 {
 	t_split *split;
@@ -84,27 +73,6 @@ void routine(t_mini *mini)
 		split = split->next;
 	}
 }
-
-/*void routine(t_mini *mini)
-{
-	//lexer  
-	 pipe
-	redirect mixed
-	open quote
-	
-	
-	//parser
-	gereksiz boslukları silme(başta ve sonda)
-	$(real) aç (metalara  tırnak at)" "
-	meta char ayır(bosluk at)
-	gerçek bosluğa ayır (nodea falan)(split)
-	meta char leri ayır
-	gereksiz tırnak sil (backslash ??)
-
-
-	//exe
-*/
-
 
 int main(int argc, char** argv,char** environ)
 {

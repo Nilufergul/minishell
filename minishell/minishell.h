@@ -126,6 +126,7 @@ void quote_check_meta(char *str, int *i);
 void shift_and_insert(char *str, int *len, int pos);
 int count_meta_character(char *str, char s);
 void adding_space(t_mini *mini, char s);
+void lexer(t_mini *mini);
 //dollar_sign
 char *dollar_exp(char *s);
 int vary_check(t_mini *mini, char *var);
@@ -138,13 +139,10 @@ char *allocate_new_node(const char *node, const char *var, const char *value);
 void replace_substr_in_node(char *new_node, const char *node, const char *var, const char *value) ;
 void replace_node_substr(t_split *node_struct, const char *var, const char *value);
 int 	quoted_dollar(t_split *split);
-void expander(t_split *split, t_mini *mini);
-//parser  bu????????????????????????????????????????? bu gerekli mi syntaxta yok mu zaten
-int quote_checker_1(t_mini *mini);
-void space(t_mini *mini);
-void space_delete(char *line, int i);
 //removing_quotes
+void 	expander(t_split *split, t_mini *mini);
 void quotes(t_split *split);
+void	char_remove(t_split *split, int i);
 void remove_quotes(t_split *split);
 //split
 enum type	meta_type_2(int i, char *str);
@@ -165,7 +163,7 @@ void take_types(t_split *split, t_line *line);
 void line_list_arg(t_split *tmp, t_line *line);
 t_line *split_for_exe(t_split *split, t_mini *mini);
 //split_utils
-void	skip_quotes(const char *line, int *i);
+int		skip_quotes(const char *line, int i);
 void	skip_spaces(const char *line, int *i);
 void	handle_token(const char *line, int *i);
 

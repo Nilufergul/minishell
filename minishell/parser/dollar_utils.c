@@ -8,9 +8,9 @@ int count_substr(const char *str, const char *sub)
 
 	count = 0;
 	tmp = str;
-	sub_len = strlen(sub);
+	sub_len = ft_strlen(sub);
     
-    while ((tmp = strnstr(tmp, sub , strlen(tmp))) != NULL) {
+    while ((tmp = ft_strnstr(tmp, sub , ft_strlen(tmp))) != NULL) {
         count++;
         tmp += sub_len;
     }
@@ -52,9 +52,9 @@ void replace_substr_in_node(char *new_node, const char *node, const char *var, c
     new_len = strlen(value);
     while (*str) 
     {
-        if (strnstr(str, var, strlen(str)) == str) 
+        if (ft_strnstr(str, var, ft_strlen(str)) == str) 
         {
-            strlcpy(pos, value, new_len + 1);
+            ft_strlcpy(pos, value, new_len + 1);
             pos += new_len;
             str += old_len;
         } 
@@ -96,23 +96,4 @@ int 	quoted_dollar(t_split *split)
         i++;
     }
 	return 0;
-}
-
-void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
-{
-	while(split)
-	{
-		if(split->meta == DOLLAR)
-		{
-			if(quoted_dollar(split))
-			{
-				if(!(split->node[0] == '\"' || split->node[0] == '\''))
-				{
-					replace_node_substr(split,"$", "");
-				}
-			}
-			handle_dollar(split, mini);
-		}
-		split = split->next;
-	}
 }
