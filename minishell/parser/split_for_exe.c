@@ -86,7 +86,7 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		}
 		else
 		{
-			if(tmp_spl == NULL)
+			if(tmp_spl->next == NULL)
 				break;
 			printf("Error, can't find next");
 			tmp_spl = tmp_spl->next;
