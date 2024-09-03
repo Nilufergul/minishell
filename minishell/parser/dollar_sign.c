@@ -60,7 +60,7 @@ char *dollar_checker(char *s, t_mini *mini)
     return NULL;
 }
 
-int	handle_dollar(t_split *split, t_mini *mini)
+int	handle_dollar(t_split *split, t_mini *mini) // olman variiablela dolar calıstımrya bakılıcak
 {
     char *var;
     char *value;
@@ -72,6 +72,10 @@ int	handle_dollar(t_split *split, t_mini *mini)
         return 0;
     }
     var = ft_strjoin("$",(dollar_exp(split->node)));
+    if(var[1] == 0 && var[2] == '\0')
+    {
+	replace_node_substr(split, var, "./minishell");
+    }
     if (!var)
         return 0;
 	value = dollar_checker(split->node, mini);
