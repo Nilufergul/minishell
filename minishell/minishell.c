@@ -68,7 +68,7 @@ void routine(t_mini *mini)
 	remove_quotes(split);
 	//split for exe to  t_line
 	//to run the line
-	make_pipe(t_line *command)
+	//make_pipe(t_line *command)
 	while(split)
 	{
 		printf("%s\n", split->node);
