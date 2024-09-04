@@ -53,7 +53,7 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 	tmp2 = line;
 	while(tmp_spl)
 	{
-		if(flag_pipe == 1)
+		if(flag_pipe == 1 && !is_redir(tmp_spl)
 		{
 			if(tmp_spl == NULL)
 			{
