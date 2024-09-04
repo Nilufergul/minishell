@@ -74,20 +74,31 @@ void dollar_quest(t_split *split)
 
 void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
 {
+	int flag;
+
+	flag = 0;
 	while(split)
 	{
 		if(split->meta == DOLLAR)
 		{
-			if(quoted_dollar(split))
+			if(closed_quotes_index(split->node)) // dolar tırnak grubu içinde mi kalıyor
 			{
-				if(!(split->node[0] == '\"' || split->node[0] == '\''))
+				if(quoted_dollar(split))
 				{
 					replace_node_substr(split,"$", "");
 				}
+				if(closed_quotes_index(split->node) == '\'')
+				{
+					flag = 1;
+				}
 			}
-			dollar_quest(split);
-			handle_dollar(split, mini);
+			if(flag == 0)
+			{
+				dollar_quest(split);
+				handle_dollar(split, mini);
+			}
 		}
+		flag = 0;
 		split = split->next;
 	}
 }
