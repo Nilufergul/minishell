@@ -129,7 +129,7 @@ int heredoc(char *target);
 int	open_lefts(t_fd *head);
 int	built_in(t_line *command);
 int	built_in2(t_line *command);
-void	run_command_run(t_line *command);
+int	run_command_run(t_line *command);
 int	**fill_pipes(int count);
 void	close_all_pipes(int **pipes, int len);
 void	free_all_pipes(int **pipes, int len);
