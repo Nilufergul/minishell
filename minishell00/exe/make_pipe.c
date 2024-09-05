@@ -35,7 +35,7 @@ void	make_pipe(t_line *command)
 {
 	t_pipe_info	*pipe_info;
 
-	if (struct_len(command) == 1 && built_in2(command) == 1)
+	if (struct_len(command) == 1 && !run_command_run(command))
 		return ;
 	pipe_info = malloc(sizeof(t_pipe_info));
 	if (pipe_info == NULL)
@@ -48,4 +48,3 @@ void	make_pipe(t_line *command)
 	create_processes(command, pipe_info);
 	free_pipe_things(pipe_info);
 }
-
