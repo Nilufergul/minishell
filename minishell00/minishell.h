@@ -139,6 +139,7 @@ void ft_unset(char **args, char **env);
 int	ft_environment(char **env);
 void	ft_exit(char **args);
 void	make_pipe(t_line *command);
+int	built_in2(t_line *command);
 
 /*
 //exe
