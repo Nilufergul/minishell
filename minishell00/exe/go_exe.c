@@ -22,15 +22,15 @@ char	*get_copy(char *result, char **arr)
 
 int	built_in2(t_line *command)
 {
-	 if (ft_strncmp(command->cmd, "cd",ft_strlen(command->cmd)) == 0)
+	 if (ft_strcmp(command->cmd, "cd") == 0)
 		run_command_run(command);
-	else if (ft_strncmp(command->cmd, "export",ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "export") == 0)
 		run_command_run(command);
-	else if (ft_strncmp(command->cmd, "unset",ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "unset") == 0)
 		run_command_run(command);
-	else if (ft_strncmp(command->cmd, "env",ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "env") == 0)
 		run_command_run(command);
-	else if (ft_strncmp(command->cmd, "exit",ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "exit") == 0)
 		run_command_run(command);
 	else
 		return (0);
