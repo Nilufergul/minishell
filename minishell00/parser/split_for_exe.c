@@ -33,7 +33,6 @@ void line_list_file_left(t_split *tmp, t_line *line)
 
 void line_list_arg(t_split *tmp, t_line *line)
 {
-	printf("s1");
 	while(tmp && tmp->meta != PIPE)
 	{
 		if(line)
@@ -79,13 +78,11 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		if((tmp_spl->meta == GREAT || tmp_spl->meta == GREATER))
 		{
 			tmp_spl = tmp_spl->next;
-			printf("s2");
 			line_list_file_right(tmp_spl, tmp2);
 		}
 		if((tmp_spl->meta == LESS || tmp_spl->meta == HEREDOC))
 		{
 			tmp_spl = tmp_spl->next;
-			printf("s3");
 			line_list_file_left(tmp_spl, tmp2);
 		}
 		if(tmp_spl && tmp_spl->meta == PIPE)
