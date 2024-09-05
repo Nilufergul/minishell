@@ -37,7 +37,7 @@ void	make_pipe(t_line *command)
 {
 	t_pipe_info	*pipe_info;
 
-	if (struct_len(command) == 1 && !run_command_run(command))
+	if (struct_len(command) == 1 && built_in2(command))
 		return ;
 	pipe_info = malloc(sizeof(t_pipe_info));
 	if (pipe_info == NULL)
@@ -50,3 +50,21 @@ void	make_pipe(t_line *command)
 	create_processes(command, pipe_info);
 	free_pipe_things(pipe_info);
 }
+
+int	built_in2(t_line *command)
+{
+	if (ft_strcmp(command->cmd, "cd") == 0)
+		ft_cd(command->arg[0]);
+	else if (ft_strcmp(command->cmd, "export") == 0)
+		ft_export(command->arg, command->env);
+	else if (ft_strcmp(command->cmd, "unset") == 0)
+		ft_unset(command->arg, command->env);
+	else if (ft_strcmp(command->cmd, "env") == 0)
+		ft_environment(command->env);
+	else if (ft_strcmp(command->cmd, "exit") == 0)
+		ft_exit(command->arg);
+	else
+		return (0);
+	return (1);
+}
+
