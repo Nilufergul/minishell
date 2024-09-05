@@ -61,19 +61,19 @@ int	built_in(t_line *command)
 {
 	if(!command)
 		return 0;
-	if (ft_strncmp(command->cmd, "echo" , ft_strlen(command->cmd)) == 0 && command->arg)
+	if (ft_strcmp(command->cmd, "echo") == 0 && command->arg)
 		echo_main(command->arg[0]);
-	else if (ft_strncmp(command->cmd, "pwd" ,ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "pwd") == 0)
 		pwd();
-	else if (ft_strncmp(command->cmd, "cd", ft_strlen(command->cmd)) == 0 && command->arg)
+	else if (ft_strcmp(command->cmd, "cd") == 0 && command->arg)
 		ft_cd(command->arg[0]);
-	else if (ft_strncmp(command->cmd, "export" ,ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "export") == 0)
 		ft_export(command->arg, (command->env));
-	else if (ft_strncmp(command->cmd, "unset",ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "unset") == 0)
 		ft_unset(command->arg, (command->env));
-	else if (ft_strncmp(command->cmd, "env",ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "env") == 0)
 		ft_environment((command->env));
-	else if (ft_strncmp(command->cmd, "exit", ft_strlen(command->cmd)) == 0)
+	else if (ft_strcmp(command->cmd, "exit",) == 0)
 		ft_exit(command->arg);
 	else
 		return (0);
