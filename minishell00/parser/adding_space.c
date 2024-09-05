@@ -76,9 +76,6 @@ void adding_space(t_mini *mini, char s)
 
 void lexer(t_mini *mini)
 {
-	int i;
-	i = 0;
-
 	mini->line = ft_strtrim(mini->line, " "); // başta sonda bosluk silindi ;)
 	adding_space(mini, '>');
 	adding_space(mini, '<');
