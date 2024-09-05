@@ -106,8 +106,6 @@ int	last_arg_is_redir(char *input)
 				return (1);
 			if ((c == 0 && (input[i+c] == '\0')) || ((input[i+c] == red) && c == 0 && (input[i+c+1] == '\0')))
 				return (1);
-			if (c == 0 && input[i+c] == red && input[i-2] == '\0')
-				return (1);
 		}
 		i++;
 	}
