@@ -10,7 +10,7 @@ int	heredoc(char *target)
 		exit(EXIT_FAILURE);
 	while (1)
 	{
-		input = readline("nilufer heredoc:");
+		input = readline(">");
 		if (!input)
 			exit(EXIT_FAILURE);
 		if (ft_strcmp(input, target) == 0)
