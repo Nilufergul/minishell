@@ -14,5 +14,5 @@ to_do
 
 7. exit veya sacma sapan bir kapanis için free
 
-8. redirect calismiyor
+8. fd'ler olusturulurken type olarak her zaman 0 veriliyor
 
