@@ -90,7 +90,7 @@ int	run_command_run(t_line *command)
 		dup2(open_lefts(command->left), 0);
 	if (fd_len(&(command->right)) != 0)
 		dup2(open_rights(command->right), 1);
-	if (!built_in(command))
+	if (command->cmd != NULL && !built_in(command))
 	{
 		exe = get_copy(ft_strdup(command->cmd), command->arg);
 		run_exec(exe, command->env);
