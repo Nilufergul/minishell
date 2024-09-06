@@ -102,7 +102,6 @@ char	*get_path(char **env);
 char	*get_command_path(char **env, char *command);
 
 int struct_len(t_line *head);
-t_line *create_new_line(char *cmd_str, char **env);
 t_fd *create_new_fd(char *name, int type);
 t_ty *create_new_ty(int type);
 void append_line(t_line **head, t_line *new_line);
@@ -270,7 +269,7 @@ int	last_arg_is_redir(char *input);
 t_gc_col	*garbage_collector(t_gc_col *garb, void *gp);
 void	free_garb(t_gc_col *garb);
 //struct_utils
-t_line *create_new_line(char *cmd_str, char **env);
+t_line *create_new_line(char **env);
 t_fd *create_new_fd(char *name, int type);
 t_ty *create_new_ty(int type);
 void append_line(t_line **head, t_line *new_line);
