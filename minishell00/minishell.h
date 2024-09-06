@@ -124,6 +124,7 @@ void	echo_incn(char c, int *n);
 void	echo_case1(char c, int *expect, int *ret);
 int	echo_case2(char c, int *expect, int *ret);
 int	echo_case3(char c, int *expect, int *ret, int *n_count);
+char	*merge_echo(char **arr);
 
 int heredoc(char *target);
 int	open_lefts(t_fd *head);
