@@ -1,19 +1,14 @@
 
 #include "../minishell.h"
 
-t_line	*create_new_line(char *cmd_str, char **env)
+t_line	*create_new_line(char **env)
 {
 	t_line	*new_line;
 
 	new_line = (t_line *)malloc(sizeof(t_line));
 	if (new_line == NULL)
 		return (0);
-	new_line->cmd = ft_strdup(cmd_str);
-	if (new_line->cmd == NULL)
-	{
-		free(new_line);
-		return (0);
-	}
+	new_line->cmd = NULL;
 	new_line->env = env;
 	new_line->arg = NULL;
 	new_line->right = NULL;
