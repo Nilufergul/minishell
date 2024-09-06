@@ -14,8 +14,6 @@ to_do
 
 7. exit veya sacma sapan bir kapanis için free
 
-8. fd'ler olusturulurken type olarak her zaman 0 veriliyor
-
 9 make_pipe fonksiyonu ile command calistirildiktan sonra command'a dair her sey free'lenecek
 
 10 minishell in kendisini calistirabilmesi gerekiyor fatalardan yardim istenebilir
