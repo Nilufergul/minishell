@@ -55,22 +55,22 @@ t_line *split_for_exe(t_split *split, t_mini *mini)
 	tmp2 = line;
 	while(tmp_spl)
 	{	
-		if(flag_pipe == 1 && !is_redir(tmp_spl))
-		{
-			if(tmp_spl == NULL)
-			{
-				tmp_spl = tmp_spl->next;
-				break;
-			}
-			cmd_to_lower(tmp_spl->node);
-			tmp2 = create_new_line(tmp_spl->node, (mini->env));
+		if (flag_pipe == 1)
+		{	
+			tmp2 = create_new_line(mini->env);
 			append_line(&line, tmp2); 
+			flag_pipe = 2;
+		}
+		if(flag_pipe == 2 && !is_redir(tmp_spl))
+		{
+			tmp2->cmd = ft_strdup(tmp_spl->node);
 			flag_pipe = 0;
-			tmp_spl = tmp_spl->next;
-			if(tmp_spl == NULL)
+			if(tmp_spl->next)
+				tmp_spl = tmp_spl->next;
+			else
 				break;
 		}
-		if(tmp_spl &&( tmp_spl->meta == EXCEPT && flag_pipe == 0))
+		if(tmp_spl &&(tmp_spl->meta == EXCEPT && flag_pipe == 0))
 		{
 			line_list_arg(tmp_spl, tmp2);
 			if(tmp_spl->next)
@@ -104,13 +104,13 @@ t_line *split_for_exe(t_split *split, t_mini *mini)
 			if(tmp_spl->next)
 				tmp_spl = tmp_spl->next;
 		}
-		else
-		{
-			if(tmp_spl)
-				tmp_spl = tmp_spl->next;
-			else 
-				break;
-		}
+		if(tmp_spl && flag_pipe == 0)
+			tmp_spl = tmp_spl->next;
+
 	}
 	return(line);
 }
+
+
+
+
