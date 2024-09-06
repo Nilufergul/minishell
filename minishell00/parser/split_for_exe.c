@@ -75,6 +75,8 @@ t_line *split_for_exe(t_split *split, t_mini *mini)
 			line_list_arg(tmp_spl, tmp2);
 			if(tmp_spl->next)
 				tmp_spl = tmp_spl->next;
+			else
+				break;
 		}
 		if(tmp_spl->meta && (tmp_spl->meta == GREAT || tmp_spl->meta == GREATER))
 		{
@@ -86,6 +88,8 @@ t_line *split_for_exe(t_split *split, t_mini *mini)
 			}
 			if(tmp_spl->next)
 				tmp_spl = tmp_spl->next;
+			else
+				break;
 		}
 		if(tmp_spl->meta && (tmp_spl->meta == LESS || tmp_spl->meta == HEREDOC))
 		{
@@ -97,6 +101,8 @@ t_line *split_for_exe(t_split *split, t_mini *mini)
 			}
 			if(tmp_spl->next)
 				tmp_spl = tmp_spl->next;
+			else
+				break;
 		}
 		if(tmp_spl && tmp_spl->meta && tmp_spl->meta == PIPE)
 		{
