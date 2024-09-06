@@ -52,7 +52,9 @@ void	make_pipe(t_line *command)
 }
 
 int	built_in2(t_line *command)
-{
+{	
+	if (command->cmd == NULL)
+		return (0);
 	if (ft_strcmp(command->cmd, "cd") == 0)
 		ft_cd(command->arg[0]);
 	else if (ft_strcmp(command->cmd, "export") == 0)
