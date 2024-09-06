@@ -1,43 +1,65 @@
 #include "../minishell.h"
 
-static int	check_argument(char *arg)
+static int check_argument(char *arg)
 {
-	int	j;
+	int j;
 
 	j = 0;
 	while (arg[j])
 	{
-		if (arg[j] != '-' && (arg[j] < '0' || arg[j] > '9'))
+		if (arg[j] == '-' && j == 0)
+			j++;
+		else if (arg[j] < '0' || arg[j] > '9')
 			return (0);
-		j++;
+		else
+			j++;
 	}
 	return (1);
 }
 
-static void	exit_handling(char **args, int i)
+static int valid_value(char *arg)
 {
-	int	exit_code;
+	size_t len = strlen(arg);
 
-	if (i <= 1)
-		exit(0);
-	if (!check_argument(args[1]))
+	if (arg[0] != '-' && len == ft_strlen("2147483647"))
+	{
+		if (ft_strcmp(arg, "2147483647") > 0)
+			return 0;
+	}
+	else if (len > ft_strlen("2147483647"))
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
+static void exit_handling(char **args, int i)
+{
+	int exit_code;
+
+	if (!check_argument(args[0]) || !valid_value(args[0]))
 	{
 		printf("minishell: exit: numeric argument required\n");
 		exit(255);
 	}
-	exit_code = ft_atoi(args[1]);
-	if (i == 2)
+
+	exit_code = ft_atoi(args[0]);
+	if (i == 1)
 		exit(exit_code);
 	printf("minishell: exit: too many arguments\n");
 }
 
-void	ft_exit(char **args)
+void ft_exit(char **args)
 {
-	int	i;
+	int i;
 
 	i = 0;
+
 	while (args && args[i] != NULL)
 		i++;
 	printf("exit\n");
+	if (!args)
+		exit(0);
 	exit_handling(args, i);
 }
