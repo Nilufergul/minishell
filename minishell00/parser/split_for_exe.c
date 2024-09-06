@@ -54,7 +54,7 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 
 	tmp2 = line;
 	while(tmp_spl)
-	{
+	{	
 		if(flag_pipe == 1 && !is_redir(tmp_spl))
 		{
 			if(tmp_spl == NULL)
@@ -73,22 +73,26 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 		if(tmp_spl &&( tmp_spl->meta == EXCEPT && flag_pipe == 0))
 		{
 			line_list_arg(tmp_spl, tmp2); // ok
-			tmp_spl = tmp_spl->next;
+			if(tmp_spl->next)
+				tmp_spl = tmp_spl->next;
 		}
-		if((tmp_spl->meta == GREAT || tmp_spl->meta == GREATER))
+		if(tmp_spl->meta && (tmp_spl->meta == GREAT || tmp_spl->meta == GREATER))
 		{
-			tmp_spl = tmp_spl->next;
+			if(tmp_spl->next)
+				tmp_spl = tmp_spl->next;
 			line_list_file_right(tmp_spl, tmp2);
 		}
-		if((tmp_spl->meta == LESS || tmp_spl->meta == HEREDOC))
+		if(tmp_spl->meta && (tmp_spl->meta == LESS || tmp_spl->meta == HEREDOC))
 		{
-			tmp_spl = tmp_spl->next;
+			if(tmp_spl->next)
+				tmp_spl = tmp_spl->next;
 			line_list_file_left(tmp_spl, tmp2);
 		}
-		if(tmp_spl && tmp_spl->meta == PIPE)
+		if(tmp_spl && tmp_spl->meta && tmp_spl->meta == PIPE)
 		{
 			flag_pipe = 1;
-			tmp_spl = tmp_spl->next;
+			if(tmp_spl->next)
+				tmp_spl = tmp_spl->next;
 		}
 		else
 		{
@@ -100,4 +104,3 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOÅ
 	}
 	return(line);
 }
-
