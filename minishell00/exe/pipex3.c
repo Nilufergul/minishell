@@ -60,7 +60,7 @@ int	open_lefts(t_fd *head)
 int	built_in(t_line *command)
 {
 	if (ft_strcmp(command->cmd, "echo") == 0)
-		echo_main(command->arg[0]);
+		echo_main(merge_echo(command->arg));
 	else if (ft_strcmp(command->cmd, "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(command->cmd, "cd") == 0)
