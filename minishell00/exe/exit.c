@@ -18,7 +18,7 @@ static void	exit_handling(char **args, int i)
 {
 	int	exit_code;
 
-	if (i == 1)
+	if (i <= 1)
 		exit(0);
 	if (!check_argument(args[1]))
 	{
@@ -36,7 +36,7 @@ void	ft_exit(char **args)
 	int	i;
 
 	i = 0;
-	while (args[i] != NULL)
+	while (args && args[i] != NULL)
 		i++;
 	printf("exit\n");
 	exit_handling(args, i);
