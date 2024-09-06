@@ -33,7 +33,7 @@ void line_list_file_left(t_split *tmp, t_line *line)
 
 void line_list_arg(t_split *tmp, t_line *line)
 {
-	while(tmp && tmp->meta != PIPE)
+	while(tmp && tmp->meta != PIPE && !is_redir(tmp))
 	{
 		if(line)
 			add_arg(&(line->arg), tmp->node);
@@ -41,7 +41,7 @@ void line_list_arg(t_split *tmp, t_line *line)
 	}
 }
 
-t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KOŞULLARI BİLİNMEDİĞİ İÇİN EKLENMEDİ ONLARI ÖĞRENİP GÜNCELLİCEZ.
+t_line *split_for_exe(t_split *split, t_mini *mini) 
 {
 	t_split *tmp_spl;
 	int flag_pipe;
@@ -64,7 +64,7 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KO�
 			}
 			cmd_to_lower(tmp_spl->node);
 			tmp2 = create_new_line(tmp_spl->node, (mini->env));
-			append_line(&line, tmp2); // yeni liste oluşturma func_2
+			append_line(&line, tmp2); 
 			flag_pipe = 0;
 			tmp_spl = tmp_spl->next;
 			if(tmp_spl == NULL)
@@ -72,21 +72,31 @@ t_line *split_for_exe(t_split *split, t_mini *mini) // denenmedi. // HEREDOC KO�
 		}
 		if(tmp_spl &&( tmp_spl->meta == EXCEPT && flag_pipe == 0))
 		{
-			line_list_arg(tmp_spl, tmp2); // ok
+			line_list_arg(tmp_spl, tmp2);
 			if(tmp_spl->next)
 				tmp_spl = tmp_spl->next;
 		}
 		if(tmp_spl->meta && (tmp_spl->meta == GREAT || tmp_spl->meta == GREATER))
 		{
 			if(tmp_spl->next)
+			{
+				tmp_spl->next->meta = tmp_spl->meta;
 				tmp_spl = tmp_spl->next;
-			line_list_file_right(tmp_spl, tmp2);
+				line_list_file_right(tmp_spl, tmp2);
+			}
+			if(tmp_spl->next)
+				tmp_spl = tmp_spl->next;
 		}
 		if(tmp_spl->meta && (tmp_spl->meta == LESS || tmp_spl->meta == HEREDOC))
 		{
 			if(tmp_spl->next)
+			{
+				tmp_spl->next->meta = tmp_spl->meta;
 				tmp_spl = tmp_spl->next;
-			line_list_file_left(tmp_spl, tmp2);
+				line_list_file_left(tmp_spl, tmp2);
+			}
+			if(tmp_spl->next)
+				tmp_spl = tmp_spl->next;
 		}
 		if(tmp_spl && tmp_spl->meta && tmp_spl->meta == PIPE)
 		{
