@@ -19,3 +19,5 @@ to_do
 9 make_pipe fonksiyonu ile command calistirildiktan sonra command'a dair her sey free'lenecek
 
 10 minishell in kendisini calistirabilmesi gerekiyor fatalardan yardim istenebilir
+
+11. minishell icinde minishell calısmıyor, $? exit status
