@@ -66,11 +66,14 @@ void routine(t_mini *mini)
 	lexer(mini);
 	split = splitter(mini);
 	expander(split, mini);
+	free_the_minis(mini);
 	remove_quotes(split);
 	//split for exe to  t_line
 	command = split_for_exe(split, mini);
+	free_the_split(split);
 	//to run the line
 	make_pipe(command);
+	
 //while(command)
 //{
 //	printf("%s\n", command->cmd);

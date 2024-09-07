@@ -53,7 +53,6 @@ typedef struct s_split
 	int meta;
 	char *node;
 	struct s_split *next;
-	struct s_split *prev;
 }				t_split;
 
 typedef struct s_fd
@@ -80,13 +79,6 @@ typedef struct	s_mini
 	char **env;
 	char *line;
 }				t_mini;
-
- 
-typedef struct s_gc_col // GARBAGE COLLECTOR
-{
-	void *ptr;
-	struct s_gc_col *next;
-}				t_gc_col;
 
 typedef struct s_pipe_info
 {
@@ -268,6 +260,9 @@ int	last_arg_is_redir(char *input);
 //garbage
 t_gc_col	*garbage_collector(t_gc_col *garb, void *gp);
 void	free_garb(t_gc_col *garb);
+// free
+void free_the_minis(t_mini *mini);
+void free_the_split(t_split *split);
 //struct_utils
 t_line *create_new_line(char **env);
 t_fd *create_new_fd(char *name, int type);
