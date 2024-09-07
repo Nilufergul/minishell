@@ -289,6 +289,11 @@ void running_shell(t_mini *mini);
 void lexer(t_mini *mini);
 void routine(t_mini *mini);
 
+void	free_command(t_line *head);
+void	free_fd_list(t_fd *head);
+void	free_ty_list(t_ty *head);
+void	free_arg_list(char **arg);
+
 
 
 
