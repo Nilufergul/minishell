@@ -10,29 +10,6 @@ void	free_pipe_things(t_pipe_info *pipe_info)
 	free(pipe_info);
 }
 
-char	**copy_env(char **env)
-{
-	int		rows;
-	char	**new;
-
-	rows = 0;
-	while (env[rows])
-		rows++;
-	new = (char **)malloc((rows + 1) * sizeof(char *));
-	if (new == NULL)
-		exit(1);
-	new[rows] = NULL;
-	rows--;
-	while (rows >= 0)
-	{
-		new[rows] = ft_strdup(env[rows]);
-		if (new[rows] == NULL)
-			exit(1);
-		rows--;
-	}
-	return (new);
-}
-
 void	make_pipe(t_line *command)
 {
 	t_pipe_info	*pipe_info;
@@ -52,7 +29,7 @@ void	make_pipe(t_line *command)
 }
 
 int	built_in2(t_line *command)
-{	
+{
 	if (command->cmd == NULL)
 		return (0);
 	if (ft_strcmp(command->cmd, "cd") == 0)
@@ -62,7 +39,7 @@ int	built_in2(t_line *command)
 	else if (ft_strcmp(command->cmd, "unset") == 0)
 		ft_unset(command);
 	else if (ft_strcmp(command->cmd, "env") == 0)
-		ft_environment(*command->env);
+		ft_environment(*(command->env));
 	else if (ft_strcmp(command->cmd, "exit") == 0)
 		ft_exit(command->arg);
 	else
@@ -70,3 +47,21 @@ int	built_in2(t_line *command)
 	return (1);
 }
 
+void	clean_pipes(t_pipe_info *pipe_info)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipe_info->len - 1)
+	{
+		close(pipe_info->pipes[i][0]);
+		close(pipe_info->pipes[i][1]);
+		i++;
+	}
+	i = 0;
+	while (i < pipe_info->len)
+	{
+		waitpid(pipe_info->pid[i], NULL, 0);
+		i++;
+	}
+}
