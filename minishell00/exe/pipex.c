@@ -51,6 +51,8 @@ char	*get_command_path(char **env, char *command)
 	command = ft_strjoin("/", command);
 	while (paths[i])
 	{
+		if (access(command, F_OK | X_OK) == 0)
+			path = ft_strdup(command);
 		address = ft_strjoin(paths[i], command);
 		if (access(address, F_OK | X_OK) == 0)
 			path = address;
