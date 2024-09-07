@@ -66,11 +66,11 @@ int	built_in(t_line *command)
 	else if (ft_strcmp(command->cmd, "cd") == 0)
 		ft_cd(command->arg[0]);
 	else if (ft_strcmp(command->cmd, "export") == 0)
-		ft_export(command);
+		ft_export(command->arg, command->env);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
-		ft_unset(command);
+		ft_unset(command->arg, command->env);
 	else if (ft_strcmp(command->cmd, "env") == 0)
-		ft_environment(*command->env);
+		ft_environment(command->env);
 	else if (ft_strcmp(command->cmd, "exit") == 0)
 		ft_exit(command->arg);
 	else
@@ -81,24 +81,12 @@ int	built_in(t_line *command)
 int	run_command_run(t_line *command)
 {
 	char	*exe;
-	int		output;
-	int		input;
 
-	input = dup(0);
-	output = dup(1);
-	if (fd_len(&(command->left)) != 0)
-		dup2(open_lefts(command->left), 0);
-	if (fd_len(&(command->right)) != 0)
-		dup2(open_rights(command->right), 1);
 	if (command->cmd != NULL && !built_in(command))
 	{
 		exe = get_copy(ft_strdup(command->cmd), command->arg);
-		run_exec(exe, *command->env);
+		run_exec(exe, command->env);
 	}
-	dup2(input, 0);
-	close(input);
-	dup2(output, 1);
-	close(output);
 	return (0);
 }
 
