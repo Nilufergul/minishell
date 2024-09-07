@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 int	pass_the_quotes(char c, int quote)
