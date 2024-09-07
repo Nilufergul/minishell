@@ -4,9 +4,9 @@ to_do
 
 2 .parser/remove_quotes/dollar quest fonksiyonununa $? işlenicek
 
-3. Norm düzeltilcek.
+3. Norm düzeltilcek. in progress
    
-4. Leakler çözülücek.
+4. Leakler çözülücek. in progress
    
 5. export
 
@@ -14,8 +14,3 @@ to_do
 
 7. exit veya sacma sapan bir kapanis için free
 
-9 make_pipe fonksiyonu ile command calistirildiktan sonra command'a dair her sey free'lenecek
-
-10 minishell in kendisini calistirabilmesi gerekiyor fatalardan yardim istenebilir
-
-11. minishell icinde minishell calısmıyor, $? exit status
