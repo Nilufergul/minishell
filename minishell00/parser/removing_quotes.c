@@ -73,23 +73,7 @@ void	expander(t_split *split, t_mini *mini)// $'PAT'   kontrol edilcek // dolar 
 	while (split)
 	{
 		if (split->meta == DOLLAR)
-		{
-			if (closed_quotes_index(split->node)) // dolar tırnak grubu içinde mi kalıyor
-			{
-				if ((quoted_dollar(split) && !closed_quotes_index(split->node)))
-					replace_node_substr(split, "$", "");
-				if (closed_quotes_index(split->node) == '\'') // dolar hangi tırnak içinde kalıyor (tek tırnak içindeki dolar çalışmıyor
-					flag = 1;
-			}
-			else if (quoted_dollar(split))
-				replace_node_substr(split, "$", "");
-			if (flag == 0)
-			{
-				dollar_quest(split); // $? çalıştırıyor
-				handle_dollar(split, mini); // expand edilicek dolarları çalıştırıyor.
-			}
-			split->meta = EXCEPT;
-		}
+			quotes_cases(&split, &mini, &flag);
 		flag = 0;
 		split = split->next;
 	}
