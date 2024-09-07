@@ -223,6 +223,8 @@ void line_list_file(t_split *tmp, t_line *line);
 void take_types(t_split *split, t_line *line);
 void line_list_arg(t_split *tmp, t_line *line);
 t_line *split_for_exe(t_split *split, t_mini *mini);
+void	line_list_file_right(t_split *tmp, t_line *line, int type);
+void	line_list_file_left(t_split *tmp, t_line *line, int type);
 //split_utils
 int		skip_quotes(const char *line, int i);
 void	skip_spaces(const char *line, int *i);
@@ -249,6 +251,7 @@ int	print_syntax_error_pipe();
 int	print_unexpected_char_error();
 int	print_syntax_error_redir();
 //redir_check
+int	is_redir(t_split *split);
 int	mixed_redir(char *input);
 int	mixed_redir_three(char *input);
 int	mixed_redir_four(char *input);
@@ -257,9 +260,7 @@ int	last_arg_is_redir(char *input);
 
 
 //utils...
-//garbage
-t_gc_col	*garbage_collector(t_gc_col *garb, void *gp);
-void	free_garb(t_gc_col *garb);
+
 // free
 void free_the_minis(t_mini *mini);
 void free_the_split(t_split *split);
