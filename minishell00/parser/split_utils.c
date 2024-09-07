@@ -25,8 +25,6 @@ void	handle_token(const char *line, int *i)
 		(*i)++;
 }
 
-
-
 int	closed_quotes_index(const char *input)
 {
 	int quote;
@@ -53,4 +51,17 @@ int	closed_quotes_index(const char *input)
 		i++;
 	}
 	return (quote);
+}
+
+void	cmd_to_lower(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] += 32;
+		i++;
+	}
 }
