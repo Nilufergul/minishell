@@ -17,3 +17,5 @@ to_do
 hatali cikti veren komutlar
 echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
 echo "exit_code ->$? user ->$USER home -> $HOME"
+cd $PWD
+cd
