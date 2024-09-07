@@ -67,7 +67,7 @@ typedef struct  s_line
 {
 	char	*cmd;
 	char	**arg;
-	char 	**env;
+	char 	***env;
 	struct  s_fd    *right;
 	struct 	s_fd 	*left;
 	struct  s_line  *next;
@@ -126,7 +126,7 @@ int	**fill_pipes(int count);
 void	close_all_pipes(int **pipes, int len);
 void	free_all_pipes(int **pipes, int len);
 
-void ft_export(char **args, char **env);
+void ft_export(t_line *line);
 void ft_unset(char **args, char **env);
 int	ft_environment(char **env);
 void	ft_exit(char **args);
@@ -265,7 +265,7 @@ int	last_arg_is_redir(char *input);
 void free_the_minis(t_mini *mini);
 void free_the_split(t_split *split);
 //struct_utils
-t_line *create_new_line(char **env);
+t_line *create_new_line(char ***env);
 t_fd *create_new_fd(char *name, int type);
 t_ty *create_new_ty(int type);
 void append_line(t_line **head, t_line *new_line);

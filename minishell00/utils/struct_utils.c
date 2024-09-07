@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-t_line	*create_new_line(char **env)
+t_line	*create_new_line(char ***env)
 {
 	t_line	*new_line;
 
