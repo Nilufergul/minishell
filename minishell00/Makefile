@@ -9,7 +9,7 @@ M_SRC = minishell.c \
 	parser/split_utils.c parser/split_utils2.c exe/pipex.c \
 	exe/echo_helper.c exe/echo_main.c exe/cd.c exe/export.c exe/unset.c \
 	exe/env.c exe/heredoc.c exe/pipex2.c exe/pipex3.c \
-	exe/go_exe.c exe/exit.c exe/make_pipe.c
+	exe/go_exe.c exe/exit.c exe/make_pipe.c utils/get_free.c
 LIB_SRC =
 SRC = $(M_SRC) $(LIB_SRC)
 OBJ = $(SRC:.c=.o)
