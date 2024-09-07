@@ -85,10 +85,16 @@ typedef struct s_pipe_info
     int **pipes;
     pid_t *pid;
     int len;
+	int	input;
+	int	output;
 } t_pipe_info;
 
-
-
+void	quotes(t_split *split);
+void	char_remove(t_split *split, int i);
+void	dollar_quest(t_split *split);
+void	quotes_cases(t_split **split, t_mini **mini, int *flag);
+int	open_rights(t_fd *head);
+int	open_lefts(t_fd *head);
 void	run_exec(char *command, char **env);
 char	*get_path(char **env);
 char	*get_command_path(char **env, char *command);
@@ -126,60 +132,12 @@ int	**fill_pipes(int count);
 void	close_all_pipes(int **pipes, int len);
 void	free_all_pipes(int **pipes, int len);
 
-void ft_export(t_line *line);
-void ft_unset(t_line *line);
+void ft_export(t_line *command);
+void ft_unset(t_line *command);
 int	ft_environment(char **env);
 void	ft_exit(char **args);
 void	make_pipe(t_line *command);
 int	built_in2(t_line *command);
-
-/*
-//exe
-//cd
-int ft_cd(char *path);
-void	pwd(void);
-//echo_helper
-void	echo_case1(char c, int *expect, int *ret);
-int	echo_case2(char c, int *expect, int *ret);
-int	echo_case3(char c, int *expect, int *ret, int *n_count);
-void	echo_incn(char c, int *n);
-int	echo_index(char *s);
-//echo_main
-int	echo_main(char *s);
-//env
-int	ft_environment(char **env);
-//exit
-static int	check_argument(char *arg);
-static void	exit_handling(char **args, int i);
-void	ft_exit(char **args);
-//export
-void *ft_realloc(void *ptr, size_t current_size, size_t new_size);
-int is_valid(const char *str);
-void print_export(char **env);
-void create_update(char **env, const char *name, const char *value);
-void ft_export(char **args, char **env);
-//go_exe
-char	*get_copy(char *result, char **arr);
-int	built_in2(t_line *command);
-//heredoc
-int	heredoc(char *target);
-//pipex
-void	run_exec(char *command, char **env);
-char	*get_path(char **env);
-char	*get_command_path(char **env, char *command);
-//pipex2
-void	close_all_pipes(int **pipes, int len);
-void	free_all_pipes(int **pipes, int len);
-void run_child_process(t_line *command, t_pipe_info *pipe_info, int i);
-void create_processes(t_line *command, t_pipe_info *pipe_info);
-void clean_pipes(t_pipe_info *pipe_info);
-//pipex3
-int	open_rights(t_fd *head);
-int	open_lefts(t_fd *head);
-int	built_in(t_line *command);
-void	run_command_run(t_line *command);
-int	**fill_pipes(int count);
-*/
 
 //parser...
 //adding_space
@@ -270,12 +228,8 @@ t_fd *create_new_fd(char *name, int type);
 t_ty *create_new_ty(int type);
 void append_line(t_line **head, t_line *new_line);
 void append_fd(t_fd **head, t_fd *new_fd);
-/*//struct_utils2
-void append_ty(t_ty **head, t_ty *new_ty);
-int add_arg(char ***arg, char *new_arg);
-int struct_len(t_line *head);
-char *join_args_with_spaces(char **arg);
-*/
+
+
 //syntax_utils
 int	pass_the_spaces(char *input, int i);
 int	pass_the_quotes(char c, int quote);
