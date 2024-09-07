@@ -1,8 +1,8 @@
 #include "../minishell.h"
 
-void free_command(t_line *head)
+void	free_command(t_line *head)
 {
-	t_line *temp;
+	t_line	*temp;
 
 	while (head != NULL)
 	{
@@ -18,9 +18,10 @@ void free_command(t_line *head)
 
 void	free_fd_list(t_fd *head)
 {
-	t_fd *temp;
+	t_fd	*temp;
 
-	while (head != NULL) {
+	while (head != NULL)
+	{
 		temp = head;
 		head = head->next;
 		free(temp->name);
@@ -32,7 +33,8 @@ void	free_ty_list(t_ty *head)
 {
 	t_ty	*temp;
 
-	while (head != NULL) {
+	while (head != NULL)
+	{
 		temp = head;
 		head = head->next;
 		free(temp);
@@ -41,11 +43,11 @@ void	free_ty_list(t_ty *head)
 
 void	free_arg_list(char **arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (arg == NULL)
-		return;
+		return ;
 	while (arg[i] != NULL)
 	{
 		free(arg[i]);
