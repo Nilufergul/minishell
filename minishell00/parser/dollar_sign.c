@@ -13,9 +13,7 @@ char	*dollar_exp(char *s)
 		{
 			i++;
 			while (s[i + j] && ft_isalnum(s[i + j]) && s[i + j] != ' ')
-			{
 				j++;
-			}
 			break ;
 		}
 		i++;
