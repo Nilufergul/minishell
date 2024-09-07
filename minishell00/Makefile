@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 M_SRC = minishell.c \
 	parser/dollar_sign.c parser/dollar_utils.c parser/adding_space.c parser/split.c \
 	parser/split_for_exe.c parser/removing_quotes.c utils/struct_utils.c utils/struct_utils2.c \
-	utils/syntax_utils.c utils/garbage.c syntax/check_the_syntax.c \
+	utils/syntax_utils.c utils/garbage.c syntax/check_the_syntax.c utils/free_split.c \
 	syntax/pipe_check.c syntax/print_utils.c syntax/redir_check.c \
 	parser/split_utils.c exe/pipex.c \
 	exe/echo_helper.c exe/echo_main.c exe/cd.c exe/export.c exe/unset.c \
