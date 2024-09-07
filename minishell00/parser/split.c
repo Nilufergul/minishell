@@ -16,34 +16,35 @@ enum type	meta_type_2(int i, char *str)
 	}
 	if (str[i] == '$')
 		return (DOLLAR);
-	return(EXCEPT);
+	return (EXCEPT);
 }
 
-enum type meta_type(char *str) {
-    int i;
-    char quote;
+enum type	meta_type(char *str)
+{
+	int		i;
+	char	quote;
 
-    i = 0;
-    while (str[i]) {
-        if (str[i] == '\"' || str[i] == '\'') {
-            quote = str[i];
-            i++;
-            while (str[i] && str[i] != quote) {
-                if (str[i] == '$')  // Check for the dollar sign within quotes
-                    return (DOLLAR);
-                i++;
-            }
-            if (str[i]) // Skip the closing quote
-                i++;
-        } else {
-            if (str[i] == '|')
-                return (PIPE);
-            if (meta_type_2(i, str) != EXCEPT)
-                return (meta_type_2(i, str));
-            i++;
-        }
-    }
-    return (EXCEPT);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			quote = str[i];
+			i++;
+			while (str[i] && str[i] != quote)
+			{
+				if (str[i] == '$')
+					return (DOLLAR);
+				i++;
+			}
+		}
+		else if (str[i] == '|')
+			return (PIPE);
+		else if (meta_type_2(i, str) != EXCEPT)
+			return (meta_type_2(i, str));
+		i++;
+	}
+	return (EXCEPT);
 }
 
 t_split	*sub_node(const char *str, unsigned int start, size_t len)
