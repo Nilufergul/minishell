@@ -82,7 +82,7 @@ void expander(t_split *split, t_mini *mini)  // $'PAT'   kontrol edilcek // dola
 		{
 			if(closed_quotes_index(split->node)) // dolar tırnak grubu içinde mi kalıyor
 			{
-				if(quoted_dollar(split))
+				if((quoted_dollar(split) && !closed_quotes_index(split->node)))
 				{
 					replace_node_substr(split,"$", "");
 				}
@@ -91,6 +91,8 @@ void expander(t_split *split, t_mini *mini)  // $'PAT'   kontrol edilcek // dola
 					flag = 1;
 				}
 			}
+			else if(quoted_dollar(split))
+				replace_node_substr(split,"$", "");
 			if(flag == 0)
 			{
 				dollar_quest(split); // $? çalıştırıyor  
