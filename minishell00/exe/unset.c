@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 int is_valid_unset(const char *str)
@@ -42,21 +41,24 @@ char **remove_env_var(char **env, int index)
 	return new_env;
 }
 
-void ft_unset(char **env, char **args)
+void ft_unset(t_line *line)
 {
-	for (int i = 0; args[i] != NULL; i++)
+	if (line == NULL || line->env == NULL || line->arg == NULL)
+		return;
+
+	for (int i = 0; line->arg[i] != NULL; i++)
 	{
-		if (!is_valid_unset(args[i]))
+		if (!is_valid_unset(line->arg[i]))
 		{
-			printf("unset: `%s': not a valid identifier\n", args[i]);
+			printf("unset: `%s': not a valid identifier\n", line->arg[i]);
 			continue;
 		}
 
-		for (int j = 0; env[j] != NULL; j++)
+		for (int j = 0; (*line->env)[j] != NULL; j++)
 		{
-			if (ft_strncmp(env[j], args[i], ft_strlen(args[i])) == 0 && env[j][ft_strlen(args[i])] == '=')
+			if (ft_strncmp((*line->env)[j], line->arg[i], ft_strlen(line->arg[i])) == 0 && (*line->env)[j][ft_strlen(line->arg[i])] == '=')
 			{
-				env = remove_env_var(env, j);
+				*line->env = remove_env_var(*line->env, j);
 				break;
 			}
 		}

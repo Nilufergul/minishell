@@ -1,6 +1,5 @@
 #include "../minishell.h"
 
-
 void *ft_realloc(void *ptr, size_t current_size, size_t new_size)
 {
 	if (ptr == NULL)
@@ -58,81 +57,91 @@ void print_export(char **env)
 	}
 }
 
-void create_update(char **env, const char *name, const char *value)
+void create_update(char ***env, const char *name, const char *value)
 {
 	int i = 0;
 	size_t name_len = ft_strlen(name);
 	size_t value_len = ft_strlen(value);
 	size_t total_len = name_len + value_len + 2;
 
-	while (env[i] != NULL)
+	while ((*env)[i] != NULL)
 	{
-		if (ft_strncmp(env[i], name, name_len) == 0 && env[i][name_len] == '=')
+		if (ft_strncmp((*env)[i], name, name_len) == 0 && (*env)[i][name_len] == '=')
 		{
-			free(env[i]);
+			free((*env)[i]);
 
-			env[i] = malloc(total_len);
-			if (env[i] == NULL)
+			(*env)[i] = malloc(total_len);
+			if ((*env)[i] == NULL)
 				return;
 
-			ft_strlcpy(env[i], name, total_len);
-			env[i][name_len] = '=';
-			ft_strlcpy(env[i] + name_len + 1, value, total_len - name_len - 1);
+			ft_strlcpy((*env)[i], name, total_len);
+			(*env)[i][name_len] = '=';
+			ft_strlcpy((*env)[i] + name_len + 1, value, total_len - name_len - 1);
 
 			return;
 		}
 		i++;
 	}
 
-	env = ft_realloc(env, sizeof(char *) * (i + 1), sizeof(char *) * (i + 2));
-	if (env == NULL)
+	*env = ft_realloc(*env, sizeof(char *) * (i + 1), sizeof(char *) * (i + 2));
+	if (*env == NULL)
 		return;
 
-	env[i] = malloc(total_len);
-	if (env[i] == NULL)
+	(*env)[i] = malloc(total_len);
+	if ((*env)[i] == NULL)
 		return;
 
-	ft_strlcpy(env[i], name, total_len);
-	env[i][name_len] = '=';
-	ft_strlcpy(env[i] + name_len + 1, value, total_len - name_len - 1);
+	ft_strlcpy((*env)[i], name, total_len);
+	(*env)[i][name_len] = '=';
+	ft_strlcpy((*env)[i] + name_len + 1, value, total_len - name_len - 1);
 
-	env[i + 1] = NULL;
+	(*env)[i + 1] = NULL;
 }
 
-void ft_export(char **args, char **env)
+void ft_export(t_line *line)
 {
-		for (int i = 0; args[i] != NULL; i++)
+	if (line == NULL || line->env == NULL)
+		return;
+
+	if (line->arg == NULL || line->arg[0] == NULL)
+	{
+		print_export(*line->env);
+		return;
+	}
+
+	for (int i = 0; line->arg[i] != NULL; i++)
+	{
+		if (!is_valid(line->arg[i]))
 		{
-			if (!is_valid(args[i]))
-			{
-				printf("export: `%s': not a valid identifier\n", args[i]);
-				continue;
-			}
+			printf("export: `%s': not a valid identifier\n", line->arg[i]);
+			continue;
+		}
 
-			char *equal_sign = ft_strchr(args[i], '=');
-			if (equal_sign != NULL)
-			{
-				*equal_sign = '\0';
+		char *equal_sign = ft_strchr(line->arg[i], '=');
+		if (equal_sign != NULL)
+		{
+			*equal_sign = '\0';
 
-				if (is_valid(args[i]))
-				{
-					create_update(env, args[i], equal_sign + 1);
-				}
-				else
-				{
-					printf("export: `%s': not a valid identifier\n", args[i]);
-				}
+			if (is_valid(line->arg[i]))
+			{
+				create_update(line->env, line->arg[i], equal_sign + 1);
 			}
 			else
 			{
-				if (is_valid(args[i]))
-				{
-					create_update(env, args[i], "");
-				}
-				else
-				{
-					printf("export: `%s': not a valid identifier\n", args[i]);
-				}
+				printf("export: `%s': not a valid identifier\n", line->arg[i]);
+			}
+			*equal_sign = '=';
+		}
+		else
+		{
+			if (is_valid(line->arg[i]))
+			{
+				create_update(line->env, line->arg[i], "");
+			}
+			else
+			{
+				printf("export: `%s': not a valid identifier\n", line->arg[i]);
 			}
 		}
 	}
+}

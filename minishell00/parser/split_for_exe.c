@@ -40,7 +40,7 @@ t_line	*split_for_exe(t_split *split, t_mini *mini)
 	{
 		if (flag_pipe == 1)
 		{
-			tmp2 = create_new_line(mini->env);
+			tmp2 = create_new_line(&mini->env);
 			append_line(&line, tmp2);
 			flag_pipe = 2;
 		}
