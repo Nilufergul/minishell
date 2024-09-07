@@ -13,3 +13,6 @@ to_do
 7. exit veya sacma sapan bir kapanis için free
 
 8. $$PATH$$$
+
+hatali cikti veren komutlar
+echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
