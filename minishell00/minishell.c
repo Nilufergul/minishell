@@ -73,15 +73,7 @@ void routine(t_mini *mini)
 	free_the_split(split);
 	//to run the line
 	make_pipe(command);
-	
-//while(command)
-//{
-//	printf("%s\n", command->cmd);
-//	printf("%s\n", command->left->name);
-//	printf("%s\n", command->right->name);
-//	
-//	command = command->next;
-//}
+	free_command(command);
 }
 
 int main(int argc, char** argv,char** environ)
