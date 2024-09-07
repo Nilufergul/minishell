@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 void	append_ty(t_ty **head, t_ty *new_ty)
