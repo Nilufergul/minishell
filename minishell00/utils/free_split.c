@@ -1,9 +1,10 @@
 #include "../minishell.h"
 
-void free_the_split(t_split *split)
+void	free_the_split(t_split *split)
 {
-	t_split *tmp;
-	while(split)
+	t_split	*tmp;
+
+	while (split)
 	{
 		tmp = split;
 		split = split->next;
@@ -13,7 +14,7 @@ void free_the_split(t_split *split)
 	free(split);
 }
 
-void free_the_minis(t_mini *mini)
+void	free_the_minis(t_mini *mini)
 {
 	free(mini->line);
 }
