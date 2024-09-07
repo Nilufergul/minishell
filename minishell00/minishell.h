@@ -127,7 +127,7 @@ void	close_all_pipes(int **pipes, int len);
 void	free_all_pipes(int **pipes, int len);
 
 void ft_export(t_line *line);
-void ft_unset(char **args, char **env);
+void ft_unset(t_line *line);
 int	ft_environment(char **env);
 void	ft_exit(char **args);
 void	make_pipe(t_line *command);

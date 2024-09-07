@@ -60,7 +60,7 @@ int	built_in2(t_line *command)
 	else if (ft_strcmp(command->cmd, "export") == 0)
 		ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
-		ft_unset(command->arg, *command->env);
+		ft_unset(command);
 	else if (ft_strcmp(command->cmd, "env") == 0)
 		ft_environment(*command->env);
 	else if (ft_strcmp(command->cmd, "exit") == 0)
