@@ -71,7 +71,7 @@ void dollar_quest(t_split *split)
     
 }
 
-void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
+void expander(t_split *split, t_mini *mini)  // $'PAT'   kontrol edilcek // dolar kontrolü burada başlıyor.
 {
 	int flag;
 
@@ -86,15 +86,15 @@ void expander(t_split *split, t_mini *mini)  // $'PAT'   kontroo edilcek
 				{
 					replace_node_substr(split,"$", "");
 				}
-				if(closed_quotes_index(split->node) == '\'')
+				if(closed_quotes_index(split->node) == '\'') // dolar hangi tırnak içinde kalıyor (tek tırnak içindeki dolar çalışmıyor
 				{
 					flag = 1;
 				}
 			}
 			if(flag == 0)
 			{
-				dollar_quest(split);
-				handle_dollar(split, mini);
+				dollar_quest(split); // $? çalıştırıyor  
+				handle_dollar(split, mini); // expand edilicek dolarları çalıştırıyor.
 			}
 			split->meta = EXCEPT;
 		}
