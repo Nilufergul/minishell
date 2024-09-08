@@ -51,8 +51,8 @@ int	open_lefts(t_fd *head)
 	}
 	if (error)
 	{
-		printf("%s: There is no such file!\n", error);
-		exit(EXIT_FAILURE);
+		perror("No such file or directory");
+		return (-1);
 	}
 	return (last_fd);
 }
