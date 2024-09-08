@@ -25,6 +25,9 @@ void	line_list_arg(t_split *tmp, t_line *line)
 
 void	quotes_cases(t_split **split, t_mini **mini, int *flag)
 {
+	int	stop;
+
+	stop = 1;
 	if (closed_quotes_index((*split)->node)) // dolar tırnak grubu içinde mi kalıyor
 	{
 		if ((quoted_dollar((*split)) && !closed_quotes_index((*split)->node)))
@@ -36,8 +39,11 @@ void	quotes_cases(t_split **split, t_mini **mini, int *flag)
 		replace_node_substr((*split), "$", "");
 	if (*flag == 0)
 	{
-		dollar_quest((*split)); // $? çalıştırıyor
-		handle_dollar((*split), *mini); // expand edilicek dolarları çalıştırıyor.
+		while (ft_strchr((*split)->node,'$') && stop)
+		{
+			dollar_quest((*split)); // $? çalıştırıyor
+			stop=handle_dollar((*split), *mini); // expand edilicek dolarları çalıştırıyor.
+		}
 	}
 	(*split)->meta = EXCEPT;
 }
