@@ -44,9 +44,14 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i)
 
 void	get_fds(t_line *command, t_pipe_info *pipe_info)
 {
+	int	left;
+
 	if (fd_len(&(command->left)) != 0)
 	{
-		dup2(open_lefts(command->left), 0);
+		left = open_lefts(command->left);
+		if (left == -1)
+			left = open("/dev/null", O_RDONLY);
+		dup2(left, 0);
 		pipe_info->input = 0;
 	}
 	if (fd_len(&(command->right)) != 0)
