@@ -51,15 +51,17 @@ void	remove_quotes(t_split *split)
 void	dollar_quest(t_split *split)
 {
 	int	i;
+	char	*exit_str;
 
 	i = 0;
+	exit_str = ft_itoa(global_exit_code);
 	while (split->node[i] != '\0')
 	{
 		if ((split->node[i] == '$') && (split->node[i + 1] == '?')
 			&& !(ft_isalnum(split->node[i + 2])))
 		{
 			printf("dolar soru işareti çalışcak.exit status\n"); //?????!!!!!!!!!!
-			replace_node_substr(split, "$?", "mock_exitstatus"); //?????!!!!!!!!!!
+			replace_node_substr(split, "$?", exit_str); //?????!!!!!!!!!!
 		}
 		i++;
 	}

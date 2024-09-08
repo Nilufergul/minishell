@@ -19,6 +19,8 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+extern  int	global_exit_code;
+
 typedef enum type
 {
 	EXCEPT = 0,
