@@ -33,13 +33,12 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i)
 		dup2(pipe_info->pipes[i][1], STDOUT_FILENO);
 		close(pipe_info->pipes[i][1]);
 	}
+	clean_pipes(pipe_info);
 	if (command->cmd != NULL && !built_in(command))
 	{
 		exe = get_copy(ft_strdup(command->cmd), command->arg);
 		run_exec(exe, *(command->env));
 	}
-	else
-		waitpid(pipe_info->pid[i], NULL, 0);
 	exit(0);
 }
 
