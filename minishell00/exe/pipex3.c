@@ -78,18 +78,6 @@ int	built_in(t_line *command)
 	return (1);
 }
 
-int	run_command_run(t_line *command)
-{
-	char	*exe;
-
-	if (command->cmd != NULL && !built_in(command))
-	{
-		exe = get_copy(ft_strdup(command->cmd), command->arg);
-		run_exec(exe, *(command->env));
-	}
-	return (0);
-}
-
 int	**fill_pipes(int count)
 {
 	int	**array;
