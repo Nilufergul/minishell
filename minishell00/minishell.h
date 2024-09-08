@@ -114,7 +114,6 @@ void clean_pipes(t_pipe_info *pipe_info);
 void create_processes(t_line *command, t_pipe_info *pipe_info);
 void run_child_process(t_line *command, t_pipe_info *pipe_info, int i);
 void	pwd(void);
-int ft_cd(char *path);
 int	echo_main(char *s);
 int	echo_index(char *s);
 void	echo_incn(char c, int *n);
@@ -133,6 +132,8 @@ void	close_all_pipes(int **pipes, int len);
 void	free_all_pipes(int **pipes, int len);
 
 void ft_export(t_line *command);
+int ft_cd(t_line *line, char *path);
+void create_update(char ***env, const char *name, const char *value);
 void ft_unset(t_line *command);
 int	ft_environment(char **env);
 void	ft_exit(char **args);

@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int ft_cd(char *path)
+int ft_cd(t_line *line, char *path)
 {
     static char prev_dir[1024] = "";
     char current_dir[1024];
@@ -38,16 +38,19 @@ int ft_cd(char *path)
         return 1;
     }
 
+    create_update(line->env, "OLDPWD", current_dir);
+    create_update(line->env, "PWD", getcwd(NULL, 0));
+
     ft_strcpy(prev_dir, current_dir);
 
     return 0;
 }
 
-void	pwd(void)
+void pwd(void)
 {
-	char	*s;
+    char *s;
 
-	s = getcwd(NULL, 0);
-	printf("%s\n", s);
+    s = getcwd(NULL, 0);
+    printf("%s\n", s);
     free(s);
 }
