@@ -8,6 +8,8 @@ void	run_exec(char *command, char **env)
 
 	commands = ft_split(command, ' ');
 	path = get_command_path(env, commands[0]);
+	if (!path)
+		path = commands[0];
 	if (access(path, X_OK) == -1)
 	{
 		ft_putstr_fd(commands[0], 2);
