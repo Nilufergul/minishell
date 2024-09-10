@@ -27,6 +27,8 @@ void	handle_token(const char *line, int *i)
 			return ;
 		if(line[*i] == '\"' || line[*i] == '\'')
 			*i = skip_quotes(line, *i);
+		if(line[*i] == ' ')
+			return ;
 		if(line[*i] == '\0')
 			return ;
 		(*i)++;
