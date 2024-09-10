@@ -19,6 +19,8 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+extern  int	global_exit_code;
+
 typedef enum type
 {
 	EXCEPT = 0,
@@ -132,7 +134,7 @@ void	close_all_pipes(int **pipes, int len);
 void	free_all_pipes(int **pipes, int len);
 
 void ft_export(t_line *command);
-int ft_cd(t_line *line, char *path);
+int ft_cd(t_line *line);
 void create_update(char ***env, const char *name, const char *value);
 void ft_unset(t_line *command);
 int	ft_environment(char **env);

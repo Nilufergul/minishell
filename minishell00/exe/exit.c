@@ -1,4 +1,5 @@
 #include "../minishell.h"
+int global_exit_code = 0;
 
 long long int ft_longlong(const char *str)
 {
@@ -29,19 +30,18 @@ long long int ft_longlong(const char *str)
 	return (res * neg);
 }
 
-static int check_argument(char *arg)
+static int check_argument(const char *arg)
 {
 	int j;
 
 	j = 0;
+	if (arg[j] == '+' || arg[j] == '-')
+		j++; // Skip the initial + or - sign
 	while (arg[j])
 	{
-		if (arg[j] == '-' && j == 0)
-			j++;
-		else if (arg[j] < '0' || arg[j] > '9')
+		if (arg[j] < '0' || arg[j] > '9')
 			return (0);
-		else
-			j++;
+		j++;
 	}
 	return (1);
 }
@@ -76,12 +76,16 @@ static void exit_handling(char **args, int i)
 	if (!check_argument(args[0]) || !valid_value(args[0]))
 	{
 		printf("minishell: exit: %s: numeric argument required\n", args[0]);
-		exit(255);
+		global_exit_code = 255;
+		exit(global_exit_code);
 	}
 
 	exit_code = ft_longlong(args[0]);
 	if (i == 1)
-		exit(exit_code % 256);
+	{
+		global_exit_code = exit_code % 256;
+		exit(global_exit_code);
+	}
 	printf("minishell: exit: too many arguments\n");
 }
 
@@ -94,6 +98,6 @@ void ft_exit(char **args)
 		i++;
 	printf("exit\n");
 	if (!args)
-		exit(0);
+		exit(global_exit_code);
 	exit_handling(args, i);
 }
