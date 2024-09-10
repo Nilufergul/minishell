@@ -1,49 +1,30 @@
 #include "../minishell.h"
 
-void *ft_realloc(void *ptr, size_t current_size, size_t new_size)
+int	is_valid(const char *str)
 {
-	if (ptr == NULL)
-	{
-		return malloc(new_size);
-	}
+	int	i;
 
-	if (new_size == 0)
-	{
-		free(ptr);
-		return NULL;
-	}
-
-	void *new_ptr = malloc(new_size);
-	if (new_ptr == NULL)
-	{
-		return NULL;
-	}
-
-	ft_memcpy(new_ptr, ptr, current_size < new_size ? current_size : new_size);
-
-	free(ptr);
-	return new_ptr;
-}
-
-int is_valid(const char *str)
-{
-	if (!str || !*str || *str == '=' || !ft_isalpha(*str))
-		return 0;
-
-	for (int i = 0; str[i] != '\0' && str[i] != '='; i++)
+	if (str == NULL || *str == '\0' || *str == '=' || !ft_isalpha(*str))
+		return (0);
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return 0;
+			return (0);
+		i++;
 	}
-
-	return 1;
+	return (1);
 }
 
-void print_export(char **env)
+void	print_export(char **env)
 {
-	for (int i = 0; env[i] != NULL; i++)
+	int		i;
+	char	*equal_sign;
+
+	i = 0;
+	while (env[i] != NULL)
 	{
-		char *equal_sign = ft_strchr(env[i], '=');
+		equal_sign = ft_strchr(env[i], '=');
 		if (equal_sign != NULL)
 		{
 			*equal_sign = '\0';
@@ -54,94 +35,54 @@ void print_export(char **env)
 		{
 			printf("declare -x %s\n", env[i]);
 		}
-	}
-}
-
-void create_update(char ***env, const char *name, const char *value)
-{
-	int i = 0;
-	size_t name_len = ft_strlen(name);
-	size_t value_len = ft_strlen(value);
-	size_t total_len = name_len + value_len + 2;
-
-	while ((*env)[i] != NULL)
-	{
-		if (ft_strncmp((*env)[i], name, name_len) == 0 && (*env)[i][name_len] == '=')
-		{
-			free((*env)[i]);
-
-			(*env)[i] = malloc(total_len);
-			if ((*env)[i] == NULL)
-				return;
-
-			ft_strlcpy((*env)[i], name, total_len);
-			(*env)[i][name_len] = '=';
-			ft_strlcpy((*env)[i] + name_len + 1, value, total_len - name_len - 1);
-
-			return;
-		}
 		i++;
 	}
-
-	*env = ft_realloc(*env, sizeof(char *) * (i + 1), sizeof(char *) * (i + 2));
-	if (*env == NULL)
-		return;
-
-	(*env)[i] = malloc(total_len);
-	if ((*env)[i] == NULL)
-		return;
-
-	ft_strlcpy((*env)[i], name, total_len);
-	(*env)[i][name_len] = '=';
-	ft_strlcpy((*env)[i] + name_len + 1, value, total_len - name_len - 1);
-
-	(*env)[i + 1] = NULL;
 }
 
-void ft_export(t_line *line)
+int	is_valid_identifier(const char *arg)
 {
-	if (line == NULL || line->env == NULL)
-		return;
+	if (!is_valid(arg))
+	{
+		printf("export: `%s': not a valid identifier\n", arg);
+		return (0);
+	}
+	return (1);
+}
 
+void	handle_export_argument(t_line *line, const char *arg)
+{
+	char	*equal_sign;
+
+	equal_sign = ft_strchr(arg, '=');
+	if (equal_sign != NULL)
+	{
+		*equal_sign = '\0';
+		if (is_valid_identifier(arg))
+			create_update(line->env, arg, equal_sign + 1);
+		*equal_sign = '=';
+	}
+	else
+	{
+		if (is_valid_identifier(arg))
+			create_update(line->env, arg, "");
+	}
+}
+
+void	ft_export(t_line *line)
+{
+	int	i;
+
+	if (line == NULL || line->env == NULL)
+		return ;
 	if (line->arg == NULL || line->arg[0] == NULL)
 	{
 		print_export(*line->env);
-		return;
+		return ;
 	}
-
-	for (int i = 0; line->arg[i] != NULL; i++)
+	i = 0;
+	while (line->arg[i] != NULL)
 	{
-		if (!is_valid(line->arg[i]))
-		{
-			printf("export: `%s': not a valid identifier\n", line->arg[i]);
-			continue;
-		}
-
-		char *equal_sign = ft_strchr(line->arg[i], '=');
-		if (equal_sign != NULL)
-		{
-			*equal_sign = '\0';
-
-			if (is_valid(line->arg[i]))
-			{
-				create_update(line->env, line->arg[i], equal_sign + 1);
-			}
-			else
-			{
-				printf("export: `%s': not a valid identifier\n", line->arg[i]);
-			}
-			*equal_sign = '=';
-		}
-		else
-		{
-			if (is_valid(line->arg[i]))
-			{
-				create_update(line->env, line->arg[i], "");
-			}
-			else
-			{
-				printf("export: `%s': not a valid identifier\n", line->arg[i]);
-			}
-		}
+		handle_export_argument(line, line->arg[i]);
+		i++;
 	}
 }
