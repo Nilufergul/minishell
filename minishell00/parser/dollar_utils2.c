@@ -48,6 +48,7 @@ int get_dollar(char *str, int i, t_mini **mini, char **new_str)
 		var[k] = str[i + k];
 		k += 1;
 	}
+	var[k] = 0;
 	res = get_res(var, mini);
 	if (!res)
 		return (j);
