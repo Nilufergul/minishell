@@ -31,6 +31,7 @@ void	ft_env(t_mini *mini, char **environ)
 		mini->env[i] = ft_strdup(environ[i]);
 		i++;
 	}
+	mini->env[i] = NULL;
 }
 
 void	running_shell(t_mini *mini)
