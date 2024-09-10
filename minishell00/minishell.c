@@ -57,7 +57,6 @@ void	routine(t_mini *mini)
 	split = splitter(mini);
 	expander(split, mini);
 	free_the_minis(mini);
-	remove_quotes(split);
 	command = split_for_exe(split, mini);
 	free_the_split(split);
 	make_pipe(command);
