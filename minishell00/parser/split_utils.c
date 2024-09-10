@@ -22,7 +22,15 @@ void	skip_spaces(const char *line, int *i)
 void	handle_token(const char *line, int *i)
 {
 	while (line[*i] && line[*i] != ' ')
+	{
+		if(line[*i] == '\0')
+			return ;
+		if(line[*i] == '\"' || line[*i] == '\'')
+			*i = skip_quotes(line, *i);
+		if(line[*i] == '\0')
+			return ;
 		(*i)++;
+	}
 }
 
 int	closed_quotes_index(const char *input)
