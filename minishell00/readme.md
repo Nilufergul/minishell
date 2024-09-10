@@ -19,3 +19,17 @@ echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
 echo "exit_code ->$? user ->$USER home -> $HOME"
 cd $PWD
 cd
+
+
+FAZLALIK DOSYA VE FUNC LAR SİLİNCEK.
+
+HEADER EKLENCEK
+
+LEAK ÇÖZÜLCEK
+
+EXİT_CODE ALINCAK
+
+SYNTAX DA HATA MESAJLARI DÜZELTİLCEK
+
+SYNTAX A EXİT CODE LAR EKLENCEK
+
