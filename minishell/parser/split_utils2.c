@@ -32,18 +32,60 @@ void	quotes_cases(t_split **split, t_mini **mini, int *flag)
 	{
 		if ((quoted_dollar((*split)) && !closed_quotes_index((*split)->node)))
 			replace_node_substr((*split), "$", "");
-		if (closed_quotes_index((*split)->node) == '\'') // dolar hangi tırnak içinde kalıyor (tek tırnak içindeki dolar çalışmıyor
+		if (closed_quotes_index((*split)->node) == '\'' && count_dollar((*split)->node))
 			*flag = 1;
 	}
 	else if (quoted_dollar((*split)))
 		replace_node_substr((*split), "$", "");
 	if (*flag == 0)
 	{
-		while (ft_strchr((*split)->node,'$') && stop)
+		while (ft_strchr((*split)->node,'$') && stop && !count_dollar((*split)->node))
 		{
 			dollar_quest((*split)); // $? çalıştırıyor
 			stop=handle_dollar((*split), *mini); // expand edilicek dolarları çalıştırıyor.
 		}
 	}
 	(*split)->meta = EXCEPT;
+}
+
+int count_dollar(char *str)
+{
+	int i;
+	int dollar_quote;
+	int count;
+	int all;
+
+	count = 0;
+	dollar_quote = 0;
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == '\"')
+		{
+			i++;
+			while(str[i] != '\"')
+			{
+				i++;
+			}
+		}
+		if(str[i] == '\'')
+		{
+			i++;
+			while(str[i] != '\'')
+			{
+				if(str[i] == '$')
+					dollar_quote++;
+				i++;
+			}
+		}
+		if(str[i] == '$')
+			count++;
+		i++;
+	}
+	all = count + dollar_quote;
+
+	if(all == dollar_quote)
+		return (1);
+	else
+		return (0);
 }

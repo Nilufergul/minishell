@@ -97,6 +97,7 @@ int	last_arg_is_redir(char *input)
 	i = 0;
 	while (input[i])
 	{
+		quote_check_meta(input,&i);
 		if (input[i] == '<' || input[i] == '>')
 		{
 			red = input[i];

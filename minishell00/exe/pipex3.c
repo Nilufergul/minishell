@@ -43,7 +43,7 @@ int	open_lefts(t_fd *head)
 			if (fd == -1 && !error)
 				error = head->name;
 		}
-		else if (head ->type == HEREDOC)
+		else if (head->type == HEREDOC)
 			fd = heredoc(head->name);
 		close(last_fd);
 		last_fd = fd;
@@ -51,8 +51,8 @@ int	open_lefts(t_fd *head)
 	}
 	if (error)
 	{
-		printf("%s: There is no such file!\n", error);
-		exit(EXIT_FAILURE);
+		perror("No such file or directory");
+		return (-1);
 	}
 	return (last_fd);
 }
@@ -63,8 +63,15 @@ int	built_in(t_line *command)
 		echo_main(merge_echo(command->arg));
 	else if (ft_strcmp(command->cmd, "pwd") == 0)
 		pwd();
-	else if (ft_strcmp(command->cmd, "cd") == 0)
-		ft_cd(command,command->arg[0]);
+	else if (command->arg && ft_strcmp(command->cmd, "cd") == 0)
+	{
+		if (command->arg == NULL)
+		{
+			ft_cd(command, NULL);
+		}
+		else
+			ft_cd(command, command->arg[0]);
+	}
 	else if (ft_strcmp(command->cmd, "export") == 0)
 		ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
@@ -76,18 +83,6 @@ int	built_in(t_line *command)
 	else
 		return (0);
 	return (1);
-}
-
-int	run_command_run(t_line *command)
-{
-	char	*exe;
-
-	if (command->cmd != NULL && !built_in(command))
-	{
-		exe = get_copy(ft_strdup(command->cmd), command->arg);
-		run_exec(exe, *(command->env));
-	}
-	return (0);
 }
 
 int	**fill_pipes(int count)
