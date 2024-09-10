@@ -64,14 +64,7 @@ int	built_in(t_line *command)
 	else if (ft_strcmp(command->cmd, "pwd") == 0)
 		pwd();
 	else if (command->arg && ft_strcmp(command->cmd, "cd") == 0)
-	{
-		if (command->arg == NULL)
-		{
-			ft_cd(command, NULL);
-		}
-		else
-			ft_cd(command, command->arg[0]);
-	}
+		ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)
 		ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)

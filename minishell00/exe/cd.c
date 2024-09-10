@@ -1,9 +1,16 @@
 #include "../minishell.h"
 
-int ft_cd(t_line *line, char *path)
+int ft_cd(t_line *line)
 {
     static char prev_dir[1024] = "";
     char current_dir[1024];
+    char *path;
+
+    if (line->arg == NULL)
+        path = NULL;
+
+    else if (line->arg)
+        path = line->arg[0];
 
     if (getcwd(current_dir, sizeof(current_dir)) == NULL)
     {
