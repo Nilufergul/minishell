@@ -43,7 +43,7 @@ int	open_lefts(t_fd *head)
 			if (fd == -1 && !error)
 				error = head->name;
 		}
-		else if (head ->type == HEREDOC)
+		else if (head->type == HEREDOC)
 			fd = heredoc(head->name);
 		close(last_fd);
 		last_fd = fd;
@@ -63,8 +63,15 @@ int	built_in(t_line *command)
 		echo_main(merge_echo(command->arg));
 	else if (ft_strcmp(command->cmd, "pwd") == 0)
 		pwd();
-	else if (ft_strcmp(command->cmd, "cd") == 0)
-		ft_cd(command, command->arg[0]);
+	else if (command->arg && ft_strcmp(command->cmd, "cd") == 0)
+	{
+		if (command->arg == NULL)
+		{
+			ft_cd(command, NULL);
+		}
+		else
+			ft_cd(command, command->arg[0]);
+	}
 	else if (ft_strcmp(command->cmd, "export") == 0)
 		ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
