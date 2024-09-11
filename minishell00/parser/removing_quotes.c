@@ -13,7 +13,6 @@ void	dollar_quest(t_split *split)
 		if ((split->node[i] == '$') && (split->node[i + 1] == '?')
 			&& !(ft_isalnum(split->node[i + 2])))
 		{
-			printf("dolar soru işareti çalışcak.exit status\n"); //?????!!!!!!!!!!
 			replace_node_substr(split, "$?", exit_str); //?????!!!!!!!!!!
 		}
 		i++;
@@ -27,6 +26,7 @@ void	expander(t_split *split, t_mini *mini)// $'PAT'   kontrol edilcek // dolar 
 		if (split->meta == DOLLAR)
 		{
 			split->node = remove_quotes_selman(&split, &mini);
+			dollar_quest(split);
 			split->meta = EXCEPT;
 		}
 		else
