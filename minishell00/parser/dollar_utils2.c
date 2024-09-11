@@ -133,7 +133,7 @@ char *remove_quotes_selman(t_split **split, t_mini **mini)
 			i = get_double_quote(str, i + 1, &new_str, mini);
 		else
 		{
-			temp = ft_calloc(ft_strlen(new_str) + 1, 1);
+			temp = ft_calloc(ft_strlen(new_str) + 2, 1);
 			ft_strcpy(temp, new_str);
 			temp[ft_strlen(new_str)] = str[i];
 			temp[ft_strlen(new_str) + 1] = 0;
