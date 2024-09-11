@@ -144,6 +144,7 @@ void create_update(char ***env, const char *name, const char *value);
 int ft_unset(t_line *command);
 int	ft_environment(char **env);
 void	ft_exit(t_line *line);
+long long int	ft_longlong(const char *str);
 void	make_pipe(t_line *command);
 int	built_in2(t_line *command);
 

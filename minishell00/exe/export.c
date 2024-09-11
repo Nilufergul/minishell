@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
 #include "../minishell.h"
 
 int is_valid(const char *str)
@@ -38,36 +41,39 @@ int print_export(char **env)
 	return (0);
 }
 
+int print_error(const char *arg)
+{
+	int len;
+	len = ft_strlen(arg);
+	write(2, "minishell: export: ", 19);
+	write(2, arg, len);
+	write(2, " ", 1);
+	errno = EINVAL;
+	perror("");
+	return (1);
+}
+
 int handle_export_argument(t_line *line, const char *arg)
 {
 	char *equal_sign;
 
 	if (arg[0] == '=')
-	{
-		printf("export: `%s': not a valid identifier\n", arg);
-		return (1);
-	}
+		return print_error(arg);
 	equal_sign = ft_strchr(arg, '=');
 	if (equal_sign)
 	{
 		*equal_sign = '\0';
 		if (!is_valid(arg))
 		{
-			printf("export: `%s': not a valid identifier\n", arg);
 			*equal_sign = '=';
-			return (1);
+			return print_error(arg);
 		}
-		if (*(equal_sign + 1) != '\0')
-			create_update(line->env, arg, equal_sign + 1);
-		else
-			create_update(line->env, arg, "");
+		create_update(line->env, arg, equal_sign + 1);
 		*equal_sign = '=';
 	}
 	else if (!is_valid(arg))
-	{
-		printf("export: `%s': not a valid identifier\n", arg);
-		return (1);
-	}
+		return print_error(arg);
+
 	return (0);
 }
 
