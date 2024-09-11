@@ -54,7 +54,7 @@ int get_dollar(char *str, int i, t_mini **mini, char **new_str)
 	var[k] = 0;
 	res = get_res(var, mini);
 	if (!res)
-		return (j);
+		return (j - 1);
 	temp = ft_strjoin(*new_str, res);
 	free(*new_str);
 	*new_str = temp;
