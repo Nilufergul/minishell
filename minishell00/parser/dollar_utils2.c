@@ -80,6 +80,7 @@ int get_single_quote(char *str, int i, char **new_str)
 		res[k] = str[i + k];
 		k += 1;
 	}
+	res[k] = 0;
 	temp = ft_strjoin(*new_str, res);
 	free(*new_str);
 	*new_str = temp;
