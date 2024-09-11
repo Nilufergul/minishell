@@ -72,7 +72,7 @@ int	built_in(t_line *command)
 	else if (ft_strcmp(command->cmd, "env") == 0)
 		ft_environment(*(command->env));
 	else if (ft_strcmp(command->cmd, "exit") == 0)
-		ft_exit(command->arg);
+		ft_exit(command);
 	else
 		return (0);
 	return (1);

@@ -138,12 +138,12 @@ int	**fill_pipes(int count);
 void	close_all_pipes(int **pipes, int len);
 void	free_all_pipes(int **pipes, int len);
 
-void ft_export(t_line *command);
+int ft_export(t_line *command);
 int ft_cd(t_line *line);
 void create_update(char ***env, const char *name, const char *value);
-void ft_unset(t_line *command);
+int ft_unset(t_line *command);
 int	ft_environment(char **env);
-void	ft_exit(char **args);
+void	ft_exit(t_line *line);
 void	make_pipe(t_line *command);
 int	built_in2(t_line *command);
 
