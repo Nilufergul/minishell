@@ -35,13 +35,13 @@ int	built_in2(t_line *command)
 	if (ft_strcmp(command->cmd, "cd") == 0)
 		*command->exit_code_line = ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)
-		ft_export(command);
+		*command->exit_code_line = ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
 		ft_unset(command);
 	else if (ft_strcmp(command->cmd, "env") == 0)
-		ft_environment(*(command->env));
+		*command->exit_code_line = ft_environment(*(command->env));
 	else if (ft_strcmp(command->cmd, "exit") == 0)
-		ft_exit(command->arg);
+		ft_exit(command);
 	else
 		return (0);
 	return (1);
