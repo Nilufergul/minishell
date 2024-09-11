@@ -52,6 +52,7 @@ typedef struct s_arg
 
 typedef struct s_split
 {
+	int *exit_split;
 	int meta;
 	char *node;
 	struct s_split *next;
@@ -67,6 +68,7 @@ typedef struct s_fd
 
 typedef struct  s_line
 {
+	int	*exit_line;
 	char	*cmd;
 	char	**arg;
 	char 	***env;
@@ -78,6 +80,7 @@ typedef struct  s_line
 
 typedef struct	s_mini
 {
+	int *exit_mini;
 	char **env;
 	char *line;
 }				t_mini;
@@ -170,7 +173,7 @@ void remove_quotes(t_split *split);
 enum type	meta_type_2(int i, char *str);
 enum type meta_type(char *str);
 t_split	*sub_node(const char *str, unsigned int start, size_t len);
-void	add_to_list(t_split **head, const char *line, int start, int end);
+void	add_to_list(t_split **head, t_mini *mini, char *line, int start, int end);
 t_split	*splitter(t_mini *mini);
 //split_for_exe
 void fd_zero(t_fd *fd);
@@ -226,7 +229,7 @@ int	last_arg_is_redir(char *input);
 void free_the_minis(t_mini *mini);
 void free_the_split(t_split *split);
 //struct_utils
-t_line *create_new_line(char ***env);
+t_line	*create_new_line(char ***env, t_split *split);
 t_fd *create_new_fd(char *name, int type);
 t_ty *create_new_ty(int type);
 void append_line(t_line **head, t_line *new_line);
