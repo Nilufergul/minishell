@@ -46,7 +46,7 @@ int	ft_cd(t_line *line)
 	static char	prev_dir[1024];
 	char		current_dir[1024];
 	char		*path;
-
+	
 	if (line->arg && line->arg[0])
 	{
 		path = line->arg[0];

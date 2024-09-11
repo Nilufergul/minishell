@@ -64,12 +64,17 @@ typedef struct s_fd
 	char *name;
 	struct s_fd *next;
 }				t_fd;
+typedef struct s_exit_status
+{
+	int	*exit_code;
+}				t_exit_status;
 
 typedef struct  s_line
 {
 	char	*cmd;
 	char	**arg;
 	char 	***env;
+	int		*exit_code_line;
 	struct  s_fd    *right;
 	struct 	s_fd 	*left;
 	struct  s_line  *next;
@@ -93,7 +98,7 @@ typedef struct s_pipe_info
 
 void	quotes(t_split *split);
 void	char_remove(t_split *split, int i);
-void	dollar_quest(t_split *split);
+void	dollar_quest(t_split *split,t_exit_status *exit );
 void	quotes_cases(t_split **split, t_mini **mini, int *flag);
 int	open_rights(t_fd *head);
 int	open_lefts(t_fd *head);
@@ -162,7 +167,7 @@ void replace_substr_in_node(char *new_node, const char *node, const char *var, c
 void replace_node_substr(t_split *node_struct, const char *var, const char *value);
 int 	quoted_dollar(t_split *split);
 //removing_quotes
-void 	expander(t_split *split, t_mini *mini);
+void 	expander(t_split *split, t_mini *mini, t_exit_status *exit);
 void quotes(t_split *split);
 void	char_remove(t_split *split, int i);
 void remove_quotes(t_split *split);
@@ -242,9 +247,9 @@ int	pass_the_quotes(char c, int quote);
 t_mini *init_mini(t_mini *mini, char** environ);
 int env_size(char **environ);;
 void ft_env(t_mini *mini ,char** environ);
-void running_shell(t_mini *mini);
+void running_shell(t_mini *mini,t_exit_status *exit);
 void lexer(t_mini *mini);
-void routine(t_mini *mini);
+void routine(t_mini *mini,t_exit_status *exit);
 
 void	free_command(t_line *head);
 void	free_fd_list(t_fd *head);

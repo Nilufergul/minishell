@@ -41,7 +41,7 @@ void	quotes_cases(t_split **split, t_mini **mini, int *flag)
 	{
 		while (ft_strchr((*split)->node,'$') && stop)
 		{
-			dollar_quest((*split)); // $? çalıştırıyor
+			//dollar_quest((*split)); // $? çalıştırıyor
 			stop=handle_dollar((*split), *mini); // expand edilicek dolarları çalıştırıyor.
 		}
 	}

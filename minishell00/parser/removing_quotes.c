@@ -1,13 +1,13 @@
 #include "../minishell.h"
 
 
-void	dollar_quest(t_split *split)
+void	dollar_quest(t_split *split,t_exit_status *exit)
 {
 	int	i;
 	char	*exit_str;
 
 	i = 0;
-	exit_str = ft_itoa(g_exit_code);
+	exit_str = ft_itoa(*(exit->exit_code));
 	while (split->node[i] != '\0')
 	{
 		if ((split->node[i] == '$') && (split->node[i + 1] == '?')
@@ -19,14 +19,14 @@ void	dollar_quest(t_split *split)
 	}
 }
 
-void	expander(t_split *split, t_mini *mini)// $'PAT'   kontrol edilcek // dolar kontrolü burada başlıyor.
+void	expander(t_split *split, t_mini *mini,t_exit_status *exit)// $'PAT'   kontrol edilcek // dolar kontrolü burada başlıyor.
 {
 	while (split)
 	{
 		if (split->meta == DOLLAR)
 		{
 			split->node = remove_quotes_selman(&split, &mini);
-			dollar_quest(split);
+			dollar_quest(split,exit);
 			split->meta = EXCEPT;
 		}
 		else

@@ -13,7 +13,7 @@ void	free_pipe_things(t_pipe_info *pipe_info)
 void	make_pipe(t_line *command)
 {
 	t_pipe_info	*pipe_info;
-
+	
 	if (struct_len(command) == 1 && built_in2(command))
 		return ;
 	pipe_info = malloc(sizeof(t_pipe_info));
@@ -33,7 +33,7 @@ int	built_in2(t_line *command)
 	if (command->cmd == NULL)
 		return (0);
 	if (ft_strcmp(command->cmd, "cd") == 0)
-		ft_cd(command);
+		*command->exit_code_line = ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)
 		ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
