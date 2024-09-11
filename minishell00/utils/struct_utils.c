@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-t_line	*create_new_line(char ***env)
+t_line	*create_new_line(char ***env, t_split *split)
 {
 	t_line	*new_line;
 
@@ -13,6 +13,7 @@ t_line	*create_new_line(char ***env)
 	new_line->right = NULL;
 	new_line->left = NULL;
 	new_line->next = NULL;
+	new_line->exit_line = split->exit_split;
 	return (new_line);
 }
 
