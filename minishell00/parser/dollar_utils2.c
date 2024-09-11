@@ -4,7 +4,7 @@ char *get_res(char *var, t_mini **mini)
 {
 	char **env;
 	char **line;
-	int	i;
+	int i;
 	char *res;
 
 	env = (*mini)->env;
@@ -31,11 +31,11 @@ char *get_res(char *var, t_mini **mini)
 
 int get_dollar(char *str, int i, t_mini **mini, char **new_str)
 {
-	int		j;
-	char	*var;
-	int		k;
-	char	*res;
-	char	*temp;
+	int j;
+	char *var;
+	int k;
+	char *res;
+	char *temp;
 
 	j = i;
 	while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
@@ -64,10 +64,10 @@ int get_dollar(char *str, int i, t_mini **mini, char **new_str)
 
 int get_single_quote(char *str, int i, char **new_str)
 {
-	int		j;
-	int		k;
-	char	*res;
-	char	*temp;
+	int j;
+	int k;
+	char *res;
+	char *temp;
 
 	j = i;
 	while (str[j] && str[j] != '\'')
@@ -93,7 +93,7 @@ int get_single_quote(char *str, int i, char **new_str)
 
 int get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 {
-	char	*temp;
+	char *temp;
 
 	while (str[i] && str[i] != '\"')
 	{
@@ -112,7 +112,6 @@ int get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 	}
 	return (i);
 }
-
 
 char *remove_quotes_selman(t_split **split, t_mini **mini)
 {

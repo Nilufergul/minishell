@@ -75,12 +75,13 @@ t_split	*sub_node(const char *str, unsigned int start, size_t len)
 	return (node);
 }
 
-void	add_to_list(t_split **head, const char *line, int start, int end)
+void	add_to_list(t_split **head, t_mini *mini, char *line, int start, int end)
 {
 	t_split	*new_node;
 	t_split	*current;
 
 	new_node = sub_node(line, start, end - start);
+	new_node->exit_split = mini->exit_mini;
 	if (!*head)
 	{
 		*head = new_node;
@@ -111,7 +112,8 @@ t_split	*splitter(t_mini *mini)
 		handle_token(mini->line, &i);
 		if (i > start)
 		{
-			add_to_list(&head, mini->line, start, i);
+			add_to_list(&head, mini, mini->line, start, i);
+			head->exit_split = mini->exit_mini;
 		}
 	}
 	return (head);
