@@ -21,6 +21,9 @@ char *get_res(char *var, t_mini **mini)
 			free(line);
 			return (res);
 		}
+		free(line[0]);
+		free(line[1]);
+		free(line);
 		i++;
 	}
 	return (res);
