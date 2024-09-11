@@ -1,63 +1,70 @@
 #include "../minishell.h"
 
-int ft_cd(t_line *line)
+static void	update_dirs(char ***env, char *current_dir)
 {
-    static char prev_dir[1024] = "";
-    char current_dir[1024];
-    char *path;
-
-    if (line->arg == NULL)
-        path = NULL;
-
-    else if (line->arg)
-        path = line->arg[0];
-
-    if (getcwd(current_dir, sizeof(current_dir)) == NULL)
-    {
-        perror("getcwd");
-        return 1;
-    }
-
-    if (path == NULL || ft_strcmp(path, "~") == 0)
-    {
-        char *home_dir = getenv("HOME");
-        if (home_dir == NULL)
-        {
-            printf("cd: HOME environment variable not set\n");
-            return 1;
-        }
-        path = home_dir;
-    }
-    else if (ft_strcmp(path, "-") == 0)
-    {
-        if (prev_dir[0] == '\0')
-        {
-            printf("cd: OLDPWD not set\n");
-            return 1;
-        }
-        path = prev_dir;
-        printf("%s\n", path);
-    }
-
-    if (chdir(path) != 0)
-    {
-        perror("cd");
-        return 1;
-    }
-
-    create_update(line->env, "OLDPWD", current_dir);
-    create_update(line->env, "PWD", getcwd(NULL, 0));
-
-    ft_strcpy(prev_dir, current_dir);
-
-    return 0;
+	create_update(env, "OLDPWD", current_dir);
+	create_update(env, "PWD", getcwd(NULL, 0));
 }
 
-void pwd(void)
+static int	handle_path(char **path, char *prev_dir)
 {
-    char *s;
+	if (ft_strcmp(*path, "-") == 0)
+	{
+		if (prev_dir[0] == '\0')
+		{
+			printf("cd: OLDPWD not set\n");
+			return (1);
+		}
+		*path = prev_dir;
+		printf("%s\n", *path);
+	}
+	return (0);
+}
 
-    s = getcwd(NULL, 0);
-    printf("%s\n", s);
-    free(s);
+static char	*get_home_path(void)
+{
+	char	*home;
+
+	home = getenv("HOME");
+	if (!home)
+		printf("cd: HOME environment variable not set\n");
+	return (home);
+}
+
+static int	change_directory(char *path)
+{
+	if (chdir(path) != 0)
+	{
+		perror("cd");
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_cd(t_line *line)
+{
+	static char	prev_dir[1024];
+	char		current_dir[1024];
+	char		*path;
+
+	if (line->arg && line->arg[0])
+	{
+		path = line->arg[0];
+	}
+	else
+	{
+		path = NULL;
+	}
+	if (!getcwd(current_dir, sizeof(current_dir)))
+	{
+		perror("getcwd");
+		return (1);
+	}
+	if (!path || ft_strcmp(path, "~") == 0)
+		path = get_home_path();
+	if (!path || handle_path(&path, prev_dir) || change_directory(path))
+		return (1);
+	update_dirs(line->env, current_dir);
+	ft_strcpy(prev_dir, current_dir);
+	return (0);
 }
