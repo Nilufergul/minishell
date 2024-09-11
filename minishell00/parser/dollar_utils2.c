@@ -97,7 +97,7 @@ int get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 			i = get_dollar(str, i + 1, mini, new_str);
 		else
 		{
-			temp = ft_calloc(ft_strlen(*new_str) + 1, 1);
+			temp = ft_calloc(ft_strlen(*new_str) + 2, 1);
 			ft_strcpy(temp, *new_str);
 			temp[ft_strlen(*new_str)] = str[i];
 			temp[ft_strlen(*new_str) + 1] = 0;
