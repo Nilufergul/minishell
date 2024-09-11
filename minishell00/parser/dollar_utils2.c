@@ -38,8 +38,9 @@ int get_dollar(char *str, int i, t_mini **mini, char **new_str)
 	char	*temp;
 
 	j = i;
-	while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
-		j++;
+	if (str[j] && str[j] != '?')
+		while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
+			j++;
 	if (i == j)
 		return (i);
 	var = (char *)malloc((j - i + 2) * sizeof(char));
