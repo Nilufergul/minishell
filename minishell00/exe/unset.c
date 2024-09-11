@@ -1,66 +1,87 @@
 #include "../minishell.h"
 
-int is_valid_unset(const char *str)
+int	is_valid_unset(const char *arg)
 {
-	if (!str || !*str || !ft_isalpha(str[0]))
-		return 0;
+	int	i;
 
-	for (int i = 0; str[i] != '\0'; i++)
+	if (arg == NULL || *arg == '\0' || !ft_isalpha(arg[0]))
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return 0;
+		printf("unset: `%s': not a valid identifier\n", arg);
+		return (0);
 	}
-
-	return 1;
+	i = 0;
+	while (arg[i] != '\0')
+	{
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+		{
+			printf("unset: `%s': not a valid identifier\n", arg);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
-char **remove_env_var(char **env, int index)
+char	**remove_env_var(char **env, int index)
 {
-	int env_size = 0;
+	int		env_size;
+	char	**new_env;
+	int		k;
+	int		m;
 
+	env_size = 0;
 	while (env[env_size] != NULL)
 		env_size++;
-
-	char **new_env = (char **)malloc(sizeof(char *) * env_size);
-	if (!new_env)
-		return env;
-
-	for (int k = 0, m = 0; env[k] != NULL; k++)
+	new_env = (char **)malloc(sizeof(char *) * env_size);
+	if (new_env == NULL)
+		return (env);
+	k = -1;
+	m = -1;
+	while (env[++k] != NULL)
 	{
 		if (k != index)
 		{
-			new_env[m] = env[k];
-			m++;
+			new_env[++m] = env[k];
 		}
 	}
-	new_env[env_size - 1] = NULL;
-
+	new_env[m] = NULL;
 	free(env[index]);
 	free(env);
-
-	return new_env;
+	return (new_env);
 }
 
-void ft_unset(t_line *line)
+void	remove_var(char ***env, const char *arg)
 {
-	if (line == NULL || line->env == NULL || line->arg == NULL)
-		return;
+	int		j;
+	size_t	arg_len;
 
-	for (int i = 0; line->arg[i] != NULL; i++)
+	j = 0;
+	arg_len = ft_strlen(arg);
+	while ((*env)[j] != NULL)
 	{
-		if (!is_valid_unset(line->arg[i]))
+		if (ft_strncmp((*env)[j], arg, arg_len) == 0
+			&& (*env)[j][arg_len] == '=')
 		{
-			printf("unset: `%s': not a valid identifier\n", line->arg[i]);
-			continue;
+			*env = remove_env_var(*env, j);
+			break ;
 		}
+		j++;
+	}
+}
 
-		for (int j = 0; (*line->env)[j] != NULL; j++)
+void	ft_unset(t_line *line)
+{
+	int	i;
+
+	if (line == NULL || line->env == NULL || line->arg == NULL)
+		return ;
+	i = 0;
+	while (line->arg[i] != NULL)
+	{
+		if (is_valid_unset(line->arg[i]))
 		{
-			if (ft_strncmp((*line->env)[j], line->arg[i], ft_strlen(line->arg[i])) == 0 && (*line->env)[j][ft_strlen(line->arg[i])] == '=')
-			{
-				*line->env = remove_env_var(*line->env, j);
-				break;
-			}
+			remove_var(line->env, line->arg[i]);
 		}
+		i++;
 	}
 }

@@ -7,7 +7,7 @@ void	dollar_quest(t_split *split)
 	char	*exit_str;
 
 	i = 0;
-	exit_str = ft_itoa(global_exit_code);
+	exit_str = ft_itoa(g_exit_code);
 	while (split->node[i] != '\0')
 	{
 		if ((split->node[i] == '$') && (split->node[i + 1] == '?')
