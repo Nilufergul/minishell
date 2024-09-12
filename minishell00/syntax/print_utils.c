@@ -1,6 +1,5 @@
 #include "../minishell.h"
 
-// error mesajları düzenlenmeli.
 int	print_syntax_error_quote(void)
 {
 	printf("Syntax error. Unclosed quote.\n");
