@@ -22,16 +22,17 @@ void	ft_env(t_mini *mini, char **environ)
 		return ;
 	while (environ[i])
 		i++;
-	mini->env = malloc(sizeof(char **) * (i + 1));
+	mini->env = malloc(sizeof(char **) * (i + 2));
 	if (!mini->env)
 		return ;
-	i = 0;
-	while (environ[i])
+	i = 1;
+	while (environ[i - 1])
 	{
-		mini->env[i] = ft_strdup(environ[i]);
+		mini->env[i] = ft_strdup(environ[i - 1]);
 		i++;
 	}
 	mini->env[i] = NULL;
+	mini->env[0] = ft_strdup("?=0");
 }
 
 void	running_shell(t_mini *mini,t_exit_status *exit)
@@ -48,21 +49,21 @@ void	running_shell(t_mini *mini,t_exit_status *exit)
 	}
 }
 
-void	routine(t_mini *mini,t_exit_status *exit)
+void	routine(t_mini *mini, t_exit_status *exit)
 {
 	t_line	*command;
 	t_split	*split;
-	
+
 
 	if (!check_the_syntax(mini))
 		return ;
 	lexer(mini);
 	split = splitter(mini);
-	expander(split, mini, exit);
-	free_the_minis(mini);
+	expander(split, mini);
 	remove_quotes(split);
+	free_the_minis(mini);
 	command = split_for_exe(split, mini);
-	command->exit_code_line = exit->exit_code;
+	command->exit_code_line = *exit->exit_code;
 	make_pipe(command);
 	free_the_split(split);
 	free_command(command);
