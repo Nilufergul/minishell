@@ -41,7 +41,7 @@ int print_export(char **env)
 	return (0);
 }
 
-int print_error(const char *arg)
+int print_error(t_line *line, const char *arg)
 {
 	int len;
 	len = ft_strlen(arg);
@@ -50,6 +50,8 @@ int print_error(const char *arg)
 	write(2, " ", 1);
 	errno = EINVAL;
 	perror("");
+	free(line->env[0][0]);
+	line->env[0][0] = ft_strdup("?=1");
 	return (1);
 }
 
@@ -58,7 +60,7 @@ int handle_export_argument(t_line *line, const char *arg)
 	char *equal_sign;
 
 	if (arg[0] == '=')
-		return print_error(arg);
+		return print_error(line, arg);
 	equal_sign = ft_strchr(arg, '=');
 	if (equal_sign)
 	{
@@ -66,13 +68,13 @@ int handle_export_argument(t_line *line, const char *arg)
 		if (!is_valid(arg))
 		{
 			*equal_sign = '=';
-			return print_error(arg);
+			return print_error(line, arg);
 		}
 		create_update(line->env, arg, equal_sign + 1);
 		*equal_sign = '=';
 	}
 	else if (!is_valid(arg))
-		return print_error(arg);
+		return print_error(line, arg);
 
 	return (0);
 }
