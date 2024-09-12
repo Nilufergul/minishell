@@ -41,6 +41,8 @@ void	running_shell(t_mini *mini,t_exit_status *exit)
 		mini->line = readline("minishell$> ");
 		if (!mini->line)
 			break ;
+		if (mini->line[0] == 0)
+			continue ;
 		add_history(mini->line);
 		routine(mini,exit);
 	}
