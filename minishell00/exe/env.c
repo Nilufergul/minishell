@@ -4,7 +4,7 @@ int	ft_environment(char **env)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (env[i] != NULL)
 	{
 		printf("%s\n", env[i]);
