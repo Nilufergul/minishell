@@ -74,7 +74,7 @@ typedef struct  s_line
 	char	*cmd;
 	char	**arg;
 	char 	***env;
-	int		*exit_code_line;
+	int		exit_code_line;
 	struct  s_fd    *right;
 	struct 	s_fd 	*left;
 	struct  s_line  *next;
@@ -96,13 +96,14 @@ typedef struct s_pipe_info
 	int	output;
 } t_pipe_info;
 
+int	w_exit_status(int status);
 void	quotes(t_split *split);
 void	char_remove(t_split *split, int i);
 void	dollar_quest(t_split *split,t_exit_status *exit );
 void	quotes_cases(t_split **split, t_mini **mini, int *flag);
 int	open_rights(t_fd *head);
 int	open_lefts(t_fd *head);
-void	run_exec(char *command, char **env);
+void	run_exec(t_line *line, char *command, char **env);
 char	*get_path(char **env);
 char	*get_command_path(char **env, char *command);
 
@@ -117,7 +118,7 @@ int add_arg(char ***arg, char *new_arg);
 
 char	*get_copy(char *result, char **arr);
 int fd_len(t_fd **head);
-void clean_pipes(t_pipe_info *pipe_info);
+void clean_pipes(t_line *command, t_pipe_info *pipe_info);
 void create_processes(t_line *command, t_pipe_info *pipe_info);
 void run_child_process(t_line *command, t_pipe_info *pipe_info, int i);
 void	pwd(void);
@@ -168,7 +169,7 @@ void replace_substr_in_node(char *new_node, const char *node, const char *var, c
 void replace_node_substr(t_split *node_struct, const char *var, const char *value);
 int 	quoted_dollar(t_split *split);
 //removing_quotes
-void 	expander(t_split *split, t_mini *mini, t_exit_status *exit);
+void 	expander(t_split *split, t_mini *mini);
 void quotes(t_split *split);
 void	char_remove(t_split *split, int i);
 void remove_quotes(t_split *split);
