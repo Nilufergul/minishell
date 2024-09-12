@@ -1,7 +1,12 @@
 
 #include "../minishell.h"
 
-void	run_exec(char *command, char **env)
+int	w_exit_status(int status)
+{
+	return ((status >> 8) & 0x000000ff);
+}
+
+void	run_exec(t_line *line, char *command, char **env)
 {
 	char	*path;
 	char	**commands;
@@ -14,9 +19,10 @@ void	run_exec(char *command, char **env)
 	{
 		ft_putstr_fd(commands[0], 2);
 		ft_putendl_fd(": There is no such command", 2);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	execve(path, commands, env);
+	exit(line->exit_code_line);
 }
 
 char	*get_path(char **env)
