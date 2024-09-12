@@ -10,6 +10,15 @@ char	*get_res(char *var, t_mini **mini)
 	env = (*mini)->env;
 	res = 0;
 	i = 0;
+	if (var && var[0] == '?')
+	{
+		line = ft_split(env[i], '=');
+		res = ft_strdup(line[1]);
+		free(line[0]);
+		free(line[1]);
+		free(line);
+		return (res);
+	}
 	while (env[i])
 	{
 		line = ft_split(env[i], '=');
@@ -38,10 +47,13 @@ int get_dollar(char *str, int i, t_mini **mini, char **new_str)
 	char	*temp;
 
 	j = i;
-	while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
-		j++;
-	if (i == j)
+	if (str[j] && str[j] != '?')
+		while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
+			j++;
+	if (i == j && str[j] != '?')
 		return (i);
+	if (str[j] == '?')
+		j++;
 	var = (char *)malloc((j - i + 2) * sizeof(char));
 	if (!var)
 		return (i);
@@ -98,7 +110,7 @@ int get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 	while (str[i] && str[i] != '\"')
 	{
 		if (str[i] == '$' && str[i + 1]
-			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
 			i = get_dollar(str, i + 1, mini, new_str);
 		else
 		{
@@ -127,7 +139,7 @@ char	*remove_quotes_selman(t_split **split, t_mini **mini)
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1]
-			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
 			i = get_dollar(str, i + 1, mini, &new_str);
 		else if (str[i] == '\'')
 			i = get_single_quote(str, i + 1, &new_str);
