@@ -58,8 +58,8 @@ int	redir_plus_pipe_two(char *input)
 	while (input[i])
 	{
 		quote = pass_the_quotes(input[i], quote);
-		if (((input[i] == '>' && input[i + 1] == '>')
-				|| (input[i] == '<' && input[i + 1] == '<'))
+		if (((input[i] == '>' && input[i + 1] && input[i + 1] == '>')
+				|| (input[i] == '<' && input[i + 1] &&  input[i + 1] == '<'))
 			&& quote == 0)
 		{
 			i += 2;
