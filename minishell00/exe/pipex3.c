@@ -56,21 +56,20 @@ int	open_lefts(t_fd *head)
 	}
 	return (last_fd);
 }
-
 int	built_in(t_line *command)
 {
 	if (ft_strcmp(command->cmd, "echo") == 0)
-		echo_main(merge_echo(command->arg));
+		command->exit_code_line = echo_main(merge_echo(command->arg));
 	else if (ft_strcmp(command->cmd, "pwd") == 0)
 		pwd();
 	else if (command->arg && ft_strcmp(command->cmd, "cd") == 0)
-		ft_cd(command);
+		command->exit_code_line = ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)
-		ft_export(command);
+		command->exit_code_line = ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
-		ft_unset(command);
+		command->exit_code_line = ft_unset(command);
 	else if (ft_strcmp(command->cmd, "env") == 0)
-		ft_environment(*(command->env));
+		command->exit_code_line = ft_environment(*(command->env));
 	else if (ft_strcmp(command->cmd, "exit") == 0)
 		ft_exit(command);
 	else
