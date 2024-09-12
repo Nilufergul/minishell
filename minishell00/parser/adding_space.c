@@ -4,7 +4,7 @@ void	quote_check_meta(char *str, int *i)
 {
 	char	quote;
 
-	if (str[*i] == '\"' || str[*i] == '\'')
+	if (str[*i] && (str[*i] == '\"' || str[*i] == '\''))
 	{
 		quote = str[*i];
 		(*i)++;
