@@ -14,5 +14,5 @@ int	echo_main(char *s)
 	printf("%s", &s[ind]);
 	if (ind < 3)
 		printf("\n");
-	return (1);
+	return (0);
 }
