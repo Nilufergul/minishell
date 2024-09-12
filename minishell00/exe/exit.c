@@ -52,25 +52,29 @@ static int valid_value(char *arg)
 	return (1);
 }
 
-static void exit_handling(char **args, int i, int *exit_code)
+static void exit_handling(t_line *line, char **args, int i, int exit_code)
 {
 	long long int exit_but_looong;
 
 	if (!check_argument(args[0]) || !valid_value(args[0]))
 	{
 		print_error_exit(args[0], "numeric argument required", 255);
-		*exit_code = 255;
-		exit(*exit_code);
+		free(line->env[0][0]);
+		line->env[0][0] = ft_strdup("?=255");
+		exit_code = 255;
+		exit(exit_code);
 	}
 	exit_but_looong = ft_longlong(args[0]);
 	if (i > 1)
 	{
 		print_error_exit("", "too many arguments", 1);
-		*exit_code = 1;
+		free(line->env[0][0]);
+		line->env[0][0] = ft_strdup("?=1");
+		exit_code = 1;
 		return;
 	}
-	*exit_code = exit_but_looong % 256;
-	exit(*exit_code);
+	exit_code = exit_but_looong % 256;
+	exit(exit_code);
 }
 
 void ft_exit(t_line *line)
@@ -83,8 +87,8 @@ void ft_exit(t_line *line)
 	printf("exit\n");
 	if (!line->arg)
 	{
-		*line->exit_code_line = 0;
+		line->exit_code_line = 0;
 		exit(0);
 	}
-	exit_handling(line->arg, i, line->exit_code_line);
+	exit_handling(line, line->arg, i, line->exit_code_line);
 }
