@@ -8,7 +8,7 @@ int	echo_main(char *s)
 	if (!s)
 	{
 		printf("\n");
-		return (1);
+		return (0);
 	}
 	ind = echo_index(s);
 	printf("%s", &s[ind]);
