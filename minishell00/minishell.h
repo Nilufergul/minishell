@@ -23,7 +23,6 @@
 # define CTRL_C SIGINT
 # define CTRL_SLASH SIGQUIT
 
-extern  int rl_catch_signals;
 volatile int g_catch_ctrlc;
 
 typedef enum type
