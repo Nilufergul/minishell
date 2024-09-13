@@ -24,7 +24,7 @@ int	print_export(char **env)
 	int		i;
 	char	*equal_sign;
 
-	i = 1;
+	i = 0;
 	while (env[i])
 	{
 		equal_sign = ft_strchr(env[i], '=');
