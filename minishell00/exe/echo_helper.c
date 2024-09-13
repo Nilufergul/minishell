@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 void	echo_case1(char c, int *expect, int *ret)

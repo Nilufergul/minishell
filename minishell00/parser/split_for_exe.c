@@ -38,6 +38,8 @@ t_line	*split_for_exe(t_split *split, t_mini *mini)
 	tmp2 = line;
 	while (tmp_spl)
 	{
+		if ((ft_strcmp(tmp_spl->node, "") == 0) && (tmp_spl->next != NULL))
+			tmp_spl = tmp_spl->next;
 		if (flag_pipe == 1)
 		{
 			tmp2 = create_new_line(&mini->env);

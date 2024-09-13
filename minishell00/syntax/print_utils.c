@@ -20,6 +20,6 @@ int	print_unexpected_char_error(void)
 
 int	print_syntax_error_redir(void)
 {
-	printf("Mixed redirect using.\n");
+	printf("Wrong redirect using.\n");
 	return (0);
 }

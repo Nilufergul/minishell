@@ -3,9 +3,9 @@
 #include <string.h>
 #include "../minishell.h"
 
-int is_valid(const char *str)
+int	is_valid(const char *str)
 {
-	int i;
+	int	i;
 
 	if (!str || *str == '\0' || *str == '=' || !ft_isalpha(*str))
 		return (0);
@@ -19,12 +19,12 @@ int is_valid(const char *str)
 	return (1);
 }
 
-int print_export(char **env)
+int	print_export(char **env)
 {
-	int i;
-	char *equal_sign;
+	int		i;
+	char	*equal_sign;
 
-	i = 0;
+	i = 1;
 	while (env[i])
 	{
 		equal_sign = ft_strchr(env[i], '=');
@@ -41,9 +41,10 @@ int print_export(char **env)
 	return (0);
 }
 
-int print_error(t_line *line, const char *arg)
+int	print_error(t_line *line, const char *arg)
 {
-	int len;
+	int	len;
+
 	len = ft_strlen(arg);
 	write(2, "minishell: export: ", 19);
 	write(2, arg, len);
@@ -55,12 +56,12 @@ int print_error(t_line *line, const char *arg)
 	return (1);
 }
 
-int handle_export_argument(t_line *line, const char *arg)
+int	handle_export_argument(t_line *line, const char *arg)
 {
-	char *equal_sign;
+	char	*equal_sign;
 
 	if (arg[0] == '=')
-		return print_error(line, arg);
+		return (print_error(line, arg));
 	equal_sign = ft_strchr(arg, '=');
 	if (equal_sign)
 	{
@@ -68,27 +69,25 @@ int handle_export_argument(t_line *line, const char *arg)
 		if (!is_valid(arg))
 		{
 			*equal_sign = '=';
-			return print_error(line, arg);
+			return (print_error(line, arg));
 		}
 		create_update(line->env, arg, equal_sign + 1);
 		*equal_sign = '=';
 	}
 	else if (!is_valid(arg))
-		return print_error(line, arg);
-
+		return (print_error(line, arg));
 	return (0);
 }
 
-int ft_export(t_line *line)
+int	ft_export(t_line *line)
 {
-	int i;
-	int status;
+	int	i;
+	int	status;
 
 	if (!line || !line->env)
 		return (1);
 	if (!line->arg || !line->arg[0])
 		return (print_export(*line->env));
-
 	i = 0;
 	status = 0;
 	while (line->arg[i])

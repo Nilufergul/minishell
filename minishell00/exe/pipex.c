@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 int	w_exit_status(int status)
