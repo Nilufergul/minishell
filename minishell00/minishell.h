@@ -24,6 +24,7 @@
 # define CTRL_SLASH SIGQUIT
 
 extern  int rl_catch_signals;
+volatile int g_catch_ctrlc;
 
 typedef enum type
 {
@@ -157,6 +158,9 @@ int	built_in2(t_line *command);
 void    rl_replace_line(const char *text, int clear_undo);
 int	init_signals(int mode);
 void	ctrl_d(char *line);
+void heredoc_ctrlc(int signum);
+int	heredoc_ctrld(char *line);
+int	init_signals_heredoc(void);
 
 
 

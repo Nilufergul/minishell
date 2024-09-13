@@ -80,7 +80,6 @@ int	main(int argc, char **argv, char **environ)
 	(void) argc;
 	(void) argv;
 	mini = NULL;
-	rl_catch_signals = 0;
     init_signals(0);
 	mini = init_mini(mini, environ);
 	if (!mini)
