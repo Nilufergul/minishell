@@ -34,6 +34,8 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i)
 		close(pipe_info->pipes[i][1]);
 	}
 	clean_pipes(command, pipe_info);
+	signal(SIGINT, SIG_DFL);
+    signal(SIGQUIT, SIG_DFL);
 	if (command->cmd != NULL && !built_in(command))
 	{
 		exe = get_copy(ft_strdup(command->cmd), command->arg);

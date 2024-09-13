@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -19,7 +20,7 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
-extern  int	g_exit_code;
+extern  int g_signal_status;
 
 typedef enum type
 {
@@ -148,6 +149,16 @@ void	ft_exit(t_line *line);
 long long int	ft_longlong(const char *str);
 void	make_pipe(t_line *command);
 int	built_in2(t_line *command);
+
+//signals 
+void    rl_replace_line(const char *text, int clear_undo);
+void	heredoc_signal(int sig);
+void	ctrl_d(char *line);
+void	ctrl_backs(int sig);
+void	ctrl_c(int sig);
+void	signal_control(void);
+
+
 
 //parser...
 //adding_space
