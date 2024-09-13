@@ -61,7 +61,7 @@ int	built_in(t_line *command)
 	if (ft_strcmp(command->cmd, "echo") == 0)
 		command->exit_code_line = echo_main(merge_echo(command->arg));
 	else if (ft_strcmp(command->cmd, "pwd") == 0)
-		pwd();
+		command->exit_code_line = pwd();
 	else if (command->arg && ft_strcmp(command->cmd, "cd") == 0)
 		command->exit_code_line = ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)

@@ -102,6 +102,12 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info)
 		close(input);
 		dup2(output, 1);
 		close(output);
+		if (g_catch_ctrlc == 1)
+		{
+			free(command->env[0][0]);
+			command->env[0][0] = ft_strdup("?=1");
+			break;
+		}	
 		command = command->next;
 		i++;
 	}

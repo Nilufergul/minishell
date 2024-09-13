@@ -126,7 +126,7 @@ int fd_len(t_fd **head);
 void clean_pipes(t_line *command, t_pipe_info *pipe_info);
 void create_processes(t_line *command, t_pipe_info *pipe_info);
 void run_child_process(t_line *command, t_pipe_info *pipe_info, int i);
-void	pwd(void);
+int	pwd(void);
 int	echo_main(char *s);
 int	echo_index(char *s);
 void	echo_incn(char c, int *n);
