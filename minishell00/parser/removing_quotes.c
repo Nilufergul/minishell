@@ -6,7 +6,7 @@ void	expander(t_split *split, t_mini *mini)
 	{
 		if (split->meta == DOLLAR)
 		{
-			split->node = remove_quotes_two(&split, &mini);
+			split->node = remove_quotes_selman(&split, &mini);
 			split->meta = EXCEPT;
 		}
 		else

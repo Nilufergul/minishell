@@ -6,11 +6,16 @@ int	heredoc(char *target)
 	char	*input;
 
 	input = 0;
+	init_signals_heredoc();
 	if (pipe(pipefd) == -1)
 		exit(EXIT_FAILURE);
 	while (1)
 	{
-		input = readline(">");
+		input = readline("> ");
+		if (g_catch_ctrlc == 1)
+			break ;
+		if (heredoc_ctrld(input))
+			break ;
 		if (!input)
 			exit(EXIT_FAILURE);
 		if (ft_strcmp(input, target) == 0)

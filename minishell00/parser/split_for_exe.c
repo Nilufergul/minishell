@@ -2,13 +2,13 @@
 
 void	cases(t_split **tmp_spl, t_line **tmp2, int *flag_pipe)
 {
-	if (*flag_pipe == 2 && !is_redir((*tmp_spl)))
+	if ((*tmp_spl)->meta && (*tmp_spl)->meta == PIPE)
+		*flag_pipe = 1;
+	else if (*flag_pipe == 2 && !is_redir((*tmp_spl)))
 	{
 		(*tmp2)->cmd = ft_strdup((*tmp_spl)->node);
 		*flag_pipe = 0;
 	}
-	else if ((*tmp_spl)->meta == EXCEPT && *flag_pipe == 0)
-		line_list_arg((*tmp_spl), (*tmp2));
 	else if ((*tmp_spl)->meta && ((*tmp_spl)->meta == GREAT
 			|| (*tmp_spl)->meta == GREATER))
 	{
@@ -21,8 +21,8 @@ void	cases(t_split **tmp_spl, t_line **tmp2, int *flag_pipe)
 		line_list_file_left((*tmp_spl)->next, (*tmp2), (*tmp_spl)->meta);
 		(*tmp_spl) = (*tmp_spl)->next;
 	}
-	else if ((*tmp_spl)->meta && (*tmp_spl)->meta == PIPE)
-		*flag_pipe = 1;
+	else if ((*tmp_spl)->meta == EXCEPT && *flag_pipe == 0)
+		line_list_arg((*tmp_spl), (*tmp2));
 }
 
 t_line	*split_for_exe(t_split *split, t_mini *mini)

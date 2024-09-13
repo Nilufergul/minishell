@@ -46,10 +46,32 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i)
 
 int	get_fds(t_line *command, t_pipe_info *pipe_info)
 {
+	int	fd;
 	int	ret;
 
-	ret = handle_input_fd(command, pipe_info);
-	handle_output_fd(command, pipe_info, &ret);
+	ret = 0;
+	if (fd_len(&(command->left)) != 0)
+	{
+		fd = open_lefts(command->left);
+		if (fd == -1)
+		{
+			fd = open("/dev/null", O_RDONLY);
+			free(command->env[0][0]);
+			command->env[0][0] = ft_strdup("?=1");
+			ret = -1;
+		}
+		dup2(fd, 0);
+		pipe_info->input = 0;
+	}
+	if (ret != -1 && fd_len(&(command->right)) != 0)
+	{
+		fd = open_rights(command->right);
+		if (fd != -1)
+		{
+			dup2(fd, 1);
+			pipe_info->output = 0;
+		}
+	}
 	return (ret);
 }
 
@@ -76,7 +98,16 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info)
 			if (pipe_info->pid[i] == 0)
 				run_child_process(command, pipe_info, i);
 		}
-		restore_fds(input, output);
+		dup2(input, 0);
+		close(input);
+		dup2(output, 1);
+		close(output);
+		if (g_catch_ctrlc == 1)
+		{
+			free(command->env[0][0]);
+			command->env[0][0] = ft_strdup("?=1");
+			break;
+		}	
 		command = command->next;
 		i++;
 	}
