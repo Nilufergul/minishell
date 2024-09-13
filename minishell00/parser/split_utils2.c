@@ -28,21 +28,20 @@ void	quotes_cases(t_split **split, t_mini **mini, int *flag)
 	int	stop;
 
 	stop = 1;
-	if (closed_quotes_index((*split)->node)) // dolar tırnak grubu içinde mi kalıyor
+	if (closed_quotes_index((*split)->node))
 	{
 		if ((quoted_dollar((*split)) && !closed_quotes_index((*split)->node)))
 			replace_node_substr((*split), "$", "");
-		if (closed_quotes_index((*split)->node) == '\'') // dolar hangi tırnak içinde kalıyor (tek tırnak içindeki dolar çalışmıyor
+		if (closed_quotes_index((*split)->node) == '\'')
 			*flag = 1;
 	}
 	else if (quoted_dollar((*split)))
 		replace_node_substr((*split), "$", "");
 	if (*flag == 0)
 	{
-		while (ft_strchr((*split)->node,'$') && stop)
+		while (ft_strchr((*split)->node, '$') && stop)
 		{
-			//dollar_quest((*split)); // $? çalıştırıyor
-			stop=handle_dollar((*split), *mini); // expand edilicek dolarları çalıştırıyor.
+			stop = handle_dollar((*split), *mini);
 		}
 	}
 	(*split)->meta = EXCEPT;

@@ -20,7 +20,10 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
-extern  int g_signal_status;
+# define CTRL_C SIGINT
+# define CTRL_SLASH SIGQUIT
+
+extern  int rl_catch_signals;
 
 typedef enum type
 {
@@ -152,11 +155,8 @@ int	built_in2(t_line *command);
 
 //signals 
 void    rl_replace_line(const char *text, int clear_undo);
-void	heredoc_signal(int sig);
+int	init_signals(int mode);
 void	ctrl_d(char *line);
-void	ctrl_backs(int sig);
-void	ctrl_c(int sig);
-void	signal_control(void);
 
 
 

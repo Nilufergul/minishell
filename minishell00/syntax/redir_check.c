@@ -97,12 +97,13 @@ int	last_arg_is_redir(char *input)
 	i = 0;
 	while (input[i])
 	{
-		quote_check_meta(input,&i);
+		quote_check_meta(input, &i);
 		if (input[i] == '<' || input[i] == '>')
 		{
 			red = input[i];
 			c = pass_the_spaces(input, i) - i;
-			if ((c != 0 && ((input[i + c] && input[i + c] == red) || input[i + c] == '\0')))
+			if ((c != 0 && ((input[i + c] && input[i + c] == red) \
+				|| input[i + c] == '\0')))
 				return (1);
 			if (input[i] == '\0')
 				return (1);

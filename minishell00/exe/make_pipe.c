@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 void	free_pipe_things(t_line *command, t_pipe_info *pipe_info)
@@ -14,9 +13,11 @@ void	make_pipe(t_line *command)
 {
 	t_pipe_info	*pipe_info;
 
-	if(command->cmd == NULL)
-	{}
-	else if ((command->cmd[0] == 0) || (struct_len(command) == 1 && built_in2(command)))
+	if (command->cmd == NULL)
+	{
+	}
+	else if ((command->cmd[0] == 0) || (struct_len(command) == 1 \
+			&& built_in2(command)))
 		return ;
 	pipe_info = malloc(sizeof(t_pipe_info));
 	if (pipe_info == NULL)
@@ -28,7 +29,6 @@ void	make_pipe(t_line *command)
 	pipe_info->pipes = fill_pipes(pipe_info->len);
 	create_processes(command, pipe_info);
 	free_pipe_things(command, pipe_info);
-
 }
 
 int	built_in2(t_line *command)
@@ -67,7 +67,8 @@ void	clean_pipes(t_line *command, t_pipe_info *pipe_info)
 		{
 			command->exit_code_line = w_exit_status(command->exit_code_line);
 			free(command->env[0][0]);
-			command->env[0][0] = ft_strjoin(ft_strdup("?="), ft_strdup(ft_itoa(command->exit_code_line)));
+			command->env[0][0] = ft_strjoin(ft_strdup("?="), \
+								ft_strdup(ft_itoa(command->exit_code_line)));
 		}
 		i++;
 	}

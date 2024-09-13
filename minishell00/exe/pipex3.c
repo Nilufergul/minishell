@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 int	open_rights(t_fd *head)
@@ -56,6 +55,7 @@ int	open_lefts(t_fd *head)
 	}
 	return (last_fd);
 }
+
 int	built_in(t_line *command)
 {
 	if (ft_strcmp(command->cmd, "echo") == 0)

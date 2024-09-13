@@ -40,7 +40,7 @@ void	running_shell(t_mini *mini,t_exit_status *exit)
 	while (true)
 	{
 		mini->line = readline("minishell$> ");
-		 ctrl_d(mini->line);
+		ctrl_d(mini->line);
 		if (!mini->line)
 			break ;
 		if (mini->line[0] == 0)
@@ -80,7 +80,8 @@ int	main(int argc, char **argv, char **environ)
 	(void) argc;
 	(void) argv;
 	mini = NULL;
-	signal_control();  // Sinyal kontrol fonksiyonunu ekleyelim
+	rl_catch_signals = 0;
+    init_signals(0);
 	mini = init_mini(mini, environ);
 	if (!mini)
 		return (0);

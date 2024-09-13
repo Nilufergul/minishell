@@ -1,8 +1,8 @@
 #include "../minishell.h"
 
-void print_error_exit(const char *arg, const char *msg, int code)
+void	print_error_exit(const char *arg, const char *msg, int code)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(arg);
 	write(2, "minishell: exit: ", 17);
@@ -14,9 +14,9 @@ void print_error_exit(const char *arg, const char *msg, int code)
 	errno = code;
 }
 
-static int check_argument(const char *arg)
+static int	check_argument(const char *arg)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (arg[j] == '+' || arg[j] == '-')
@@ -30,31 +30,33 @@ static int check_argument(const char *arg)
 	return (1);
 }
 
-static int valid_value(char *arg)
+static int	valid_value(char *arg)
 {
-	size_t len;
+	size_t	len;
 
 	len = ft_strlen(arg);
 	if (arg[0] == '-')
 	{
 		if (len > ft_strlen("-9223372036854775808"))
 			return (0);
-		if (len == ft_strlen("-9223372036854775808") && ft_strcmp(arg, "-9223372036854775808") > 0)
+		if (len == ft_strlen("-9223372036854775808") \
+			&& ft_strcmp(arg, "-9223372036854775808") > 0)
 			return (0);
 	}
 	else
 	{
 		if (len > ft_strlen("9223372036854775807"))
 			return (0);
-		if (len == ft_strlen("9223372036854775807") && ft_strcmp(arg, "9223372036854775807") > 0)
+		if (len == ft_strlen("9223372036854775807") \
+			&& ft_strcmp(arg, "9223372036854775807") > 0)
 			return (0);
 	}
 	return (1);
 }
 
-static void exit_handling(t_line *line, char **args, int i, int exit_code)
+static void	exit_handling(t_line *line, char **args, int i, int exit_code)
 {
-	long long int exit_but_looong;
+	long long int	exit_but_looong;
 
 	if (!check_argument(args[0]) || !valid_value(args[0]))
 	{
@@ -71,15 +73,15 @@ static void exit_handling(t_line *line, char **args, int i, int exit_code)
 		free(line->env[0][0]);
 		line->env[0][0] = ft_strdup("?=1");
 		exit_code = 1;
-		return;
+		return ;
 	}
 	exit_code = exit_but_looong % 256;
 	exit(exit_code);
 }
 
-void ft_exit(t_line *line)
+void	ft_exit(t_line *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line->arg && line->arg[i] != NULL)

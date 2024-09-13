@@ -38,7 +38,7 @@ char	*get_res(char *var, t_mini **mini)
 	return (res);
 }
 
-int get_dollar(char *str, int i, t_mini **mini, char **new_str)
+int	get_dollar(char *str, int i, t_mini **mini, char **new_str)
 {
 	int		j;
 	char	*var;
@@ -103,14 +103,15 @@ int	get_single_quote(char *str, int i, char **new_str)
 	return (j);
 }
 
-int get_double_quote(char *str, int i, char **new_str, t_mini **mini)
+int	get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 {
 	char	*temp;
 
 	while (str[i] && str[i] != '\"')
 	{
 		if (str[i] == '$' && str[i + 1]
-			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_' \
+							|| str[i + 1] == '?'))
 			i = get_dollar(str, i + 1, mini, new_str);
 		else
 		{
@@ -128,18 +129,20 @@ int get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 
 char	*remove_quotes_selman(t_split **split, t_mini **mini)
 {
-	int i = 0;
-	char *temp;
-	char *new_str;
-	char *str;
+	int		i;
+	char	*temp;
+	char	*new_str;
+	char	*str;
 
+	i = 0;
 	new_str = malloc(1);
 	new_str[0] = 0;
 	str = (*split)->node;
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1]
-			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_' \
+						|| str[i + 1] == '?'))
 			i = get_dollar(str, i + 1, mini, &new_str);
 		else if (str[i] == '\'')
 			i = get_single_quote(str, i + 1, &new_str);
