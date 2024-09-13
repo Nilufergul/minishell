@@ -3,20 +3,39 @@
 char	*get_res(char *var, t_mini **mini)
 {
 	char	**env;
-	char	*res;
 	char	**line;
+	int		i;
+	char	*res;
 
 	env = (*mini)->env;
+	res = 0;
+	i = 0;
 	if (var && var[0] == '?')
 	{
-		line = ft_split(env[0], '=');
+		line = ft_split(env[i], '=');
 		res = ft_strdup(line[1]);
 		free(line[0]);
 		free(line[1]);
 		free(line);
 		return (res);
 	}
-	return (get_env_value(var, env));
+	while (env[i])
+	{
+		line = ft_split(env[i], '=');
+		if (ft_strcmp(var, line[0]) == 0)
+		{
+			res = ft_strdup(line[1]);
+			free(line[0]);
+			free(line[1]);
+			free(line);
+			return (res);
+		}
+		free(line[0]);
+		free(line[1]);
+		free(line);
+		i++;
+	}
+	return (res);
 }
 
 int	get_dollar(char *str, int i, t_mini **mini, char **new_str)
@@ -108,7 +127,7 @@ int	get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 	return (i);
 }
 
-char	*remove_quotes_two(t_split **split, t_mini **mini)
+char	*remove_quotes_selman(t_split **split, t_mini **mini)
 {
 	int		i;
 	char	*temp;
