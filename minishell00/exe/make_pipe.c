@@ -12,7 +12,6 @@ void	free_pipe_things(t_line *command, t_pipe_info *pipe_info)
 void	make_pipe(t_line *command)
 {
 	t_pipe_info	*pipe_info;
-
 	if (command->cmd == NULL)
 	{
 
@@ -27,14 +26,16 @@ void	make_pipe(t_line *command)
 	pipe_info->pid = malloc(sizeof(pid_t) * pipe_info->len);
 	if (pipe_info->pid == NULL)
 		exit(1);
-	pipe_info->pipes = fill_pipes(pipe_info->len);
+	printf("a\n");
+	pipe_info->pipes = fill_pipes(pipe_info->len); //leaks 
 	create_processes(command, pipe_info);
-	free_pipe_things(command, pipe_info);
+	free_pipe_things(command, pipe_info); //leaks 
+	getchar();
 }
 
 int	built_in2(t_line *command)
 {
-	if (ft_strcmp(command->cmd, "cd") == 0)
+	if (ft_strcmp(command->cmd, "cd") == 0) //leak var kanki
 		command->exit_code_line = ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)
 		command->exit_code_line = ft_export(command);
@@ -69,7 +70,7 @@ void	clean_pipes(t_line *command, t_pipe_info *pipe_info)
 			command->exit_code_line = w_exit_status(command->exit_code_line);
 			free(command->env[0][0]);
 			command->env[0][0] = ft_strjoin(ft_strdup("?="), \
-								ft_strdup(ft_itoa(command->exit_code_line)));
+								ft_strdup(ft_itoa(command->exit_code_line))); //leaks 
 		}
 		i++;
 	}
