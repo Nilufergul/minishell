@@ -13,7 +13,10 @@ int	heredoc(char *target)
 	{
 		input = readline("> ");
 		if (g_catch_ctrlc == 1)
+		{
+			g_catch_ctrlc = 0;
 			break ;
+		}
 		if (heredoc_ctrld(input))
 			break ;
 		if (!input)
