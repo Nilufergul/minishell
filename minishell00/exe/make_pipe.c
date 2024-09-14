@@ -14,9 +14,8 @@ void	make_pipe(t_line *command)
 	t_pipe_info	*pipe_info;
 
 	if (command->cmd == NULL)
-	{
-	}
-	else if ((command->cmd[0] == 0) || (struct_len(command) == 1 \
+		return ;
+	if ((command->cmd[0] == 0) || (struct_len(command) == 1 \
 			&& built_in2(command)))
 		return ;
 	pipe_info = malloc(sizeof(t_pipe_info));
