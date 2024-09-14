@@ -4,6 +4,7 @@ static void ctrl_c(int signum)
 {
     if (signum == CTRL_C)
     {
+        g_catch_ctrlc = 1;
         printf("\n");
         rl_replace_line("", 1);
         rl_on_new_line();
