@@ -41,6 +41,8 @@ void	running_shell(t_mini *mini,t_exit_status *exit)
 	{
 		mini->line = readline("minishell$> ");
 		ctrl_d(mini->line);
+		if (g_catch_ctrlc == 1)
+			g_catch_ctrlc = 0;
 		if (!mini->line)
 			break ;
 		if (mini->line[0] == 0)
