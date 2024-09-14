@@ -2,8 +2,10 @@
 
 static void	update_dirs(char ***env, char *current_dir)
 {
+	char *new_pwd = getcwd(NULL, 0);
 	create_update(env, "OLDPWD", current_dir);
-	create_update(env, "PWD", getcwd(NULL, 0));
+	create_update(env, "PWD", new_pwd);
+	free(new_pwd);
 }
 
 static int	handle_path(char **path, char *prev_dir)
