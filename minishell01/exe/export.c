@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
 #include "../minishell.h"
 
 int	is_valid(const char *str)
@@ -55,7 +52,6 @@ int	print_export(char **env)
 	}
 	return (0);
 }
-
 
 int	handle_export_argument(t_line *line, const char *arg)
 {

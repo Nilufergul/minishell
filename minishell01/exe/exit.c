@@ -54,7 +54,6 @@ static int	valid_value(char *arg)
 	return (1);
 }
 
-
 static void	exit_handling(char **args, int i, t_exit_status *exit_code_line)
 {
 	long long	exit_code_s;
