@@ -70,7 +70,7 @@ typedef struct s_fd
 }				t_fd;
 typedef struct s_exit_status
 {
-	int	*exit_code;
+	int	exit_code;
 }				t_exit_status;
 
 typedef struct  s_line
@@ -78,7 +78,6 @@ typedef struct  s_line
 	char	*cmd;
 	char	**arg;
 	char 	***env;
-	int		exit_code_line;
 	struct  s_fd    *right;
 	struct 	s_fd 	*left;
 	struct  s_line  *next;
@@ -113,7 +112,7 @@ void	char_remove(t_split *split, int i);
 void	dollar_quest(t_split *split,t_exit_status *exit);
 int	open_rights(t_fd *head);
 int	open_lefts(t_fd *head);
-void	run_exec(t_line *line, char *command, char **env);
+void	run_exec(char *command, char **env, t_exit_status *exit_code_line);
 char	*get_path(char **env);
 char	*get_command_path(char **env, char *command);
 
@@ -128,9 +127,9 @@ int add_arg(char ***arg, char *new_arg);
 
 char	*get_copy(char *result, char **arr);
 int fd_len(t_fd **head);
-void clean_pipes(t_line *command, t_pipe_info *pipe_info);
-void create_processes(t_line *command, t_pipe_info *pipe_info);
-void run_child_process(t_line *command, t_pipe_info *pipe_info, int i);
+void	clean_pipes(t_pipe_info *pipe_info, t_exit_status *exit_code_line);
+void	create_processes(t_line *command, t_pipe_info *pipe_info, t_exit_status *exit_code_line);
+void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i, t_exit_status *exit_code_line);
 int	pwd(void);
 int	echo_main(char *s);
 int	echo_index(char *s);
@@ -142,8 +141,8 @@ char	*merge_echo(char **arr);
 
 int heredoc(char *target);
 int	open_lefts(t_fd *head);
-int	built_in(t_line *command);
-int	built_in2(t_line *command);
+int	built_in(t_line *command, t_exit_status *exit_code_line);
+//int	built_in2(t_line *command);
 int	run_command_run(t_line *command);
 int	**fill_pipes(int count);
 void	close_all_pipes(int **pipes, int len);
@@ -154,10 +153,10 @@ int ft_cd(t_line *line);
 void create_update(char ***env, const char *name, const char *value);
 int ft_unset(t_line *command);
 int	ft_environment(char **env);
-void	ft_exit(t_line *line);
+void	ft_exit(t_line *line, t_exit_status *exit_code_line);
 long long int	ft_longlong(const char *str);
-void	make_pipe(t_line *command);
-int	built_in2(t_line *command);
+void	make_pipe(t_line *command, t_exit_status *exit_code_line);
+int	built_in2(t_line *command, t_exit_status *exit_code_line);
 
 //signals 
 void    rl_replace_line(const char *text, int clear_undo);

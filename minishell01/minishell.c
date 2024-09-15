@@ -61,18 +61,18 @@ void	routine(t_mini *mini, t_exit_status *exit)
 	t_line	*command;
 	t_split	*split;
 
-	*(exit->exit_code) = 0;
 	if (!check_the_syntax(mini))
 		return ;
 	lexer(mini);
 	split = splitter(mini);
 	dollar_quest(split, exit);
+	//printf("glb burda \n");
+	//getchar();
 	expander(split, mini);
 	remove_quotes(split);
 	free_the_minis(mini);
 	command = split_for_exe(split, mini);
-	command->exit_code_line = *exit->exit_code;
-	make_pipe(command);
+	make_pipe(command, exit);
 	free_the_split(split);
 	free_command(command);
 }
@@ -81,9 +81,9 @@ int	main(int argc, char **argv, char **environ)
 {
 	t_mini	*mini;
 	t_exit_status *exit_status;
-	int a= 0;
+
 	exit_status=malloc(sizeof(t_exit_status));
-	exit_status->exit_code = &a;
+	exit_status->exit_code = 0;
 	(void) argc;
 	(void) argv;
 	mini = NULL;

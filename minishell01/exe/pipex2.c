@@ -19,7 +19,7 @@ void	free_all_pipes(int **pipes, int len)
 		free_all_pipes(pipes, len - 1);
 }
 
-void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i)
+void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i, t_exit_status *exit_code_line)
 {
 	char	*exe;
 
@@ -33,15 +33,15 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i)
 		dup2(pipe_info->pipes[i][1], STDOUT_FILENO);
 		close(pipe_info->pipes[i][1]);
 	}
-	clean_pipes(command, pipe_info);
+	clean_pipes(pipe_info, exit_code_line);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (command->cmd != NULL && !built_in(command))
+	if (command->cmd != NULL && !built_in(command, exit_code_line))
 	{
 		exe = get_copy(ft_strdup(command->cmd), command->arg);
-		run_exec(command, exe, *(command->env));
+		run_exec(exe, *(command->env), exit_code_line);
 	}
-	exit(command->exit_code_line);
+	exit(exit_code_line->exit_code);
 }
 
 int	get_fds(t_line *command, t_pipe_info *pipe_info)
@@ -75,7 +75,7 @@ int	get_fds(t_line *command, t_pipe_info *pipe_info)
 	return (ret);
 }
 
-void	create_processes(t_line *command, t_pipe_info *pipe_info)
+void	create_processes(t_line *command, t_pipe_info *pipe_info, t_exit_status *exit_code_line)
 {
 	int	i;
 	int	output;
@@ -96,7 +96,7 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info)
 			if (pipe_info->pid[i] < 0)
 				exit(1);
 			if (pipe_info->pid[i] == 0)
-				run_child_process(command, pipe_info, i);
+				run_child_process(command, pipe_info, i, exit_code_line);
 		}
 		dup2(input, 0);
 		close(input);

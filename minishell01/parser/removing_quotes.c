@@ -152,7 +152,7 @@ void dollar_quest(t_split *split, t_exit_status *exit)
 
     while (current_split)
     {
-		exit_str = ft_itoa(*(exit->exit_code));
+		exit_str = ft_itoa(exit->exit_code);
         int i = 0; // Reset index for each node
         char *node = current_split->node; // Assuming node is a mutable string
 
@@ -164,7 +164,7 @@ void dollar_quest(t_split *split, t_exit_status *exit)
             {
                 replace_node_substr(current_split, "$?", exit_str);
                 printf("Updated node: %s\n", current_split->node); // Print updated node
-                *(exit->exit_code) = 127;
+                exit->exit_code = 127;
             }
 
             i++;

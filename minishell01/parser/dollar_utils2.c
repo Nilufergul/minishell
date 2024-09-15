@@ -145,5 +145,6 @@ char	*remove_quotes_selman(t_split **split, t_mini **mini)
 		}
 		i++;
 	}
+	free(str);
 	return (new_str);
 }

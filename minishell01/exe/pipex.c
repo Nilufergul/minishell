@@ -5,7 +5,7 @@ int	w_exit_status(int status)
 	return ((status >> 8) & 0x000000ff);
 }
 
-void	run_exec(t_line *line, char *command, char **env)
+void	run_exec(char *command, char **env, t_exit_status *exit_code_line)
 {
 	char	*path;
 	char	**commands;
@@ -21,7 +21,8 @@ void	run_exec(t_line *line, char *command, char **env)
 		exit(127);
 	}
 	execve(path, commands, env);
-	exit(line->exit_code_line);
+	exit_code_line->exit_code = 1;
+	exit(exit_code_line->exit_code);
 }
 
 char	*get_path(char **env)

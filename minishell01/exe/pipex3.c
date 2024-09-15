@@ -56,22 +56,22 @@ int	open_lefts(t_fd *head)
 	return (last_fd);
 }
 
-int	built_in(t_line *command)
+int	built_in(t_line *command, t_exit_status *exit_code_line)
 {
 	if (ft_strcmp(command->cmd, "echo") == 0)
-		command->exit_code_line = echo_main(merge_echo(command->arg));
+		exit_code_line->exit_code = echo_main(merge_echo(command->arg));
 	else if (ft_strcmp(command->cmd, "pwd") == 0)
-		command->exit_code_line = pwd();
+		exit_code_line->exit_code = pwd();
 	else if (command->arg && ft_strcmp(command->cmd, "cd") == 0)
-		command->exit_code_line = ft_cd(command);
+		exit_code_line->exit_code = ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)
-		command->exit_code_line = ft_export(command);
+		exit_code_line->exit_code = ft_export(command);
 	else if (ft_strcmp(command->cmd, "unset") == 0)
-		command->exit_code_line = ft_unset(command);
+		exit_code_line->exit_code = ft_unset(command);
 	else if (ft_strcmp(command->cmd, "env") == 0)
-		command->exit_code_line = ft_environment(*(command->env));
+		exit_code_line->exit_code = ft_environment(*(command->env));
 	else if (ft_strcmp(command->cmd, "exit") == 0)
-		ft_exit(command);
+		ft_exit(command, exit_code_line);
 	else
 		return (0);
 	return (1);
