@@ -2,7 +2,9 @@
 
 static void	update_dirs(char ***env, char *current_dir)
 {
-	char *new_pwd = getcwd(NULL, 0);
+	char	*new_pwd;
+
+	new_pwd = getcwd(NULL, 0);
 	create_update(env, "OLDPWD", current_dir);
 	create_update(env, "PWD", new_pwd);
 	free(new_pwd);
@@ -48,7 +50,7 @@ int	ft_cd(t_line *line)
 	static char	prev_dir[1024];
 	char		current_dir[1024];
 	char		*path;
-	
+
 	if (line->arg && line->arg[0])
 	{
 		path = line->arg[0];
