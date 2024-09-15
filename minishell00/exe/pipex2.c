@@ -85,7 +85,7 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info)
 	while (i < pipe_info->len)
 	{
 		free(command->env[0][0]);
-		command->env[0][0] = ft_strdup("?=0");
+		**command->env = ft_strdup("?=0");
 		pipe_info->input = 1;
 		pipe_info->output = 1;
 		input = dup(0);
@@ -105,7 +105,7 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info)
 		if (g_catch_ctrlc == 1)
 		{
 			free(command->env[0][0]);
-			command->env[0][0] = ft_strdup("?=1");
+			command->env[0][0] = ft_strdup("1");
 			break;
 		}	
 		command = command->next;

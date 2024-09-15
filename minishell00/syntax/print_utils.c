@@ -23,3 +23,4 @@ int	print_syntax_error_redir(void)
 	printf("Mixed redirect using.\n");
 	return (0);
 }
+// hata kodu döndürücez

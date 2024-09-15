@@ -26,11 +26,9 @@ void	make_pipe(t_line *command)
 	pipe_info->pid = malloc(sizeof(pid_t) * pipe_info->len);
 	if (pipe_info->pid == NULL)
 		exit(1);
-	printf("a\n");
 	pipe_info->pipes = fill_pipes(pipe_info->len); //leaks 
 	create_processes(command, pipe_info);
 	free_pipe_things(command, pipe_info); //leaks 
-	getchar();
 }
 
 int	built_in2(t_line *command)

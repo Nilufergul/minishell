@@ -38,7 +38,7 @@ static int	change_directory(t_line *line, char *path)
 	if (chdir(path) != 0)
 	{
 		perror("cd");
-		free(line->env[0][0]);
+		free_and_cpy_env(line);
 		line->env[0][0] = ft_strdup("?=1");
 		return (1);
 	}

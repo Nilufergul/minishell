@@ -1,9 +1,9 @@
 # ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
@@ -104,7 +104,6 @@ int	w_exit_status(int status);
 void	quotes(t_split *split);
 void	char_remove(t_split *split, int i);
 void	dollar_quest(t_split *split,t_exit_status *exit );
-void	quotes_cases(t_split **split, t_mini **mini, int *flag);
 int	open_rights(t_fd *head);
 int	open_lefts(t_fd *head);
 void	run_exec(t_line *line, char *command, char **env);
@@ -170,18 +169,6 @@ void shift_and_insert(char *str, int *len, int pos);
 int count_meta_character(char *str, char s);
 void adding_space(t_mini *mini, char s);
 void lexer(t_mini *mini);
-//dollar_sign
-char *dollar_exp(char *s);
-int vary_check(t_mini *mini, char *var);
-char *value_ret(t_mini *mini, int p);
-char *dollar_checker(char *s, t_mini *mini);
-int	handle_dollar(t_split *split, t_mini *mini);
-//dollar_utils
-int count_substr(const char *str, const char *sub);
-char *allocate_new_node(const char *node, const char *var, const char *value);
-void replace_substr_in_node(char *new_node, const char *node, const char *var, const char *value) ;
-void replace_node_substr(t_split *node_struct, const char *var, const char *value);
-int 	quoted_dollar(t_split *split);
 //removing_quotes
 void 	expander(t_split *split, t_mini *mini);
 void quotes(t_split *split);
@@ -242,7 +229,7 @@ int	last_arg_is_redir(char *input);
 
 
 //utils...
-
+void	free_and_cpy_env(t_line *line); //////
 // free
 void free_the_minis(t_mini *mini);
 void free_the_split(t_split *split);

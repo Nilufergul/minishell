@@ -12,7 +12,8 @@ int	mixed_redir(char *input)
 		quote = pass_the_quotes(input[i], quote);
 		if (input[i] == '<' && quote == 0)
 		{
-			i++;
+			if (input[i + 1])
+				i++;
 			i = pass_the_spaces(input, i);
 			if (input[i] == '>')
 				return (1);
@@ -34,7 +35,10 @@ int	mixed_redir_three(char *input)
 		quote = pass_the_quotes(input[i], quote);
 		if (input[i] == '<' && input[i + 1] == '<' && quote == 0)
 		{
-			i += 2;
+			if (input[i + 2])
+				i += 2;
+			else
+				return (0);
 			i = pass_the_spaces(input, i);
 			if (input[i] == '>' || input[i] == '<')
 				return (1);
@@ -54,9 +58,13 @@ int	mixed_redir_four(char *input)
 	while (input[i])
 	{
 		quote = pass_the_quotes(input[i], quote);
-		if (input[i] == '>' && input[i + 1] == '>' && quote == 0)
+		if (input[i] == '>' && input[i + 1] && input[i + 1] == '>' \
+			&& quote == 0)
 		{
-			i += 2;
+			if (input[i + 2])
+				i += 2;
+			else
+				return (0);
 			i = pass_the_spaces(input, i);
 			if (input[i] == '>' || input[i] == '<')
 				return (1);
@@ -78,7 +86,8 @@ int	mixed_redir_two(char *input)
 		quote = pass_the_quotes(input[i], quote);
 		if (input[i] == '>' && quote == 0)
 		{
-			i++;
+			if (input[i + 1])
+				i++;
 			i = pass_the_spaces(input, i);
 			if (input[i] == '<')
 				return (1);

@@ -22,27 +22,3 @@ void	line_list_arg(t_split *tmp, t_line *line)
 {
 	add_arg(&(line->arg), tmp->node);
 }
-
-void	quotes_cases(t_split **split, t_mini **mini, int *flag)
-{
-	int	stop;
-
-	stop = 1;
-	if (closed_quotes_index((*split)->node))
-	{
-		if ((quoted_dollar((*split)) && !closed_quotes_index((*split)->node)))
-			replace_node_substr((*split), "$", "");
-		if (closed_quotes_index((*split)->node) == '\'')
-			*flag = 1;
-	}
-	else if (quoted_dollar((*split)))
-		replace_node_substr((*split), "$", "");
-	if (*flag == 0)
-	{
-		while (ft_strchr((*split)->node, '$') && stop)
-		{
-			stop = handle_dollar((*split), *mini);
-		}
-	}
-	(*split)->meta = EXCEPT;
-}

@@ -39,13 +39,17 @@ int	count_meta_character(char *str, char s)
 	count = 0;
 	while (str[i] != '\0')
 	{
-		if ((str[i] == s && str[i + 1] != ' ')
-			|| (str[i] == s && str[i - 1] != ' '))
-			count++;
+		if (str[i] == s)
+		{
+			if (i == 0 || str[i - 1] != ' ')
+			{
+				if (str[i + 1] != ' ' && str[i + 1] != '\0')
+					count++;
+			}
+		}
 		i++;
 	}
-	i += count;
-	return (i);
+	return (count);
 }
 
 void	adding_space(t_mini *mini, char s)
