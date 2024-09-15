@@ -53,6 +53,7 @@ int get_dollar(char *str, int i, t_mini **mini, char **new_str)
 	}
 	var[k] = 0;
 	res = get_res(var, mini);
+	free(var); // burası eklendi
 	if (!res)
 		return (j - 1);
 	temp = ft_strjoin(*new_str, res);
@@ -120,14 +121,13 @@ char	*remove_quotes_selman(t_split **split, t_mini **mini)
 	char *temp;
 	char *new_str;
 	char *str;
-
 	new_str = malloc(1);
 	new_str[0] = 0;
 	str = (*split)->node;
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1]
-			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))		
 			i = get_dollar(str, i + 1, mini, &new_str);
 		else if (str[i] == '\'')
 			i = get_single_quote(str, i + 1, &new_str);

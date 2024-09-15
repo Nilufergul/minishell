@@ -166,12 +166,9 @@ void dollar_quest(t_split *split, t_exit_status *exit)
                 printf("Updated node: %s\n", current_split->node); // Print updated node
                 exit->exit_code = 127;
             }
-
             i++;
         }
+		free(exit_str);  // burasının yeri değişti
         current_split = current_split->next; // Move to the next node
     }
-
-    free(exit_str);
 }
-
