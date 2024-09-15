@@ -60,17 +60,19 @@ static void	exit_handling(char **args, int i, t_exit_status *exit_code_line)
 
 	if (!check_argument(args[0]) || !valid_value(args[0]))
 	{
-		printf("minishell: exit: %s: numeric argument required\n", args[0]);
+		print_error_exit(args[0], "numeric argument required", 255);
 		exit_code_line->exit_code = 255;
 		exit(exit_code_line->exit_code);
 	}
 	exit_code_s = ft_longlong(args[0]);
-	if (i == 1)
+	if (i >1)
 	{
-		exit_code_line->exit_code = exit_code_s % 256;
+		print_error_exit("", "too many arguments", 1);
+		exit_code_line->exit_code = 1;
 		exit(exit_code_line->exit_code);
 	}
-	printf("minishell: exit: too many arguments\n");
+	exit_code_line->exit_code = exit_code_s % 256;
+	exit(exit_code_line->exit_code);
 }
 
 void	ft_exit(t_line *line, t_exit_status *exit_code_line) //supheli

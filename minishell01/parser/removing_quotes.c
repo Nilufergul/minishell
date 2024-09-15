@@ -163,7 +163,7 @@ void dollar_quest(t_split *split, t_exit_status *exit)
                 !(ft_isalnum(node[i + 2])))
             {
                 replace_node_substr(current_split, "$?", exit_str);
-                printf("Updated node: %s\n", current_split->node); // Print updated node
+               // printf("Updated node: %s\n", current_split->node); // Print updated nodexx
                 exit->exit_code = 127;
             }
             i++;
