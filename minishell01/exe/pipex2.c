@@ -56,8 +56,6 @@ int	get_fds(t_line *command, t_pipe_info *pipe_info)
 		if (fd == -1)
 		{
 			fd = open("/dev/null", O_RDONLY);
-			free(command->env[0][0]);
-			command->env[0][0] = ft_strdup("?=1");
 			ret = -1;
 		}
 		dup2(fd, 0);
@@ -84,8 +82,6 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info, t_exit_status *ex
 	i = 0;
 	while (i < pipe_info->len)
 	{
-		free(command->env[0][0]);
-		**command->env = ft_strdup("?=0");
 		pipe_info->input = 1;
 		pipe_info->output = 1;
 		input = dup(0);
