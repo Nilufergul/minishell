@@ -26,9 +26,9 @@ void	make_pipe(t_line *command, t_exit_status *exit_code_line)
 	pipe_info->pid = malloc(sizeof(pid_t) * pipe_info->len);
 	if (pipe_info->pid == NULL)
 		exit(1);
-	pipe_info->pipes = fill_pipes(pipe_info->len); //leaks 
+	pipe_info->pipes = fill_pipes(pipe_info->len); //leaks
 	create_processes(command, pipe_info, exit_code_line);
-	free_pipe_things(pipe_info, exit_code_line); //leaks 
+	free_pipe_things(pipe_info, exit_code_line); //leaks
 }
 
 int	built_in2(t_line *command, t_exit_status *exit_code_line)
@@ -63,7 +63,7 @@ void	clean_pipes(t_pipe_info *pipe_info, t_exit_status *exit_code_line)
 	while (i < pipe_info->len)
 	{
 		waitpid(pipe_info->pid[i], &(exit_code_line->exit_code), 0);
-		
-		i++;
+		exit_code_line->exit_code = exit_code_line->exit_code / 256; // burası eklendi
+		i++; // sıkıntı buralarda olabilir onceki haline bakılabilir
 	}
 }
