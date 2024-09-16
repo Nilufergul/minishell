@@ -44,7 +44,7 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i, t_exit_st
 	exit(exit_code_line->exit_code);
 }
 
-int	get_fds(t_line *command, t_pipe_info *pipe_info)
+int	get_fds(t_line *command, t_pipe_info *pipe_info, t_exit_status *exit)
 {
 	int	fd;
 	int	ret;
@@ -55,6 +55,7 @@ int	get_fds(t_line *command, t_pipe_info *pipe_info)
 		fd = open_lefts(command->left);
 		if (fd == -1)
 		{
+			exit->exit_code = 1;
 			fd = open("/dev/null", O_RDONLY);
 			ret = -1;
 		}
@@ -69,6 +70,8 @@ int	get_fds(t_line *command, t_pipe_info *pipe_info)
 			dup2(fd, 1);
 			pipe_info->output = 0;
 		}
+		else
+			exit->exit_code = 1;
 	}
 	return (ret);
 }
@@ -82,11 +85,12 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info, t_exit_status *ex
 	i = 0;
 	while (i < pipe_info->len)
 	{
+		exit_code_line->exit_code = 0;
 		pipe_info->input = 1;
 		pipe_info->output = 1;
 		input = dup(0);
 		output = dup(1);
-		if (get_fds(command, pipe_info) != -1)
+		if (get_fds(command, pipe_info, exit_code_line) != -1)
 		{
 			pipe_info->pid[i] = fork();
 			if (pipe_info->pid[i] < 0)
@@ -94,14 +98,15 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info, t_exit_status *ex
 			if (pipe_info->pid[i] == 0)
 				run_child_process(command, pipe_info, i, exit_code_line);
 		}
+		else
+			exit_code_line->exit_code = 1;
 		dup2(input, 0);
 		close(input);
 		dup2(output, 1);
 		close(output);
 		if (g_catch_ctrlc == 1)
 		{
-			free(command->env[0][0]);
-			command->env[0][0] = ft_strdup("1");
+			exit_code_line->exit_code = 1;
 			break;
 		}	
 		command = command->next;
