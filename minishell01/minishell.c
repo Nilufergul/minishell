@@ -68,10 +68,10 @@ void	routine(t_mini *mini, t_exit_status *exit)
 		return ;
 	}
 	lexer(mini);
+	if(strcmp(mini->line, "") == 0)
+		return ;
 	split = splitter(mini);
 	dollar_quest(split, exit);
-	//printf("glb burda \n");
-	//getchar();
 	expander(split, mini);
 	remove_quotes(split);
 	free_the_minis(mini);
