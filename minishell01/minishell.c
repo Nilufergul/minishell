@@ -62,7 +62,11 @@ void	routine(t_mini *mini, t_exit_status *exit)
 	t_split	*split;
 
 	if (!check_the_syntax(mini))
+	{
+		exit->exit_code = 258;
+		free(mini->line);
 		return ;
+	}
 	lexer(mini);
 	split = splitter(mini);
 	dollar_quest(split, exit);

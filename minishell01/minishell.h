@@ -266,7 +266,7 @@ void	free_ty_list(t_ty *head);
 void	free_arg_list(char **arg);
 
 
-char *remove_quotes_selman(t_split **split, t_mini **mini);
+char *remove_quotes_two(t_split **split, t_mini **mini);
 int get_double_quote(char *str, int i, char **new_str, t_mini **mini);
 int get_single_quote(char *str, int i, char **new_str);
 int get_dollar(char *str, int i, t_mini **mini, char **new_str);

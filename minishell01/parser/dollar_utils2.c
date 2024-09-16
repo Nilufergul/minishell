@@ -115,7 +115,7 @@ int get_double_quote(char *str, int i, char **new_str, t_mini **mini)
 	return (i);
 }
 
-char	*remove_quotes_selman(t_split **split, t_mini **mini)
+char	*remove_quotes_two(t_split **split, t_mini **mini)
 {
 	int i = 0;
 	char *temp;

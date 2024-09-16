@@ -6,7 +6,7 @@ void	expander(t_split *split, t_mini *mini)
 	{
 		if (split->meta == DOLLAR)
 		{
-			split->node = remove_quotes_selman(&split, &mini);
+			split->node = remove_quotes_two(&split, &mini);
 			split->meta = EXCEPT;
 		}
 		else
@@ -159,8 +159,7 @@ void dollar_quest(t_split *split, t_exit_status *exit)
         while (node[i] != '\0')
         {
             // Check for "$?" followed by a non-alphanumeric character
-            if ((node[i] == '$') && (node[i + 1] == '?') && 
-                !(ft_isalnum(node[i + 2])))
+            if ((node[i] == '$') && (node[i + 1] == '?'))
             {
                 replace_node_substr(current_split, "$?", exit_str);
                // printf("Updated node: %s\n", current_split->node); // Print updated nodexx
