@@ -47,8 +47,6 @@ void	running_shell(t_mini *mini,t_exit_status *exit)
 			free(mini->line);	
 			continue ;
 		}
-		
-			
 		if (mini->line[0] == 0)
 			continue ;
 		add_history(mini->line);
@@ -61,6 +59,9 @@ void	routine(t_mini *mini, t_exit_status *exit)
 	t_line	*command;
 	t_split	*split;
 
+	mini->line = ft_strtrim(mini->line, " ");
+	if(ft_strcmp(mini->line, "") == 0)
+		return ;
 	if (!check_the_syntax(mini))
 	{
 		exit->exit_code = 258;
@@ -68,8 +69,6 @@ void	routine(t_mini *mini, t_exit_status *exit)
 		return ;
 	}
 	lexer(mini);
-	if(strcmp(mini->line, "") == 0)
-		return ;
 	split = splitter(mini);
 	dollar_quest(split, exit);
 	expander(split, mini);
