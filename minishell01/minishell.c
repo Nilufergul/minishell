@@ -58,7 +58,11 @@ void	routine(t_mini *mini, t_exit_status *exit)
 	t_line	*command;
 	t_split	*split;
 
+	char	*tmp;
+
+	tmp = mini->line;
 	mini->line = ft_strtrim(mini->line, " ");
+	free(tmp);
 	if (ft_strcmp(mini->line, "") == 0)
 		return ;
 	if (!check_the_syntax(mini))
