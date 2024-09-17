@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 M_SRC = minishell.c \
 	parser/adding_space.c parser/split.c parser/dollar_utils.c \
 	parser/split_for_exe.c parser/removing_quotes.c utils/struct_utils.c utils/struct_utils2.c \
