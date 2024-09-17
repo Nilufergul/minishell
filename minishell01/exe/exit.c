@@ -65,7 +65,7 @@ static void	exit_handling(char **args, int i, t_exit_status *exit_code_line)
 		exit(exit_code_line->exit_code);
 	}
 	exit_code_s = ft_longlong(args[0]);
-	if (i >1)
+	if (i > 1)
 	{
 		print_error_exit("", "too many arguments", 1);
 		exit_code_line->exit_code = 1;

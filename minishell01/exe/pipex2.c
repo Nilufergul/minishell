@@ -19,7 +19,8 @@ void	free_all_pipes(int **pipes, int len)
 		free_all_pipes(pipes, len - 1);
 }
 
-void	run_child_process(t_line *command, t_pipe_info *pipe_info, int i, t_exit_status *exit_code_line)
+void	run_child_process(t_line *command, t_pipe_info *pipe_info, \
+							int i, t_exit_status *exit_code_line)
 {
 	char	*exe;
 
@@ -76,7 +77,8 @@ int	get_fds(t_line *command, t_pipe_info *pipe_info, t_exit_status *exit)
 	return (ret);
 }
 
-void	create_processes(t_line *command, t_pipe_info *pipe_info, t_exit_status *exit_code_line)
+void	create_processes(t_line *command, t_pipe_info *pipe_info, \
+						t_exit_status *exit_code_line)
 {
 	int	i;
 	int	output;
@@ -107,8 +109,8 @@ void	create_processes(t_line *command, t_pipe_info *pipe_info, t_exit_status *ex
 		if (g_catch_ctrlc == 1)
 		{
 			exit_code_line->exit_code = 1;
-			break;
-		}	
+			break ;
+		}
 		command = command->next;
 		i++;
 	}

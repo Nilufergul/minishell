@@ -1,17 +1,18 @@
 #include "../minishell.h"
 
-volatile int g_catch_ctrlc;
+volatile int	g_catch_ctrlc;
 
-int heredoc_ctrld(char *line)
+int	heredoc_ctrld(char *line)
 {
 	if (!line)
 	{
 		free(line);
-		return 1;
+		return (1);
 	}
 	return (0);
 }
-void heredoc_ctrlc(int signum)
+
+void	heredoc_ctrlc(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -22,7 +23,7 @@ void heredoc_ctrlc(int signum)
 	}
 }
 
-int init_signals_heredoc(void)
+int	init_signals_heredoc(void)
 {
 	signal(SIGINT, heredoc_ctrlc);
 	signal(SIGQUIT, SIG_IGN);

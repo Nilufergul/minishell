@@ -54,7 +54,7 @@ void	adding_space(t_mini *mini, char s)
 	int		len;
 	int		count;
 	char	*new_line;
-	char 	*tmp;
+	char	*tmp;
 
 	i = 0;
 	len = ft_strlen(mini->line);
@@ -74,14 +74,15 @@ void	adding_space(t_mini *mini, char s)
 			shift_and_insert(new_line, &len, i);
 		i++;
 	}
-	tmp  = mini->line;
+	tmp = mini->line;
 	mini->line = new_line;
 	free(tmp);
 }
 
 void	lexer(t_mini *mini)
 {
-	char *tmp;
+	char	*tmp;
+
 	tmp = mini->line;
 	mini->line = ft_strtrim(mini->line, " ");
 	free(tmp);

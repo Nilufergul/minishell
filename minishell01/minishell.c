@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 t_mini	*init_mini(t_mini *mini, char **environ)
@@ -34,7 +33,7 @@ void	ft_env(t_mini *mini, char **environ)
 	mini->env[i] = NULL;
 }
 
-void	running_shell(t_mini *mini,t_exit_status *exit)
+void	running_shell(t_mini *mini, t_exit_status *exit)
 {
 	while (true)
 	{
@@ -44,13 +43,13 @@ void	running_shell(t_mini *mini,t_exit_status *exit)
 			g_catch_ctrlc = 0;
 		if (mini->line[0] == 0)
 		{
-			free(mini->line);	
+			free(mini->line);
 			continue ;
 		}
 		if (mini->line[0] == 0)
 			continue ;
 		add_history(mini->line);
-		routine(mini,exit);
+		routine(mini, exit);
 	}
 }
 
@@ -60,7 +59,7 @@ void	routine(t_mini *mini, t_exit_status *exit)
 	t_split	*split;
 
 	mini->line = ft_strtrim(mini->line, " ");
-	if(ft_strcmp(mini->line, "") == 0)
+	if (ft_strcmp(mini->line, "") == 0)
 		return ;
 	if (!check_the_syntax(mini))
 	{
@@ -82,17 +81,17 @@ void	routine(t_mini *mini, t_exit_status *exit)
 
 int	main(int argc, char **argv, char **environ)
 {
-	t_mini	*mini;
-	t_exit_status *exit_status;
+	t_mini			*mini;
+	t_exit_status	*exit_status;
 
-	exit_status=malloc(sizeof(t_exit_status));
+	exit_status = malloc(sizeof(t_exit_status));
 	exit_status->exit_code = 0;
 	(void) argc;
 	(void) argv;
 	mini = NULL;
-    init_signals(0);
+	init_signals(0);
 	mini = init_mini(mini, environ);
 	if (!mini)
 		return (0);
-	running_shell(mini,exit_status);
+	running_shell(mini, exit_status);
 }

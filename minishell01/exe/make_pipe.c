@@ -12,9 +12,9 @@ void	free_pipe_things(t_pipe_info *pipe_info, t_exit_status *exit_code_line)
 void	make_pipe(t_line *command, t_exit_status *exit_code_line)
 {
 	t_pipe_info	*pipe_info;
+
 	if (command->cmd == NULL)
 	{
-
 	}
 	else if ((command->cmd[0] == 0) || (struct_len(command) == 1 \
 			&& built_in2(command, exit_code_line)))
@@ -26,14 +26,14 @@ void	make_pipe(t_line *command, t_exit_status *exit_code_line)
 	pipe_info->pid = malloc(sizeof(pid_t) * pipe_info->len);
 	if (pipe_info->pid == NULL)
 		exit(1);
-	pipe_info->pipes = fill_pipes(pipe_info->len); //leaks
+	pipe_info->pipes = fill_pipes(pipe_info->len);
 	create_processes(command, pipe_info, exit_code_line);
-	free_pipe_things(pipe_info, exit_code_line); //leaks
+	free_pipe_things(pipe_info, exit_code_line);
 }
 
 int	built_in2(t_line *command, t_exit_status *exit_code_line)
 {
-	if (ft_strcmp(command->cmd, "cd") == 0) //leak var kanki
+	if (ft_strcmp(command->cmd, "cd") == 0)
 		exit_code_line->exit_code = ft_cd(command);
 	else if (ft_strcmp(command->cmd, "export") == 0)
 		exit_code_line->exit_code = ft_export(command);
@@ -63,8 +63,9 @@ void	clean_pipes(t_pipe_info *pipe_info, t_exit_status *exit_code_line)
 	while (i < pipe_info->len)
 	{
 		waitpid(pipe_info->pid[i], &(exit_code_line->exit_code), 0);
-		if(i == pipe_info->len - 1 &&  WIFEXITED(exit_code_line->exit_code))
-			exit_code_line->exit_code = w_exit_status(exit_code_line->exit_code);
-		i++; // sıkıntı buralarda olabilir onceki haline bakılabilir
+		if (i == pipe_info->len - 1 && WIFEXITED(exit_code_line->exit_code))
+			exit_code_line->exit_code = \
+			w_exit_status(exit_code_line->exit_code);
+		i++;
 	}
 }
