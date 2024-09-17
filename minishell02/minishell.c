@@ -65,8 +65,8 @@ void	routine(t_mini *mini, t_exit_status *exit_t)
 	free(tmp);
 	if (ft_strcmp(mini->line, "") == 0)
 	{
-		free(mini->line);
-		exit_t->exit_code = 1;
+		free(mini->line); // buna gerek olmayabilir.
+		// exit code ne olucak bu durumda 0 mı?
 		return ;
 	}
 	if (!check_the_syntax(mini))
