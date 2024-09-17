@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-enum type	meta_type_2(int i, char *str)
+int	meta_type_2(int i, char *str)
 {
 	if (str[i] == '<')
 	{
@@ -19,7 +19,7 @@ enum type	meta_type_2(int i, char *str)
 	return (EXCEPT);
 }
 
-enum type	meta_type(char *str)
+int	meta_type(char *str)
 {
 	int		i;
 	char	quote;

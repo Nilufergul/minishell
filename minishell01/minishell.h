@@ -178,8 +178,8 @@ void			quotes(t_split *split);
 void			char_remove(t_split *split, int i);
 void			remove_quotes(t_split *split);
 //split
-enum type		meta_type_2(int i, char *str);
-enum type		meta_type(char *str);
+int				meta_type_2(int i, char *str);
+int				meta_type(char *str);
 t_split			*sub_node(const char *str, unsigned int start, size_t len);
 void			add_to_list(t_split **head, const char *line, \
 							int start, int end);
