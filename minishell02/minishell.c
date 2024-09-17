@@ -58,7 +58,11 @@ void	routine(t_mini *mini, t_exit_status *exit_t)
 	t_line	*command;
 	t_split	*split;
 
-	mini->line = ft_strtrim(mini->line, " "); // leak oluşturuyo düzeltilcek.
+	char	*tmp;
+
+	tmp = mini->line;
+	mini->line = ft_strtrim(mini->line, " ");
+	free(tmp);
 	if (ft_strcmp(mini->line, "") == 0)
 	{
 		free(mini->line);
