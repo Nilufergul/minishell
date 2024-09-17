@@ -63,7 +63,8 @@ void	clean_pipes(t_pipe_info *pipe_info, t_exit_status *exit_code_line)
 	while (i < pipe_info->len)
 	{
 		waitpid(pipe_info->pid[i], &(exit_code_line->exit_code), 0);
-		exit_code_line->exit_code = exit_code_line->exit_code / 256; // burası eklendi
+		if(i == pipe_info->len - 1 &&  WIFEXITED(exit_code_line->exit_code))
+			exit_code_line->exit_code = w_exit_status(exit_code_line->exit_code);
 		i++; // sıkıntı buralarda olabilir onceki haline bakılabilir
 	}
 }
