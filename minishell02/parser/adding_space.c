@@ -81,11 +81,6 @@ void	adding_space(t_mini *mini, char s)
 
 void	lexer(t_mini *mini)
 {
-	char	*tmp;
-
-	tmp = mini->line;
-	mini->line = ft_strtrim(mini->line, " ");
-	free(tmp);
 	adding_space(mini, '>');
 	adding_space(mini, '<');
 	adding_space(mini, '|');
