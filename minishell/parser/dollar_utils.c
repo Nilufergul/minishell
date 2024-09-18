@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:36:29 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 17:36:30 by rcan             ###   ########.fr       */
+/*   Updated: 2024/09/18 19:23:26 by darikan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,15 +119,4 @@ void	dollar_quest(t_split *split, t_exit_status *exit)
 		free(exit_str);
 		current_split = current_split->next;
 	}
-}
-
-int	skip_single_quotes(char *node, int *i)
-{
-	if (node[*i] == '\'')
-	{
-		(*i)++;
-		while (node[*i] != '\'')
-			(*i)++;
-	}
-	return (*i);
 }

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:37:19 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 17:37:20 by rcan             ###   ########.fr       */
+/*   Updated: 2024/09/18 19:25:35 by darikan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-volatile int	g_catch_ctrlc;
 
 int	heredoc_ctrld(char *line)
 {

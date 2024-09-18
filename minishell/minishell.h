@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:35:24 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 18:21:38 by rcan             ###   ########.fr       */
+/*   Updated: 2024/09/18 19:20:05 by darikan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,9 @@ void			ft_exit(t_line *line, t_exit_status *exit_code_line);
 long long int	ft_longlong(const char *str);
 void			make_pipe(t_line *command, t_exit_status *exit_code_line);
 int				built_in2(t_line *command, t_exit_status *exit_code_line);
-void	routine2(t_split *split, t_mini *mini, t_exit_status *exit_t);
-void	routine3(t_line *command, t_split *split, t_exit_status *exit_t);
-
+void			routine2(t_split *split, t_mini *mini, t_exit_status *exit_t);
+void			routine3(t_line *command, t_split *split, \
+				t_exit_status *exit_t);
 //signals 
 void			rl_replace_line(const char *text, int clear_undo);
 int				init_signals(int mode);
@@ -270,10 +270,10 @@ int				get_double_quote(char *str, int i, char **new_str, \
 int				get_single_quote(char *str, int i, char **new_str);
 int				get_dollar(char *str, int i, t_mini **mini, char **new_str);
 char			*get_res(char *var, t_mini **mini);
-int	get_var_end(char *str, int i);
-char	*extract_var(char *str, int i, int j);
-void	handle_fork(t_line *command, t_pipe_info *pipe_info, \
-	int i, t_exit_status *exit_code_line);
-int	skip_single_quotes(char *node, int *i);
-int update_i(char *str, char **new_str, int i, t_mini **mini);
+int				get_var_end(char *str, int i);
+char			*extract_var(char *str, int i, int j);
+void			handle_fork(t_line *command, t_pipe_info *pipe_info, \
+				int i, t_exit_status *exit_code_line);
+int				skip_single_quotes(char *node, int *i);
+int				update_i(char *str, char **new_str, int i, t_mini **mini);
 #endif
