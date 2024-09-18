@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:35:52 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 17:35:53 by rcan             ###   ########.fr       */
+/*   Updated: 2024/09/18 20:03:14 by darikan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ int	print_syntax_error_redir(void)
 	printf("Mixed redirect using.\n");
 	return (0);
 }
-// hata kodu döndürücez

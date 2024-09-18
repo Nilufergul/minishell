@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:36:45 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 17:36:48 by rcan             ###   ########.fr       */
+/*   Updated: 2024/09/18 19:42:54 by darikan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	exit_handling(char **args, int i, t_exit_status *exit_code_line)
 	exit(exit_code_line->exit_code);
 }
 
-void	ft_exit(t_line *line, t_exit_status *exit_code_line) //supheli
+void	ft_exit(t_line *line, t_exit_status *exit_code_line)
 {
 	int	i;
 
