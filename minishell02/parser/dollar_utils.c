@@ -96,6 +96,12 @@ void	dollar_quest(t_split *split, t_exit_status *exit)
 		node = current_split->node;
 		while (node[i] != '\0')
 		{
+			if(node[i] == '\'')
+			{
+				i++;
+				while(node[i] != '\'')
+					i++;
+			}
 			if ((node[i] == '$') && (node[i + 1] == '?'))
 			{
 				replace_node_substr(current_split, "$?", exit_str);
