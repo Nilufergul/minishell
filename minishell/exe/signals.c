@@ -6,13 +6,13 @@
 /*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:37:21 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 17:37:22 by rcan             ###   ########.fr       */
+/*   Updated: 2024/09/18 22:19:29 by rcan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ctrl_c(int signum)
+void	ctrl_c(int signum)
 {
 	if (signum == CTRL_C)
 	{
@@ -24,7 +24,7 @@ static void	ctrl_c(int signum)
 	}
 }
 
-static void	handle_child(int signum)
+void	handle_child(int signum)
 {
 	if (signum == CTRL_C)
 		printf("\n");

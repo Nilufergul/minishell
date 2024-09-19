@@ -2,14 +2,14 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 M_SRC = minishell.c \
-	parser/adding_space.c parser/split.c parser/dollar_utils.c \
+	parser/adding_space.c parser/split.c parser/dollar_utils.c parser/space_utils.c\
 	parser/split_for_exe.c parser/removing_quotes.c utils/struct_utils.c utils/struct_utils2.c \
 	utils/syntax_utils.c syntax/check_the_syntax.c utils/free_split.c \
 	syntax/pipe_check.c syntax/print_utils.c syntax/redir_check.c \
 	parser/split_utils.c parser/split_utils2.c exe/pipex.c exe/signals.c exe/signals_heredoc.c\
 	exe/echo_helper.c exe/echo_main.c exe/cd.c exe/export.c exe/export_utils.c exe/unset.c \
-	exe/env.c exe/pwd.c exe/heredoc.c exe/pipex2.c exe/pipex3.c \
-	exe/go_exe.c exe/exit.c exe/make_pipe.c utils/get_free.c parser/dollar_utils2.c
+	exe/env.c exe/pwd.c exe/heredoc.c exe/pipex2.c exe/pipex3.c exe/pipex4.c\
+	exe/go_exe.c exe/exit.c exe/make_pipe.c utils/get_free.c parser/dollar_utils2.c parser/dollar_utils3.c
 LIB_SRC =
 SRC = $(M_SRC) $(LIB_SRC)
 OBJ = $(SRC:.c=.o)

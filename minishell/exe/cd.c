@@ -6,13 +6,13 @@
 /*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:36:37 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 17:36:38 by rcan             ###   ########.fr       */
+/*   Updated: 2024/09/18 20:48:28 by rcan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	update_dirs(char ***env, char *current_dir)
+void	update_dirs(char ***env, char *current_dir)
 {
 	char	*new_pwd;
 
@@ -22,7 +22,7 @@ static void	update_dirs(char ***env, char *current_dir)
 	free(new_pwd);
 }
 
-static int	handle_path(char **path, char *prev_dir)
+int	handle_path(char **path, char *prev_dir)
 {
 	if (ft_strcmp(*path, "-") == 0)
 	{
@@ -37,7 +37,7 @@ static int	handle_path(char **path, char *prev_dir)
 	return (0);
 }
 
-static char	*get_home_path(void)
+char	*get_home_path(void)
 {
 	char	*home;
 
@@ -47,7 +47,7 @@ static char	*get_home_path(void)
 	return (home);
 }
 
-static int	change_directory(char *path)
+int	change_directory(char *path)
 {
 	if (chdir(path) != 0)
 	{
@@ -59,7 +59,7 @@ static int	change_directory(char *path)
 
 int	ft_cd(t_line *line)
 {
-	static char	prev_dir[1024];
+	char		prev_dir[1024];
 	char		current_dir[1024];
 	char		*path;
 

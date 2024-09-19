@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 17:35:24 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 20:11:52 by darikan          ###   ########.fr       */
+/*   Created: 2024/09/18 20:19:18 by rcan              #+#    #+#             */
+/*   Updated: 2024/09/18 20:37:26 by rcan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ void			running_shell(t_mini *mini, t_exit_status *exit);
 void			routine(t_mini *mini, t_exit_status *exit_t);
 
 //cd
-static void		update_dirs(char ***env, char *current_dir);
-static int		handle_path(char **path, char *prev_dir);
-static char		*get_home_path(void);
-static int		change_directory(char *path);
+void			update_dirs(char ***env, char *current_dir);
+int				handle_path(char **path, char *prev_dir);
+char			*get_home_path(void);
+int				change_directory(char *path);
 int				ft_cd(t_line *line);
 
 //export
@@ -154,9 +154,9 @@ int				ft_environment(char **env);
 
 //exit
 void			print_error_exit(const char *arg, const char *msg, int code);
-static int		check_argument(const char *arg);
-static int		valid_value(char *arg);
-static void		exit_handling(char **args, int i, \
+int				check_argument(const char *arg);
+int				valid_value(char *arg);
+void			exit_handling(char **args, int i, \
 				t_exit_status *exit_code_line);
 void			ft_exit(t_line *line, t_exit_status *exit_code_line);
 
@@ -220,8 +220,8 @@ void			heredoc_ctrlc(int signum);
 int				init_signals_heredoc(void);
 
 //signals
-static void		ctrl_c(int signum);
-static void		handle_child(int signum);
+void			ctrl_c(int signum);
+void			handle_child(int signum);
 int				init_signals(int mode);
 void			ctrl_d(char *line);
 

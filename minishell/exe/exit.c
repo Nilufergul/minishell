@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darikan <darikan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcan <rcan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 17:36:45 by rcan              #+#    #+#             */
-/*   Updated: 2024/09/18 19:42:54 by darikan          ###   ########.fr       */
+/*   Created: 2024/09/18 20:16:27 by rcan              #+#    #+#             */
+/*   Updated: 2024/09/18 20:41:45 by rcan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_error_exit(const char *arg, const char *msg, int code)
 	errno = code;
 }
 
-static int	check_argument(const char *arg)
+int	check_argument(const char *arg)
 {
 	int	j;
 
@@ -42,7 +42,7 @@ static int	check_argument(const char *arg)
 	return (1);
 }
 
-static int	valid_value(char *arg)
+int	valid_value(char *arg)
 {
 	size_t	len;
 
@@ -66,7 +66,7 @@ static int	valid_value(char *arg)
 	return (1);
 }
 
-static void	exit_handling(char **args, int i, t_exit_status *exit_code_line)
+void	exit_handling(char **args, int i, t_exit_status *exit_code_line)
 {
 	long long	exit_code_s;
 
