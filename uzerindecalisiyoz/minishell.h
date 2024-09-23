@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:05:58 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/22 16:29:53 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:48:12 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,9 +213,9 @@ char			*extract_var(char *str, int i, int j);
 int				get_single_quote(char *str, int i, char **new_str);
 int				get_double_quote(char *str, int i, \
 				char **new_str, t_mini **mini);
-char			*remove_quotes_two(t_split **split, t_mini **mini);
+char			*remove_quotes_two(t_split **split, t_mini **mini, t_exit_status *exit_t);
 int				update_index(char *str, char **new_str, int i, t_mini **mini);
-void			expander(t_split *split, t_mini *mini);
+void			expander(t_split *split, t_mini *mini, t_exit_status *exit_t);
 void			remove_quotes(t_split *split);
 void			quotes(t_split *split);
 void			char_remove(t_split *split, int i);
@@ -284,6 +284,5 @@ int				struct_len(t_line *head);
 int				fd_len(t_fd **head);
 int				jump_quotes(char c, int quote);
 int				jump_spaces(char *input, int i);
-void			runcommanderror(char *command, int i, \
-				t_exit_status *exit_code_line);
+void			runcommanderror(char *command, int i);
 #endif
