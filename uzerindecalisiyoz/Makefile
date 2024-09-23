@@ -2,7 +2,7 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 M_SRC = minishell.c \
-	parser/insert_space.c parser/split.c parser/dollar_utils.c parser/space_utils.c\
+	parser/insert_space.c parser/split.c parser/space_utils.c\
 	parser/ready_for_exe.c parser/removing_quotes.c utils/struct_utils.c utils/struct_utils2.c \
 	utils/syntax_utils.c syntax/checking_syntax.c utils/free_split.c \
 	syntax/pipe_check.c syntax/print_utils.c syntax/redir_check.c \
