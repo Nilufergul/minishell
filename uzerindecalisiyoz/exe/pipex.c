@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:07:06 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/22 16:30:04 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:19:12 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	run_exec(char *command, char **env, t_exit_status *exit_code_line)
 		path = commands[0];
 	if (access(path, X_OK) == -1)
 	{
+		write(2,"minishell: ", 11);
 		ft_putstr_fd(commands[0], 2);
 		ft_putendl_fd(": There is no such command", 2);
 		exit(127);
