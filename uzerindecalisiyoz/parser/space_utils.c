@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:04:13 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/20 12:04:15 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:07:12 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,3 @@ char	*create_new_line_with_space(t_mini *mini, int len, int count)
 	return (new_line);
 }
 
-int	skip_single_quotes(char *node, int *i)
-{
-	if (node[*i] == '\'')
-	{
-		(*i)++;
-		while (node[*i] != '\'')
-			(*i)++;
-	}
-	return (*i);
-}
