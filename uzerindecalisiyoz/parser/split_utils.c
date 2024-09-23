@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:04:24 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/20 12:58:36 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:44:08 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ int	skip_quotes(const char *line, int i)
 
 void	skip_spaces(const char *line, int *i)
 {
-	while (line[*i] == ' ')
+	while (line[*i] == ' ' || line[*i] == '\t')
 		(*i)++;
 }
 
 void	get_token(const char *line, int *i)
 {
-	while (line[*i] && line[*i] != ' ')
+	while (line[*i] && (line[*i] != ' ' || line[*i] != '\t'))
 	{
 		if (line[*i] == '\0')
 			return ;
 		if (line[*i] == '\"' || line[*i] == '\'')
 			*i = skip_quotes(line, *i);
-		if (line[*i] == ' ')
+		if (line[*i] == ' ' || line[*i] == '\t')
 			return ;
 		if (line[*i] == '\0')
 			return ;
