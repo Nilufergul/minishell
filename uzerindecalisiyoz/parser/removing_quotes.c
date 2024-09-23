@@ -6,20 +6,20 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:04:07 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/22 17:14:33 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:58:23 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expander(t_split *split, t_mini *mini)
+void	expander(t_split *split, t_mini *mini, t_exit_status *exit_t)
 {
 	while (split)
 	{
 		if (split->meta == DOLLAR)
-		{
-			split->node = remove_quotes_two(&split, &mini);
-		}
+			split->node = remove_quotes_two(&split, &mini, exit_t);
+		else if (split->meta == HEREDOC)
+			split = split->next;
 		split = split->next;
 	}
 }
@@ -77,8 +77,7 @@ void	char_remove(t_split *split, int i)
 
 void	procedure2(t_split *split, t_mini *mini, t_exit_status *exit_t)
 {
-	dollar_and_quest(split, exit_t);
-	expander(split, mini);
+	expander(split, mini, exit_t);
 	remove_quotes(split);
 	free_the_minis(mini);
 }
