@@ -52,20 +52,28 @@ char	*merge_echo(char **arr)
 	return (cur);
 }
 
-void	runcommanderror(char *command, int i, t_exit_status *exit_code_line)
+void	runcommanderror(char *command, int i)
 {
 	if (i == 1)
 	{
+		write(1,"minishell: ",11);
 		ft_putstr_fd(command, 2);
 		ft_putendl_fd(": No such file or directory", 2);
-		exit_code_line->exit_code = 127;
-		exit(exit_code_line->exit_code);
+		exit(127);
 	}
 	else if (i == 0)
 	{
+		write(1,"minishell: ",11);
 		ft_putstr_fd(command, 2);
 		ft_putendl_fd(": is a directory: ", 2);
-		exit_code_line->exit_code = 126;
-		exit(exit_code_line->exit_code);
+		exit(126);
+	}
+	else if (i == 2)
+	{
+		write(1,"minishell: ",11);
+		ft_putstr_fd(command, 2);
+		ft_putendl_fd(": Permission denied", 2);
+		exit(126);
 	}
 }
+
