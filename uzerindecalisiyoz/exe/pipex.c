@@ -47,9 +47,9 @@ void	run_exec(char *command, char **env, t_exit_status *exit_code_line)
 		exit(127);
 	}
 	if (is_directory(path))
-		runcommanderror(command, 0, exit_code_line);
+		runcommanderror(command, 0);
 	if (!is_file(path))
-		runcommanderror(command, 1, exit_code_line);
+		runcommanderror(command, 1);
 	execve(path, commands, env);
 	exit_code_line->exit_code = 1;
 	exit(exit_code_line->exit_code);
