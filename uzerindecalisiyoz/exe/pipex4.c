@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
+/*   By: muhademi <muhademi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:07:25 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/22 16:27:34 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:44:41 by muhademi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	handle_fork(t_line *command, t_pipe_info *pipe_info, \
 void	run_child_process(t_line *command, t_pipe_info *pipe_info, \
 							int i, t_exit_status *exit_code_line)
 {
-	char	*exe;
-
 	if (i != 0 && pipe_info->input == 1)
 	{
 		dup2(pipe_info->pipes[i - 1][0], STDIN_FILENO);
@@ -77,28 +75,7 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, \
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (command->cmd != NULL && !built_in(command, exit_code_line))
-	{
-		exe = get_copy(ft_strdup(command->cmd), command->arg);
-		run_exec(exe, *(command->env), exit_code_line);
-	}
+		run_exec(command, *(command->env), exit_code_line);
 	exit(exit_code_line->exit_code);
 }
 
-void	control_space(char *command)
-{
-	unsigned long	i;
-
-	i = 0;
-	while (command[i])
-	{
-		if (command[i] != ' ' && command[i] != '\t' && command[i]
-			!= '\n' && command[i] != '\v' && command[i] != '\r' )
-			break ;
-		else if (i == ft_strlen(command) - 1)
-		{
-			ft_putendl_fd(": There is no such command", 2);
-			exit(127);
-		}
-		i++;
-	}
-}
