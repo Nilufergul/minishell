@@ -16,6 +16,8 @@ int	is_directory(const char *path)
 {
 	struct stat	statbuf;
 
+	if (ft_strlen(path) == 1 && path[0] == '/')
+		return (0);
 	if (stat(path, &statbuf) != 0)
 		return (0);
 	return (S_ISDIR(statbuf.st_mode));
