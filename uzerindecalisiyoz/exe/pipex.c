@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
+/*   By: muhademi <muhademi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:07:06 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/23 20:19:12 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:45:56 by muhademi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,22 @@ int	is_file(const char *path)
 	return (S_ISREG(path_stat.st_mode));
 }
 
-void	run_exec(char *command, char **env, t_exit_status *exit_code_line)
+void	run_exec(t_line *command, char **env, t_exit_status *exit_code_line)
 {
 	char	*path;
-	char	**commands;
 
-	control_space(command);
-	commands = ft_split(command, ' ');
-	path = get_command_path(env, commands[0]);
-	if (!path)
-		path = commands[0];
-	if (access(path, X_OK) == -1)
+	check_file(command, 1);
+	path = get_command_path(env, command->cmd);
+	if (!path && check_file(command, 0))
+		path = ft_strdup(command->cmd);
+	if (command->cmd[0] == 0 || access(path, X_OK) == -1)
 	{
-		write(2,"minishell: ", 11);
-		ft_putstr_fd(commands[0], 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(command->cmd, 2);
 		ft_putendl_fd(": There is no such command", 2);
 		exit(127);
 	}
-	if (is_directory(path))
-		runcommanderror(command, 0);
-	if (!is_file(path))
-		runcommanderror(command, 1);
-	execve(path, commands, env);
+	execve(path, get_copy(ft_strdup(command->cmd), command->arg), env);
 	exit_code_line->exit_code = 1;
 	exit(exit_code_line->exit_code);
 }
@@ -84,6 +78,8 @@ char	*get_command_path(char **env, char *command)
 
 	i = 0;
 	path = get_path(env);
+	if (!path)
+		return (0);
 	paths = ft_split(path, ':');
 	free(path);
 	path = 0;
@@ -101,3 +97,4 @@ char	*get_command_path(char **env, char *command)
 	free(address);
 	return (path);
 }
+
