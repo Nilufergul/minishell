@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:05:58 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/23 17:48:12 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:33:33 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ void			procedure3(t_line *command, t_split *split, \
 				t_exit_status *exit_t);
 void			run_exec(t_line *command, char **env, \
 				t_exit_status *exit_code_line);
+int				is_directory(const char *path);
+int				is_file(const char *path);
 char			*get_path(char **env);
 char			*get_command_path(char **env, char *command);
 void			close_all_pipes(int **pipes, int len);
@@ -213,7 +215,8 @@ char			*extract_var(char *str, int i, int j);
 int				get_single_quote(char *str, int i, char **new_str);
 int				get_double_quote(char *str, int i, \
 				char **new_str, t_mini **mini);
-char			*remove_quotes_two(t_split **split, t_mini **mini, t_exit_status *exit_t);
+char			*remove_quotes_two(t_split **split, t_mini **mini, \
+				t_exit_status *exit);
 int				update_index(char *str, char **new_str, int i, t_mini **mini);
 void			expander(t_split *split, t_mini *mini, t_exit_status *exit_t);
 void			remove_quotes(t_split *split);

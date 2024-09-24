@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:04:07 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/23 17:58:23 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:27:25 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	remove_quotes(t_split *split)
 {
 	while (split)
 	{
-		if(split->meta != DOLLAR)
+		if (split->meta != DOLLAR)
 			quotes(split);
 		else
 			split->meta = EXCEPT;

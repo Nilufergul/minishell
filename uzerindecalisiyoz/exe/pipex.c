@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muhademi <muhademi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:07:06 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/24 16:45:56 by muhademi         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:20:22 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,3 @@ char	*get_command_path(char **env, char *command)
 	free(address);
 	return (path);
 }
-

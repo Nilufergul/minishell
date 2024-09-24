@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:03:58 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/23 17:59:50 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:28:16 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_qm(char **new_str, t_exit_status *exit_t)
 	free(res);
 }
 
-char	*remove_quotes_two(t_split **split, t_mini **mini, t_exit_status *exit_t)
+char	*remove_quotes_two(t_split **split, t_mini **mini, t_exit_status *exit)
 {
 	int		i;
 	char	*new_str;
@@ -37,11 +37,11 @@ char	*remove_quotes_two(t_split **split, t_mini **mini, t_exit_status *exit_t)
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
-		{	
-			get_qm(&new_str, exit_t);
+		{
+			get_qm(&new_str, exit);
 			i++;
 		}
-		else		
+		else
 			i = update_index(str, &new_str, i, mini);
 		i++;
 	}

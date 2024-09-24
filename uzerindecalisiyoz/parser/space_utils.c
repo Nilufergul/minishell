@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:04:13 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/23 18:07:12 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:26:59 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,3 @@ char	*create_new_line_with_space(t_mini *mini, int len, int count)
 	ft_strlcpy(new_line, mini->line, len + count + 1);
 	return (new_line);
 }
-

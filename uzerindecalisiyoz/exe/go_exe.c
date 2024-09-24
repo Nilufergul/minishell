@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_exe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muhademi <muhademi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:06:48 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/24 16:50:18 by muhademi         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:20:06 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ void	runcommanderror(char *command, int i)
 
 int	check_file(t_line *command, int flag)
 {
-	if (flag && !ft_strncmp(command->cmd, "./", 2) && is_directory(command->cmd))
+	if (flag && !ft_strncmp(command->cmd, "./", 2) \
+		&& is_directory(command->cmd))
 		runcommanderror(command->cmd, 0);
 	if (flag && !ft_strncmp(command->cmd, "./", 2) && !is_file(command->cmd))
 		runcommanderror(command->cmd, 1);
-	if (flag && !ft_strncmp(command->cmd, "./", 2) && access(command->cmd, X_OK) == -1)
+	if (flag && !ft_strncmp(command->cmd, "./", 2) \
+		&& access(command->cmd, X_OK) == -1)
 		runcommanderror(command->cmd, 2);
 	if (!flag && is_directory(command->cmd))
 		runcommanderror(command->cmd, 3);

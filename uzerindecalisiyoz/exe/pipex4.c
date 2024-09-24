@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muhademi <muhademi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:07:25 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/24 16:44:41 by muhademi         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:20:38 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,3 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, \
 		run_exec(command, *(command->env), exit_code_line);
 	exit(exit_code_line->exit_code);
 }
-
