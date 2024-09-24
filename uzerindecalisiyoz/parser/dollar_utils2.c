@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
+/*   By: muhademi <muhademi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:03:37 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/20 12:03:39 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:57:33 by muhademi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_res(char *var, t_mini **mini)
 	while (env[i])
 	{
 		line = ft_split(env[i], '=');
-		if (ft_strcmp(var, line[0]) == 0)
+		if (ft_strcmp(var, line[0]) == 0 && line[1])
 		{
 			res = ft_strdup(line[1]);
 			free(line[0]);
