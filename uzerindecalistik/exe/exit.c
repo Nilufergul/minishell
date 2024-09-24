@@ -6,7 +6,7 @@
 /*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:06:32 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/20 12:06:34 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:18:40 by ngulcift         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	exit_handling(char **args, int i, t_exit_status *exit_code_line)
 	{
 		print_error_exit("", "too many arguments", 1);
 		exit_code_line->exit_code = 1;
-		exit(exit_code_line->exit_code);
+		return ;
 	}
 	exit_code_line->exit_code = exit_code_s % 256;
 	exit(exit_code_line->exit_code);
