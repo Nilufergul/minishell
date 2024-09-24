@@ -80,6 +80,8 @@ void	runcommanderror(char *command, int i)
 
 int	check_file(t_line *command, int flag)
 {
+	if (ft_strlen(command->cmd) == 1 && command->cmd[0] == '/')
+		runcommanderror(command->cmd, 0);
 	if (flag && !ft_strncmp(command->cmd, "./", 2) && \
 		is_directory(command->cmd))
 		runcommanderror(command->cmd, 0);
