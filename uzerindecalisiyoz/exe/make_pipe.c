@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngulcift <ngulcift@student.42.fr>          +#+  +:+       +#+        */
+/*   By: muhademi <muhademi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:06:59 by ngulcift          #+#    #+#             */
-/*   Updated: 2024/09/21 16:06:19 by ngulcift         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:35:05 by muhademi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ void	make_pipe(t_line *command, t_exit_status *exit_code_line)
 {
 	t_pipe_info	*pipe_info;
 
-	if (command->cmd == NULL)
-	{
-	}
-	else if ((command->cmd[0] == 0) || (struct_len(command) == 1 \
-			&& built_in2(command, exit_code_line)))
+	if (command->cmd != NULL && ((struct_len(command) == 1 \
+			&& built_in2(command, exit_code_line))))
 		return ;
 	pipe_info = malloc(sizeof(t_pipe_info));
 	if (pipe_info == NULL)
