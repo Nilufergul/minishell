@@ -285,5 +285,5 @@ int				fd_len(t_fd **head);
 int				jump_quotes(char c, int quote);
 int				jump_spaces(char *input, int i);
 void			runcommanderror(char *command, int i);
-int				check_file(t_line *command, int flag)
+int				check_file(t_line *command, int flag);
 #endif
