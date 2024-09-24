@@ -145,7 +145,7 @@ int				valid_value(char *arg);
 void			exit_handling(char **args, int i, \
 				t_exit_status *exit_code_line);
 void			ft_exit(t_line *line, t_exit_status *exit_code_line);
-char			*get_copy(char *result, char **arr);
+char			**get_copy(char *result, char **arr);
 char			*merge_echo(char **arr);
 int				handle_input(int pipefd[2], char *target);
 int				heredoc(char *target);
@@ -159,7 +159,7 @@ void			clean_pipes(t_pipe_info *pipe_info, \
 				t_exit_status *exit_code_line);
 void			procedure3(t_line *command, t_split *split, \
 				t_exit_status *exit_t);
-void			run_exec(char *command, char **env, \
+void			run_exec(t_line *command, char **env, \
 				t_exit_status *exit_code_line);
 char			*get_path(char **env);
 char			*get_command_path(char **env, char *command);
@@ -199,7 +199,7 @@ int				count_meta_character(char *str, char s);
 void			insert_space(t_mini *mini, char s);
 int				count_substr(const char *str, const char *sub);
 char			*allocate_new_node(const char *node, \
-				const char *var, const char *value);		
+				const char *var, const char *value);
 void			switch_substr_in_node(char *new_node, \
 				const char *node, const char *var, const char *value);
 void			switch_node_substr(t_split *node, \
@@ -244,24 +244,24 @@ void			lexer(t_mini *mini);
 int				give_type_2(int i, char *str);
 int				give_type(char *str);
 t_split			*get_node(const char *str, unsigned int start, \
-				size_t len);				
+				size_t len);
 void			append_to_list(t_split **head, const char *line, \
 				int start, int end);
 t_split			*split_to_nodes(t_mini *mini);
 int				check_redirect(char *input);
-int				check_quotes_closed(const char *input);				
+int				check_quotes_closed(const char *input);
 int				check_backslash(char *input);
 int				check_semicolon(char *input);
 int				checking_syntax(t_mini *mini);
 int				check_pipe_first(char *input);
 int				check_pipe_last(char *input);
 int				double_pipe(char *input);
-int				redirect_and_pipe_two(char *input);		
+int				redirect_and_pipe_two(char *input);
 int				redirect_and_pipe(char *input);
 int				merged_redir(char *input);
 int				merged_redir_three(char *input);
 int				merged_redir_four(char *input);
-int				merged_redir_two(char *input);				
+int				merged_redir_two(char *input);
 int				check_last_arg_redirect(char *input);
 int				syntax_error_quote(void);
 int				syntax_error_pipe(void);
@@ -285,4 +285,5 @@ int				fd_len(t_fd **head);
 int				jump_quotes(char c, int quote);
 int				jump_spaces(char *input, int i);
 void			runcommanderror(char *command, int i);
+int				check_file(t_line *command, int flag)
 #endif
