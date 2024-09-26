@@ -72,8 +72,6 @@ void	run_child_process(t_line *command, t_pipe_info *pipe_info, \
 		close(pipe_info->pipes[i][1]);
 	}
 	clean_pipes(pipe_info, exit_code_line);
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	if (command->cmd != NULL && !built_in(command, exit_code_line))
 		run_exec(command, *(command->env), exit_code_line);
 	exit(exit_code_line->exit_code);
