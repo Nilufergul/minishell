@@ -33,7 +33,7 @@ char	*remove_quotes_two(t_split **split, t_mini **mini, \
 
 	nums[0] = 0;
 	nums[1] = 1;
-	new_str = ft_calloc(1, 1);
+	new_str = ft_calloc(1, sizeof(int));
 	str = (*split)->node;
 	while (str[nums[0]])
 	{
