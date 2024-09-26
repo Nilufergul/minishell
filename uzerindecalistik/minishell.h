@@ -215,7 +215,8 @@ int				get_double_quote(char *str, int i, \
 				char **new_str, t_mini **mini);
 char			*remove_quotes_two(t_split **split, t_mini **mini, \
 				t_exit_status *exit_t);
-int				update_index(char *str, char **new_str, int i, t_mini **mini);
+int				update_index(char *str, char **new_str, \
+				int nums[2], t_mini **mini);
 void			expander(t_split *split, t_mini *mini, t_exit_status *exit_t);
 void			remove_quotes(t_split *split);
 void			quotes(t_split *split);
