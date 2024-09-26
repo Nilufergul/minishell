@@ -147,7 +147,7 @@ void			exit_handling(char **args, int i, \
 void			ft_exit(t_line *line, t_exit_status *exit_code_line);
 char			**get_copy(char *result, char **arr);
 char			*merge_echo(char **arr);
-int				handle_input(int pipefd[2], char *target);
+void			handle_input(int pipefd[2], char *target);
 int				heredoc(char *target);
 void			free_pipe_things(t_pipe_info *pipe_info, \
 				t_exit_status *exit_code_line);
