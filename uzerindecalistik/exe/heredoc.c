@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	handle_input(int pipefd[2], char *target)
+void	handle_input(int pipefd[2], char *target)
 {
 	char	*input;
 
@@ -37,7 +37,6 @@ int	handle_input(int pipefd[2], char *target)
 			exit(EXIT_FAILURE);
 		free(input);
 	}
-	return (pipefd[0]);
 }
 
 int	heredoc(char *target)
@@ -47,5 +46,8 @@ int	heredoc(char *target)
 	init_signals_heredoc();
 	if (pipe(pipefd) == -1)
 		exit(EXIT_FAILURE);
-	return (handle_input(pipefd, target));
+	handle_input(pipefd, target);
+	close(pipefd[1]);
+	return (pipefd[0]);
 }
+
