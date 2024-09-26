@@ -59,9 +59,9 @@ char	*get_path(char **env)
 	path = 0;
 	while (env[i])
 	{
-		if (ft_strnstr(env[i], "PATH", 5))
+		if (!ft_strncmp(env[i], "PATH=", 5))
 		{
-			path = ft_strdup(env[i]);
+			path = ft_strdup(&env[i][5]);
 			break ;
 		}
 		i++;
@@ -90,7 +90,7 @@ char	*get_command_path(char **env, char *command)
 			path = ft_strdup(command);
 		address = ft_strjoin(paths[i], command);
 		if (access(address, F_OK | X_OK) == 0)
-			path = address;
+			path = ft_strdup(address);
 		i++;
 	}
 	free(command);
