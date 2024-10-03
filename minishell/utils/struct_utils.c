@@ -47,17 +47,6 @@ t_fd	*create_new_fd(char *name, int type)
 	return (new_fd);
 }
 
-t_ty	*create_new_ty(int type)
-{
-	t_ty	*new_ty;
-
-	new_ty = (t_ty *)malloc(sizeof(t_ty));
-	if (new_ty == NULL)
-		return (0);
-	new_ty->type = type;
-	new_ty->next = NULL;
-	return (new_ty);
-}
 
 void	append_line(t_line **head, t_line *new_line)
 {

@@ -55,12 +55,6 @@ typedef enum s_file_des
 	STDERR = 2
 }			t_file_des;
 
-typedef struct s_ty
-{
-	int			type;
-	struct s_ty	*next;
-}				t_ty;
-
 typedef struct s_arg
 {
 	int				*arg;
@@ -273,14 +267,11 @@ void			free_the_split(t_split *split);
 void			free_the_minis(t_mini *mini);
 void			free_command(t_line *head);
 void			free_fd_list(t_fd *head);
-void			free_ty_list(t_ty *head);
 void			free_arg_list(char **arg);
 t_line			*create_new_line(char ***env);
 t_fd			*create_new_fd(char *name, int type);
-t_ty			*create_new_ty(int type);
 void			append_line(t_line **head, t_line *new_line);
 void			append_fd(t_fd **head, t_fd *new_fd);
-void			append_ty(t_ty **head, t_ty *new_ty);
 int				add_arg(char ***arg, char *new_arg);
 int				struct_len(t_line *head);
 int				fd_len(t_fd **head);

@@ -12,21 +12,6 @@
 
 #include "../minishell.h"
 
-void	append_ty(t_ty **head, t_ty *new_ty)
-{
-	t_ty	*current;
-
-	if (*head == NULL)
-		*head = new_ty;
-	else
-	{
-		current = *head;
-		while (current->next != NULL)
-			current = current->next;
-		current->next = new_ty;
-	}
-}
-
 int	add_arg(char ***arg, char *new_arg)
 {
 	int		i;

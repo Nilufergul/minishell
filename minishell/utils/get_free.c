@@ -41,18 +41,6 @@ void	free_fd_list(t_fd *head)
 	}
 }
 
-void	free_ty_list(t_ty *head)
-{
-	t_ty	*temp;
-
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp);
-	}
-}
-
 void	free_arg_list(char **arg)
 {
 	int	i;
